@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-TrainingTracker-E6C4684D-8931-4676-9C05-59017C7EFABE</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\Media\screwfix.png" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.1" />

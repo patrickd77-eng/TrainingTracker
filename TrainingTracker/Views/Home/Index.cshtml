@@ -1,5 +1,105 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<div class="text-center">
 
-
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <h1 class="display-4">Welcome to Training Tracker</h1>
+        <div class="mt-5 mb-5">
+            <img src="~/Media/screwfix.png" alt="Screwfix Logo" height="75" width="350">
+            <h2>Poole Parkstone</h2>
+        </div>
+        <hr />
+        <div>
+            <div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="card ">
+                            <div class="card-body">
+                                <h5 class="card-title">Employees</h5>
+                                <p class="card-text">A list of all currently created employees at Poole Parkstone, plus the oppurtunity to view their training records.</p>
+                                <a asp-area="" asp-controller="" asp-action="" class="btn btn-primary">Employees</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Training Categories</h5>
+                                <p class="card-text">Settings for creating, editing and deleting training categories. These are global.</p>
+                                <a class="btn btn-primary text-light">Training Settings</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Notifications</h5>
+                                <p class="card-text">System Generated Notifications</p>
+                                <div class="card-text">
+                                    <ol>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                    </ol>
+                                </div>
+                                <a class="btn btn-primary text-light">See More</a>
+                                <a class="btn btn-danger text-light">Clear All</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Reminders</h5>
+                                <p class="card-text">Your Custom Reminders</p>
+                                <div class="card-text">
+                                    <ol>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                        <li>
+                                        </li>
+                                    </ol>
+                                </div>
+                                <a class="btn btn-primary text-light">See More</a>
+                                <a class="btn btn-danger text-light">Clear All</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr />
+    }
+    else
+    {
+        <h1 class="display-4">Welcome to Training Tracker</h1>
+        <div class="mt-5 mb-5">
+            <img src="https://bunnyfoot.com/wp-content/uploads/2018/07/Screwfix_border_RGB_300dpi.jpg" alt="Smiley face" height="75" width="350">
+            <h2>Poole Parkstone</h2>
+        </div>
+        <p class="text-danger"><em>This app requires authentication, please log in.</em></p>
+        <div class="mt-4 mb-4">
+            <a class="btn btn-lg btn-primary text-light" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </div>
+        <br />
+        <hr />
+        <small>
+            <p>This app may contain confidential information.</p>
+            <p>Unauthorised access to systems such as these are a breach of The Computer Misuse Act.</p>
+            <p>All attempted/successful accesses are logged via IP address.</p>
+        </small>
+        <hr />
+    }
+</div>
