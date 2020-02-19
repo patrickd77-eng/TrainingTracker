@@ -1,5 +1,7 @@
 ﻿@model TrainingTracker.Models.Employee
-
+@{
+    ViewData["Title"] = "Update or create employee";
+}
 <br />
 <h2 class="text-info">@(Model.Id != 0 ? "Edit" : "Create") Employee</h2>
 <br />
