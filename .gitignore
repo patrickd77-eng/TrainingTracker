@@ -340,4 +340,4 @@ ASALocalRun/
 healthchecksdb
 
 trainingtracker/appsettings.json
-trainingtracker/appsettings.development.json
+trainingtracker/appsettings.Development.json
