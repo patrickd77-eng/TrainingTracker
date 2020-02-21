@@ -10,8 +10,8 @@ using TrainingTracker.Data;
 namespace TrainingTracker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200221152931_TestingNewDatabaseStructure")]
-    partial class TestingNewDatabaseStructure
+    [Migration("20200221171052_TestingNewDatabaseStructureFour")]
+    partial class TestingNewDatabaseStructureFour
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -236,12 +236,9 @@ namespace TrainingTracker.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("EmployeeId");
 
-                    b.ToTable("Employees");
+                    b.ToTable("Employee");
                 });
 
             modelBuilder.Entity("TrainingTracker.Models.Progress", b =>
@@ -251,13 +248,13 @@ namespace TrainingTracker.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Completed")
+                    b.Property<bool>("Completed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EmployeeId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("TrainingId")
+                    b.Property<int>("TrainingId")
                         .HasColumnType("int");
 
                     b.HasKey("ProgressId");
@@ -343,12 +340,16 @@ namespace TrainingTracker.Data.Migrations
             modelBuilder.Entity("TrainingTracker.Models.Progress", b =>
                 {
                     b.HasOne("TrainingTracker.Models.Employee", "Employee")
-                        .WithMany("Progress")
-                        .HasForeignKey("EmployeeId");
+                        .WithMany("Progresses")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TrainingTracker.Models.Training", "Training")
-                        .WithMany()
-                        .HasForeignKey("TrainingId");
+                        .WithMany("Progresses")
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

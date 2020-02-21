@@ -10,31 +10,19 @@ namespace TrainingTracker.Models
     public class Employee
     {
         [Key]
-        public int EmployeeID { get; set; }
+        public int EmployeeId { get; set; }
         [Required]
         [DisplayName("First Name")]
         public string FirstName { get; set; }
         [Required]
         [DisplayName("Last Name")]
         public string LastName { get; set; }
-        [DisplayName("Status")]
-        public string Status { get; set; }
+       
 
-        public List<Progress> Progress { get; set; }
-           
-            
-           
-    }
+        public ICollection<Progress> Progresses { get; set; }
 
-    public enum Status
-    {   
-        [Display(Name ="New Starter")]
-        Starter,
 
-        [Display(Name = "Ongoing Training")]
-        Ongoing_Training,
 
-        [Display(Name = "Training Finished")]
-        Trained_Refresher_Only
-    }
+
+    } 
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using TrainingTracker.Models;
 
 namespace TrainingTracker.Controllers
 {
+    [Authorize]
     public class EmployeesController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -33,8 +35,15 @@ namespace TrainingTracker.Controllers
                 return NotFound();
             }
 
+            //var employee = await _context.Employees
+            //    .FirstOrDefaultAsync(m => m.EmployeeId == id);
             var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmployeeID == id);
+             .Include(s => s.Progresses)
+                 .ThenInclude(e => e.Training)
+             .AsNoTracking()
+             .FirstOrDefaultAsync(m => m.EmployeeId == id);
+
+
             if (employee == null)
             {
                 return NotFound();
@@ -54,7 +63,7 @@ namespace TrainingTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeID,FirstName,LastName,Status")] Employee employee)
+        public async Task<IActionResult> Create([Bind("EmployeeId,FirstName,LastName")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -86,9 +95,9 @@ namespace TrainingTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeID,FirstName,LastName,Status")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("EmployeeId,FirstName,LastName")] Employee employee)
         {
-            if (id != employee.EmployeeID)
+            if (id != employee.EmployeeId)
             {
                 return NotFound();
             }
@@ -102,7 +111,7 @@ namespace TrainingTracker.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.EmployeeID))
+                    if (!EmployeeExists(employee.EmployeeId))
                     {
                         return NotFound();
                     }
@@ -125,7 +134,7 @@ namespace TrainingTracker.Controllers
             }
 
             var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmployeeID == id);
+                .FirstOrDefaultAsync(m => m.EmployeeId == id);
             if (employee == null)
             {
                 return NotFound();
@@ -147,7 +156,7 @@ namespace TrainingTracker.Controllers
 
         private bool EmployeeExists(int id)
         {
-            return _context.Employees.Any(e => e.EmployeeID == id);
+            return _context.Employees.Any(e => e.EmployeeId == id);
         }
     }
 }

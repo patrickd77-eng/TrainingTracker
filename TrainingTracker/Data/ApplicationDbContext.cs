@@ -15,8 +15,16 @@ namespace TrainingTracker.Data
         }
 
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Training> Training { get; set; }
-        public DbSet<Progress> Progress { get; set; }
-       
+        public DbSet<Training> Trainings { get; set; }
+        public DbSet<Progress> Progresses { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Employee>().ToTable("Employee");
+            modelBuilder.Entity<Progress>().ToTable("Progress");
+            modelBuilder.Entity<Training>().ToTable("Training");
+        }
+
     }
 }

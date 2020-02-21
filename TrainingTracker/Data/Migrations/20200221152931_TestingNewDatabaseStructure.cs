@@ -26,7 +26,7 @@ namespace TrainingTracker.Data.Migrations
                 oldType: "nvarchar(max)");
 
             migrationBuilder.AddColumn<int>(
-                name: "EmployeeID",
+                name: "EmployeeId",
                 table: "Employees",
                 nullable: false,
                 defaultValue: 0)
@@ -47,58 +47,58 @@ namespace TrainingTracker.Data.Migrations
             migrationBuilder.AddPrimaryKey(
                 name: "PK_Employees",
                 table: "Employees",
-                column: "EmployeeID");
+                column: "EmployeeId");
 
             migrationBuilder.CreateTable(
                 name: "Training",
                 columns: table => new
                 {
-                    TrainingID = table.Column<int>(nullable: false)
+                    TrainingId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     CategoryName = table.Column<string>(nullable: false),
                     ModuleName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Training", x => x.TrainingID);
+                    table.PrimaryKey("PK_Training", x => x.TrainingId);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Progress",
                 columns: table => new
                 {
-                    ProgressID = table.Column<int>(nullable: false)
+                    ProgressId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Completed = table.Column<int>(nullable: false),
-                    TrainingID = table.Column<int>(nullable: true),
-                    EmployeeID = table.Column<int>(nullable: true)
+                    TrainingId = table.Column<int>(nullable: true),
+                    EmployeeId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Progress", x => x.ProgressID);
+                    table.PrimaryKey("PK_Progress", x => x.ProgressId);
                     table.ForeignKey(
-                        name: "FK_Progress_Employees_EmployeeID",
-                        column: x => x.EmployeeID,
+                        name: "FK_Progress_Employees_EmployeeId",
+                        column: x => x.EmployeeId,
                         principalTable: "Employees",
-                        principalColumn: "EmployeeID",
+                        principalColumn: "EmployeeId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Progress_Training_TrainingID",
-                        column: x => x.TrainingID,
+                        name: "FK_Progress_Training_TrainingId",
+                        column: x => x.TrainingId,
                         principalTable: "Training",
-                        principalColumn: "TrainingID",
+                        principalColumn: "TrainingId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Progress_EmployeeID",
+                name: "IX_Progress_EmployeeId",
                 table: "Progress",
-                column: "EmployeeID");
+                column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Progress_TrainingID",
+                name: "IX_Progress_TrainingId",
                 table: "Progress",
-                column: "TrainingID");
+                column: "TrainingId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -114,7 +114,7 @@ namespace TrainingTracker.Data.Migrations
                 table: "Employees");
 
             migrationBuilder.DropColumn(
-                name: "EmployeeID",
+                name: "EmployeeId",
                 table: "Employees");
 
             migrationBuilder.DropColumn(

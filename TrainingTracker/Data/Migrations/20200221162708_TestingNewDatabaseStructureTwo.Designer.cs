@@ -10,8 +10,8 @@ using TrainingTracker.Data;
 namespace TrainingTracker.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200221152931_TestingNewDatabaseStructure")]
-    partial class TestingNewDatabaseStructure
+    [Migration("20200221162708_TestingNewDatabaseStructureTwo")]
+    partial class TestingNewDatabaseStructureTwo
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -343,7 +343,7 @@ namespace TrainingTracker.Data.Migrations
             modelBuilder.Entity("TrainingTracker.Models.Progress", b =>
                 {
                     b.HasOne("TrainingTracker.Models.Employee", "Employee")
-                        .WithMany("Progress")
+                        .WithMany("Progresses")
                         .HasForeignKey("EmployeeId");
 
                     b.HasOne("TrainingTracker.Models.Training", "Training")

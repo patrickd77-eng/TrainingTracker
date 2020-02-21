@@ -221,7 +221,7 @@ namespace TrainingTracker.Data.Migrations
 
             modelBuilder.Entity("TrainingTracker.Models.Employee", b =>
                 {
-                    b.Property<int>("EmployeeID")
+                    b.Property<int>("EmployeeId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -234,42 +234,39 @@ namespace TrainingTracker.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
+                    b.HasKey("EmployeeId");
 
-                    b.HasKey("EmployeeID");
-
-                    b.ToTable("Employees");
+                    b.ToTable("Employee");
                 });
 
             modelBuilder.Entity("TrainingTracker.Models.Progress", b =>
                 {
-                    b.Property<int>("ProgressID")
+                    b.Property<int>("ProgressId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("Completed")
+                    b.Property<bool>("Completed")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EmployeeID")
+                    b.Property<int>("TrainingId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TrainingID")
-                        .HasColumnType("int");
+                    b.HasKey("ProgressId");
 
-                    b.HasKey("ProgressID");
+                    b.HasIndex("EmployeeId");
 
-                    b.HasIndex("EmployeeID");
-
-                    b.HasIndex("TrainingID");
+                    b.HasIndex("TrainingId");
 
                     b.ToTable("Progress");
                 });
 
             modelBuilder.Entity("TrainingTracker.Models.Training", b =>
                 {
-                    b.Property<int>("TrainingID")
+                    b.Property<int>("TrainingId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -282,7 +279,7 @@ namespace TrainingTracker.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("TrainingID");
+                    b.HasKey("TrainingId");
 
                     b.ToTable("Training");
                 });
@@ -341,12 +338,16 @@ namespace TrainingTracker.Data.Migrations
             modelBuilder.Entity("TrainingTracker.Models.Progress", b =>
                 {
                     b.HasOne("TrainingTracker.Models.Employee", "Employee")
-                        .WithMany("Progress")
-                        .HasForeignKey("EmployeeID");
+                        .WithMany("Progresses")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("TrainingTracker.Models.Training", "Training")
-                        .WithMany()
-                        .HasForeignKey("TrainingID");
+                        .WithMany("Progresses")
+                        .HasForeignKey("TrainingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
