@@ -54,7 +54,7 @@ namespace TrainingTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,fullName,overallProgress")] Employee employee)
+        public async Task<IActionResult> Create([Bind("Id,FullName,Status")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -86,7 +86,7 @@ namespace TrainingTracker.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,fullName,overallProgress")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,FullName,Status")] Employee employee)
         {
             if (id != employee.Id)
             {

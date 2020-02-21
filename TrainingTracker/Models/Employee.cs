@@ -11,8 +11,15 @@ namespace TrainingTracker.Models
         [Key]
         public int Id { get; set; }
         [Required]
-        public string fullName { get; set; }
+        public string FullName { get; set; }
+        [Required]
+        public string Status { get; set; }
 
-        public int overallProgress { get; set; }
+    }
+
+    public enum Status
+    {
+        Starter,
+        Trained
     }
 }
