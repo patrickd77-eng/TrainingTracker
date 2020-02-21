@@ -21,15 +21,25 @@ namespace TrainingTracker.Controllers
             _context = context;
         }
 
-        //public async Task<IActionResult> Index()
-        //{
-        //    return View(await _context.Employees.ToListAsync());
-        //}
-
-        // GET: Employees
-        public async Task<IActionResult> Index(string sortOrder, string searchString)
+        // GET: Employees. Accept search and sorting order variables.
+        public async Task<IActionResult> Index(
+            string sortOrder,
+            string currentFilter,
+            string searchString,
+            int? pageNumber)
         {
+            ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             ViewData["CurrentFilter"] = searchString;
 
             var employees = from e in _context.Employees
@@ -48,7 +58,9 @@ namespace TrainingTracker.Controllers
                     employees = employees.OrderBy(e => e.LastName);
                     break;
             }
-            return View(await employees.AsNoTracking().ToListAsync());
+            int pageSize = 5;
+            return View(await PaginatedList<Employee>.CreateAsync(employees.AsNoTracking(), pageNumber ?? 1, pageSize));
+
         }
 
         // GET: Employees/Details/5

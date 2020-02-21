@@ -1,51 +1,75 @@
-﻿@model IEnumerable<TrainingTracker.Models.Employee>
-
+﻿@model PaginatedList<TrainingTracker.Models.Employee>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>All Employees - Poole Parkstone</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+
+    
 <form asp-action="Index" method="get">
     <div class="form-actions no-color">
-        <p>
-            Search by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-            <input type="submit" value="Search" class="btn btn-primary btn-sm" /> |
-            <a asp-action="Index">Cancel Search</a>
-        </p>
     </div>
 </form>
-<table class="table">
-    <thead>
+
+<table class="table bg-light">
+    <thead><tr>
+            <th>
+            <a asp-action="Create"><i class="btn btn-lg btn-success fas fa-user-plus"></i></a>
+            </th>
+        <th>
+            Search Employees: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-info btn-sm mb-1" /> |
+            <a asp-action="Index" class="btn btn-outline-secondary btn-sm mb-1">Reset List</a>
+        </th>
+        </tr>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.FirstName)
+                First Name
             </th>
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]">@Html.DisplayNameFor(model => model.LastName)</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.EmployeeId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.EmployeeId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.EmployeeId">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EmployeeId"><i class="btn btn-lg btn-primary fas fa-edit"></i></a> |
+                    <a asp-action="Details" asp-route-id="@item.EmployeeId"><i class="btn btn-lg btn-primary fas fa-list-alt"></i> </a> |
+                    <a asp-action="Delete" asp-route-id="@item.EmployeeId"> <i class="btn btn-lg btn-primary fas fa-trash"></i> </a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+
+@{
+    var previousDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextPageDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-info @previousDisabled">
+    <i class="fas fa-arrow-circle-left"></i>
+</a>
+<a asp-action="Index"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn btn-info @nextPageDisabled">
+    <i class="fas fa-arrow-circle-right"></i>
+</a>
