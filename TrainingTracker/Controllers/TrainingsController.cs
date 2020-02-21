@@ -10,22 +10,22 @@ using TrainingTracker.Models;
 
 namespace TrainingTracker.Controllers
 {
-    public class EmployeesController : Controller
+    public class TrainingsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public EmployeesController(ApplicationDbContext context)
+        public TrainingsController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Employees
+        // GET: Trainings
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Employees.ToListAsync());
+            return View(await _context.Training.ToListAsync());
         }
 
-        // GET: Employees/Details/5
+        // GET: Trainings/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace TrainingTracker.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmployeeID == id);
-            if (employee == null)
+            var training = await _context.Training
+                .FirstOrDefaultAsync(m => m.TrainingID == id);
+            if (training == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return View(training);
         }
 
-        // GET: Employees/Create
+        // GET: Trainings/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Employees/Create
+        // POST: Trainings/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeID,FirstName,LastName,Status")] Employee employee)
+        public async Task<IActionResult> Create([Bind("TrainingID,CategoryName,ModuleName")] Training training)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
+                _context.Add(training);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(training);
         }
 
-        // GET: Employees/Edit/5
+        // GET: Trainings/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace TrainingTracker.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
+            var training = await _context.Training.FindAsync(id);
+            if (training == null)
             {
                 return NotFound();
             }
-            return View(employee);
+            return View(training);
         }
 
-        // POST: Employees/Edit/5
+        // POST: Trainings/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeID,FirstName,LastName,Status")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("TrainingID,CategoryName,ModuleName")] Training training)
         {
-            if (id != employee.EmployeeID)
+            if (id != training.TrainingID)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace TrainingTracker.Controllers
             {
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(training);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.EmployeeID))
+                    if (!TrainingExists(training.TrainingID))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace TrainingTracker.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(training);
         }
 
-        // GET: Employees/Delete/5
+        // GET: Trainings/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace TrainingTracker.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmployeeID == id);
-            if (employee == null)
+            var training = await _context.Training
+                .FirstOrDefaultAsync(m => m.TrainingID == id);
+            if (training == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return View(training);
         }
 
-        // POST: Employees/Delete/5
+        // POST: Trainings/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(employee);
+            var training = await _context.Training.FindAsync(id);
+            _context.Training.Remove(training);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmployeeExists(int id)
+        private bool TrainingExists(int id)
         {
-            return _context.Employees.Any(e => e.EmployeeID == id);
+            return _context.Training.Any(e => e.TrainingID == id);
         }
     }
 }

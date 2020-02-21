@@ -15,5 +15,8 @@ namespace TrainingTracker.Data
         }
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Training> Training { get; set; }
+        public DbSet<Progress> Progress { get; set; }
+       
     }
 }

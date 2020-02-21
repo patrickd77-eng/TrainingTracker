@@ -10,22 +10,22 @@ using TrainingTracker.Models;
 
 namespace TrainingTracker.Controllers
 {
-    public class EmployeesController : Controller
+    public class ProgressesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public EmployeesController(ApplicationDbContext context)
+        public ProgressesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Employees
+        // GET: Progresses
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Employees.ToListAsync());
+            return View(await _context.Progress.ToListAsync());
         }
 
-        // GET: Employees/Details/5
+        // GET: Progresses/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,39 +33,39 @@ namespace TrainingTracker.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmployeeID == id);
-            if (employee == null)
+            var progress = await _context.Progress
+                .FirstOrDefaultAsync(m => m.ProgressID == id);
+            if (progress == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return View(progress);
         }
 
-        // GET: Employees/Create
+        // GET: Progresses/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Employees/Create
+        // POST: Progresses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("EmployeeID,FirstName,LastName,Status")] Employee employee)
+        public async Task<IActionResult> Create([Bind("ProgressID,Completed")] Progress progress)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(employee);
+                _context.Add(progress);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(progress);
         }
 
-        // GET: Employees/Edit/5
+        // GET: Progresses/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -73,22 +73,22 @@ namespace TrainingTracker.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees.FindAsync(id);
-            if (employee == null)
+            var progress = await _context.Progress.FindAsync(id);
+            if (progress == null)
             {
                 return NotFound();
             }
-            return View(employee);
+            return View(progress);
         }
 
-        // POST: Employees/Edit/5
+        // POST: Progresses/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("EmployeeID,FirstName,LastName,Status")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("ProgressID,Completed")] Progress progress)
         {
-            if (id != employee.EmployeeID)
+            if (id != progress.ProgressID)
             {
                 return NotFound();
             }
@@ -97,12 +97,12 @@ namespace TrainingTracker.Controllers
             {
                 try
                 {
-                    _context.Update(employee);
+                    _context.Update(progress);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EmployeeExists(employee.EmployeeID))
+                    if (!ProgressExists(progress.ProgressID))
                     {
                         return NotFound();
                     }
@@ -113,10 +113,10 @@ namespace TrainingTracker.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(employee);
+            return View(progress);
         }
 
-        // GET: Employees/Delete/5
+        // GET: Progresses/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -124,30 +124,30 @@ namespace TrainingTracker.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employees
-                .FirstOrDefaultAsync(m => m.EmployeeID == id);
-            if (employee == null)
+            var progress = await _context.Progress
+                .FirstOrDefaultAsync(m => m.ProgressID == id);
+            if (progress == null)
             {
                 return NotFound();
             }
 
-            return View(employee);
+            return View(progress);
         }
 
-        // POST: Employees/Delete/5
+        // POST: Progresses/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employees.FindAsync(id);
-            _context.Employees.Remove(employee);
+            var progress = await _context.Progress.FindAsync(id);
+            _context.Progress.Remove(progress);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EmployeeExists(int id)
+        private bool ProgressExists(int id)
         {
-            return _context.Employees.Any(e => e.EmployeeID == id);
+            return _context.Progress.Any(e => e.ProgressID == id);
         }
     }
 }
