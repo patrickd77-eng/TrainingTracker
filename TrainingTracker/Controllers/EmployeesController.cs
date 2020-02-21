@@ -21,10 +21,28 @@ namespace TrainingTracker.Controllers
             _context = context;
         }
 
+        //public async Task<IActionResult> Index()
+        //{
+        //    return View(await _context.Employees.ToListAsync());
+        //}
+
         // GET: Employees
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            return View(await _context.Employees.ToListAsync());
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+           
+            var employees = from s in _context.Employees
+                           select s;
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    employees = employees.OrderByDescending(s => s.LastName);
+                    break;  
+                default:
+                    employees = employees.OrderBy(s => s.LastName);
+                    break;
+            }
+            return View(await employees.AsNoTracking().ToListAsync());
         }
 
         // GET: Employees/Details/5
