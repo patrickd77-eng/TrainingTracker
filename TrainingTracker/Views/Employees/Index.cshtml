@@ -10,6 +10,15 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<form asp-action="Index" method="get">
+    <div class="form-actions no-color">
+        <p>
+            Search by name: <input type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+            <input type="submit" value="Search" class="btn btn-primary btn-sm" /> |
+            <a asp-action="Index">Cancel Search</a>
+        </p>
+    </div>
+</form>
 <table class="table">
     <thead>
         <tr>

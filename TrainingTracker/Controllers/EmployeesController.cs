@@ -27,19 +27,25 @@ namespace TrainingTracker.Controllers
         //}
 
         // GET: Employees
-        public async Task<IActionResult> Index(string sortOrder)
+        public async Task<IActionResult> Index(string sortOrder, string searchString)
         {
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-           
-            var employees = from s in _context.Employees
-                           select s;
+            ViewData["CurrentFilter"] = searchString;
+
+            var employees = from e in _context.Employees
+                           select e;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                employees = employees.Where(e => e.LastName.Contains(searchString)
+                                       || e.FirstName.Contains(searchString));
+            }
             switch (sortOrder)
             {
                 case "name_desc":
-                    employees = employees.OrderByDescending(s => s.LastName);
+                    employees = employees.OrderByDescending(e => e.LastName);
                     break;  
                 default:
-                    employees = employees.OrderBy(s => s.LastName);
+                    employees = employees.OrderBy(e => e.LastName);
                     break;
             }
             return View(await employees.AsNoTracking().ToListAsync());
@@ -55,7 +61,7 @@ namespace TrainingTracker.Controllers
 
             //Get progress for employees where IDs match.
             var employee = await _context.Employees
-             .Include(s => s.Progresses)
+             .Include(e => e.Progresses)
                  .ThenInclude(e => e.Training)
              .AsNoTracking()
              .FirstOrDefaultAsync(m => m.EmployeeId == id);
@@ -125,11 +131,11 @@ namespace TrainingTracker.Controllers
             {
                 return NotFound();
             }
-            var employeeToUpdate = await _context.Employees.FirstOrDefaultAsync(s => s.EmployeeId == id);
+            var employeeToUpdate = await _context.Employees.FirstOrDefaultAsync(e => e.EmployeeId == id);
             if (await TryUpdateModelAsync<Employee>(
                 employeeToUpdate,
                 "",
-                s => s.FirstName, s => s.LastName))
+                e => e.FirstName, e => e.LastName))
             {
                 try
                 {
