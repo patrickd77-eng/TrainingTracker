@@ -44,51 +44,51 @@ namespace TrainingTracker.Controllers
 
         }
 
-        // GET: Progresses/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Progresses/Details/5
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var progress = await _context.Progresses
-                .Include(p => p.Employee)
-                .Include(p => p.Training)
-                .FirstOrDefaultAsync(m => m.ProgressId == id);
-            if (progress == null)
-            {
-                return NotFound();
-            }
+        //    var progress = await _context.Progresses
+        //        .Include(p => p.Employee)
+        //        .Include(p => p.Training)
+        //        .FirstOrDefaultAsync(m => m.ProgressId == id);
+        //    if (progress == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(progress);
-        }
+        //    return View(progress);
+        //}
 
         // GET: Progresses/Create
-        public IActionResult Create()
-        {
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName");
-            ViewData["TrainingId"] = new SelectList(_context.Trainings, "TrainingId", "ModuleName");
-            return View();
-        }
+        //public IActionResult Create()
+        //{
+        //    ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName");
+        //    ViewData["TrainingId"] = new SelectList(_context.Trainings, "TrainingId", "ModuleName");
+        //    return View();
+        //}
 
         // POST: Progresses/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProgressId,EmployeeId,TrainingId,Completed")] Progress progress)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(progress);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName", progress.EmployeeId);
-            ViewData["TrainingId"] = new SelectList(_context.Trainings, "TrainingId", "ModuleName", progress.TrainingId);
-            return View(progress);
-        }
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> Create([Bind("ProgressId,EmployeeId,TrainingId,Completed")] Progress progress)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        _context.Add(progress);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
+        //    ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName", progress.EmployeeId);
+        //    ViewData["TrainingId"] = new SelectList(_context.Trainings, "TrainingId", "ModuleName", progress.TrainingId);
+        //    return View(progress);
+        //}
 
         // GET: Progresses/Edit/5
         public async Task<IActionResult> Edit(int? id)

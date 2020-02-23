@@ -17,11 +17,13 @@
             <div class="form-group">
                 <label asp-for="EmployeeId" class="control-label">Employee</label>
                 <select disabled asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <select hidden asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
                 <span asp-validation-for="EmployeeId" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="TrainingId" class="control-label">Training Module</label>
                 <select disabled asp-for="TrainingId" class="form-control" asp-items="ViewBag.TrainingId"></select>
+                <select hidden asp-for="TrainingId" class="form-control" asp-items="ViewBag.TrainingId"></select>
                 <span asp-validation-for="TrainingId" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -37,8 +39,8 @@
 </div>
 
 <div>
-    <a class="btn btn-secondary" asp-action="Index" asp-route-id="@Model.EmployeeId">Back to @Model.Employee.FirstName's list</a>
-    <a class="btn btn-outline-secondary" asp-action="Index">Back to Entire list</a>
+    <a class="btn btn-secondary" asp-action="Index" asp-route-id="@Model.EmployeeId">Back to @Model.Employee.FirstName's progress</a>
+    <a class="btn btn-outline-secondary" asp-action="Index">Back to all employee progress</a>
 </div>
 
 @section Scripts {
