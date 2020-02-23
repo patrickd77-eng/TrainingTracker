@@ -57,7 +57,7 @@ namespace TrainingTracker.Controllers
                     trainingSections = trainingSections.OrderByDescending(t => t.ModuleName);
                     break;
                 default:
-                    trainingSections = trainingSections.OrderBy(t => t.TrainingId);
+                    trainingSections = trainingSections.OrderBy(t => t.CategoryName);
                     break;
             }
             int pageSize = 10;
@@ -67,23 +67,23 @@ namespace TrainingTracker.Controllers
             //return View(await trainingSections.ToListAsync());
         }
 
-        // GET: Trainings/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Trainings/Details/5
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var training = await _context.Trainings
-                .FirstOrDefaultAsync(m => m.TrainingId == id);
-            if (training == null)
-            {
-                return NotFound();
-            }
+        //    var training = await _context.Trainings
+        //        .FirstOrDefaultAsync(m => m.TrainingId == id);
+        //    if (training == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(training);
-        }
+        //    return View(training);
+        //}
 
         // GET: Trainings/Create
         public IActionResult Create()
@@ -91,9 +91,7 @@ namespace TrainingTracker.Controllers
             return View();
         }
 
-        // POST: Trainings/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Trainings/Create   
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TrainingId,CategoryName,ModuleName")] Training training)
@@ -102,6 +100,7 @@ namespace TrainingTracker.Controllers
             {
                 _context.Add(training);
                 await _context.SaveChangesAsync();
+                //TODO: Add new blank progress record for all employees. IF BOX CHECKED?
                 return RedirectToAction(nameof(Index));
             }
             return View(training);
@@ -124,8 +123,6 @@ namespace TrainingTracker.Controllers
         }
 
         // POST: Trainings/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("TrainingId,CategoryName,ModuleName")] Training training)

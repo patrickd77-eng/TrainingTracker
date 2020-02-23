@@ -43,7 +43,7 @@ namespace TrainingTracker.Controllers
             ViewData["CurrentFilter"] = searchString;
 
             var employees = from e in _context.Employees
-                           select e;
+                            select e;
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -54,7 +54,7 @@ namespace TrainingTracker.Controllers
             {
                 case "name_desc":
                     employees = employees.OrderByDescending(e => e.LastName);
-                    break;  
+                    break;
                 default:
                     employees = employees.OrderBy(e => e.LastName);
                     break;
@@ -64,30 +64,6 @@ namespace TrainingTracker.Controllers
 
         }
 
-        //// GET: Employees/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    //Get progress for employees where IDs match.
-        //    var employee = await _context.Employees
-        //     .Include(e => e.Progresses)
-        //         .ThenInclude(e => e.Training)
-        //     .AsNoTracking()
-        //     .FirstOrDefaultAsync(m => m.EmployeeId == id);
-
-
-        //    if (employee == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(employee);
-        //}
-
         // GET: Employees/Create
         public IActionResult Create()
         {
@@ -95,25 +71,26 @@ namespace TrainingTracker.Controllers
         }
 
         // POST: Employees/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EmployeeId,FirstName,LastName")] Employee employee)
         {
-            try{
-            
+            try
+            {
+
                 if (ModelState.IsValid)
                 {
                     _context.Add(employee);
                     await _context.SaveChangesAsync();
+                    //TODO: Make blank training progress records for new employee.
+
                     return RedirectToAction(nameof(Index));
                 }
             }
-            catch (DbUpdateException /* ex */)
+            catch (DbUpdateException ex)
             {
-                //Log the error (uncomment ex variable name and write a log.
-                ModelState.AddModelError("", "Unable to save changes. " +
+                //Log error
+                ModelState.AddModelError(ex.ToString(), "Unable to save changes. " +
                     "Try again, and if the problem persists " +
                     "see your system administrator.");
             }
@@ -136,6 +113,7 @@ namespace TrainingTracker.Controllers
             return View(employee);
         }
 
+        // POST: Employees/Edit/ID
         [HttpPost, ActionName("Edit")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> EditPost(int? id)
@@ -155,10 +133,10 @@ namespace TrainingTracker.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-                catch (DbUpdateException /* ex */)
+                catch (DbUpdateException ex)
                 {
-                    //Log the error (uncomment ex variable name and write a log.)
-                    ModelState.AddModelError("", "Unable to save changes. " +
+                    //Log error
+                    ModelState.AddModelError(ex.ToString(), "Unable to save changes. " +
                         "Try again, and if the problem persists, " +
                         "see your system administrator.");
                 }
@@ -166,7 +144,7 @@ namespace TrainingTracker.Controllers
             return View(employeeToUpdate);
         }
 
- 
+
 
         public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
@@ -216,8 +194,5 @@ namespace TrainingTracker.Controllers
                 return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
             }
         }
-
-
-
     }
 }
