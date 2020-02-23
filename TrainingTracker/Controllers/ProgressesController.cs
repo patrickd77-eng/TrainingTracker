@@ -68,7 +68,7 @@ namespace TrainingTracker.Controllers
         public IActionResult Create()
         {
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName");
-            ViewData["TrainingId"] = new SelectList(_context.Trainings, "TrainingId", "CategoryName");
+            ViewData["TrainingId"] = new SelectList(_context.Trainings, "TrainingId", "ModuleName");
             return View();
         }
 
@@ -85,8 +85,8 @@ namespace TrainingTracker.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Employee", "FirstName", progress.EmployeeId);
-            ViewData["TrainingId"] = new SelectList(_context.Trainings, "Training Module", "ModuleName", progress.TrainingId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName", progress.EmployeeId);
+            ViewData["TrainingId"] = new SelectList(_context.Trainings, "TrainingId", "ModuleName", progress.TrainingId);
             return View(progress);
         }
 
@@ -103,8 +103,8 @@ namespace TrainingTracker.Controllers
             {
                 return NotFound();
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Employee", "FirstName", progress.EmployeeId);
-            ViewData["TrainingId"] = new SelectList(_context.Trainings, "Training Module", "ModuleName", progress.TrainingId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName", progress.EmployeeId);
+            ViewData["TrainingId"] = new SelectList(_context.Trainings, "TrainingId", "ModuleName", progress.TrainingId);
             return View(progress);
         }
 
@@ -141,40 +141,40 @@ namespace TrainingTracker.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName", progress.EmployeeId);
-            ViewData["TrainingId"] = new SelectList(_context.Trainings, "TrainingId", "CategoryName", progress.TrainingId);
+            ViewData["TrainingId"] = new SelectList(_context.Trainings, "TrainingId", "ModuleName", progress.TrainingId);
             return View(progress);
         }
 
         //// GET: Progresses/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //    public async Task<IActionResult> Delete(int? id)
+        //    {
+        //        if (id == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-            var progress = await _context.Progresses
-                .Include(p => p.Employee)
-                .Include(p => p.Training)
-                .FirstOrDefaultAsync(m => m.ProgressId == id);
-            if (progress == null)
-            {
-                return NotFound();
-            }
+        //        var progress = await _context.Progresses
+        //            .Include(p => p.Employee)
+        //            .Include(p => p.Training)
+        //            .FirstOrDefaultAsync(m => m.ProgressId == id);
+        //        if (progress == null)
+        //        {
+        //            return NotFound();
+        //        }
 
-            return View(progress);
-        }
+        //        return View(progress);
+        //    }
 
-        // POST: Progresses/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var progress = await _context.Progresses.FindAsync(id);
-            _context.Progresses.Remove(progress);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //    // POST: Progresses/Delete/5
+        //    [HttpPost, ActionName("Delete")]
+        //    [ValidateAntiForgeryToken]
+        //    public async Task<IActionResult> DeleteConfirmed(int id)
+        //    {
+        //        var progress = await _context.Progresses.FindAsync(id);
+        //        _context.Progresses.Remove(progress);
+        //        await _context.SaveChangesAsync();
+        //        return RedirectToAction(nameof(Index));
+        //    }
 
         private bool ProgressExists(int id)
         {
