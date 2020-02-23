@@ -10,9 +10,6 @@
     <title>@ViewData["Title"] - Training Tracker</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
     <script src="https://kit.fontawesome.com/ace1e9fe5c.js" crossorigin="anonymous"></script>
 
 </head>
@@ -20,14 +17,14 @@
     <header>
         <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-dark bg-blue border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-clipboard-list"></i> Training Tracker</a>
+                <a style="white-space:nowrap;" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-clipboard-list"></i> Training Tracker</a>
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                             aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <div class="navbar-collapse collapse d-md-inline-flex flex-md-row-reverse">
                         <partial name="_LoginPartial" />
 
                         <ul class="navbar-nav flex-grow-1">
@@ -61,9 +58,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

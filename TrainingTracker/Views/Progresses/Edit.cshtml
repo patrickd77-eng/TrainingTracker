@@ -1,0 +1,46 @@
+﻿@model TrainingTracker.Models.Progress
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Edit</h1>
+
+<h4>Progress</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ProgressId" />
+            <div class="form-group">
+                <label asp-for="EmployeeId" class="control-label">Employee</label>
+                <select disabled asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                <span asp-validation-for="EmployeeId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrainingId" class="control-label"></label>
+                <select disabled asp-for="TrainingId" class="form-control" asp-items="ViewBag.TrainingId"></select>
+                <span asp-validation-for="TrainingId" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="Completed" /> @Html.DisplayNameFor(model => model.Completed)
+                </label>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-secondary" asp-action="Index" asp-route-id="@Model.EmployeeId">Back to @Model.Employee.FirstName's list</a>
+    <a class="btn btn-outline-secondary" asp-action="Index">Back to Entire list</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

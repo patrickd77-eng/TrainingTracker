@@ -44,6 +44,7 @@ namespace TrainingTracker.Controllers
 
             var employees = from e in _context.Employees
                            select e;
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 employees = employees.Where(e => e.LastName.Contains(searchString)
@@ -63,29 +64,29 @@ namespace TrainingTracker.Controllers
 
         }
 
-        // GET: Employees/Details/5
-        public async Task<IActionResult> Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: Employees/Details/5
+        //public async Task<IActionResult> Details(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            //Get progress for employees where IDs match.
-            var employee = await _context.Employees
-             .Include(e => e.Progresses)
-                 .ThenInclude(e => e.Training)
-             .AsNoTracking()
-             .FirstOrDefaultAsync(m => m.EmployeeId == id);
+        //    //Get progress for employees where IDs match.
+        //    var employee = await _context.Employees
+        //     .Include(e => e.Progresses)
+        //         .ThenInclude(e => e.Training)
+        //     .AsNoTracking()
+        //     .FirstOrDefaultAsync(m => m.EmployeeId == id);
 
 
-            if (employee == null)
-            {
-                return NotFound();
-            }
+        //    if (employee == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(employee);
-        }
+        //    return View(employee);
+        //}
 
         // GET: Employees/Create
         public IActionResult Create()

@@ -1,21 +1,23 @@
-﻿@model PaginatedList<TrainingTracker.Models.Employee>
+﻿@model PaginatedList<TrainingTracker.Models.Training>
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Training Settings";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>All Employees</h1>
+<h1>Training Content</h1>
+
 <table class="table">
     <thead>
         <tr>
             <th>
-                Create Employee
-                <a asp-action="Create"><i class="btn btn-lg btn-success fas fa-user-plus"></i></a>
+                Create Training Item
+                <a asp-action="Create"><i class="btn btn-lg btn-success fas fa-plus-square"></i></a>
             </th>
             <th>
                 <form asp-action="Index" method="get">
                     <div class="form-actions no-color">
-                        Search Employees: <input placeholder="John Smith..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                        Search Modules: <input placeholder="Fire Safety..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
                         <input type="submit" value="Search" class="btn btn-info mt-1" />
                         <a asp-action="Index" class="btn btn-secondary mt-1">Reset List</a>
                     </div>
@@ -24,10 +26,11 @@
         </tr>
         <tr class="bg-light">
             <th>
-                First Name
+                Category
             </th>
+           
             <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Last Name</a>
+                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Module</a>
             </th>
             <th></th>
         </tr>
@@ -36,22 +39,21 @@
         @foreach (var item in Model)
         {
             <tr>
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
+                    @Html.DisplayFor(modelItem => item.CategoryName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
+                    @Html.DisplayFor(modelItem => item.ModuleName)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.EmployeeId"><i class="btn btn-primary fas fa-user-edit"></i></a>
-                    <a asp-controller="Progresses" asp-action="Index" asp-route-id="@item.EmployeeId"><i class="btn btn-primary fas fa-list-alt"></i></a>
-                    <a asp-action="Delete" asp-route-id="@item.EmployeeId"><i class="btn btn-primary fas fa-trash"></i></a>
+                    <a asp-action="Edit" asp-route-id="@item.TrainingId"><i class="btn  btn-primary fas fa-edit"></i></a>
+                    <a asp-action="Delete" asp-route-id="@item.TrainingId"> <i class="btn btn-primary fas fa-trash"></i></a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
-
 @{
     var previousDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextPageDisabled = !Model.HasNextPage ? "disabled" : "";
