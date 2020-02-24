@@ -6,7 +6,7 @@
 
 
 <div class="jumbotron" style="text-align:center; padding:1em; margin:0;">
-<h1>Employees</h1>
+    <h1>Employees</h1>
     <hr />
     <div class="btn-group-vertical text-center">
         <form asp-action="Index" method="get">
@@ -38,9 +38,11 @@
                 <div class="card-body">
                     <h5 class="card-title"> @Html.DisplayFor(modelItem => item.FirstName)  @Html.DisplayFor(modelItem => item.LastName)</h5>
                     <p class="card-text">
-                        <a asp-action="Edit" asp-route-id="@item.EmployeeId"><i class="btn btn-primary fas fa-user-edit mb-1"></i></a>
-                        <a asp-controller="Progresses" asp-action="Index" asp-route-id="@item.EmployeeId"><i class="btn mb-1 btn-primary fas fa-list-alt"></i></a>
-                        <a asp-action="Delete" asp-route-id="@item.EmployeeId"><i class="btn btn-outline-danger fas mb-1 fa-trash"></i></a>
+                        <div class="btn-group-lg text-center">
+                            <a asp-action="Edit" asp-route-id="@item.EmployeeId"><i class="btn btn-primary fas fa-user-edit mb-1"></i></a>
+                            <a asp-controller="Progresses" asp-action="Index" asp-route-id="@item.EmployeeId"><i class="btn mb-1 btn-primary fas fa-list-alt"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.EmployeeId"><i class="btn btn-outline-danger fas mb-1 fa-trash"></i></a>
+                        </div>
                     </p>
                 </div>
             </div>
