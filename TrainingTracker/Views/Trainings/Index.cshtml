@@ -5,71 +5,66 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Training Content</h1>
+<div class="jumbotron" style="text-align:center; padding:1em; margin:0;">
+    <h1>Training Modules</h1>
+    <hr />
+    <div class="btn-group-vertical text-center">
+        <form asp-action="Index" method="get">
+            <div class="form-actions no-color">
+                Search Training: <input placeholder="Fire Safety..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                <input type="submit" value="Search" class="btn btn-info btn-sm" />
+            </div>
+        </form>
+        <hr />
+        <a class="btn btn-info btn-sm" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Filter by Module Name</a>
+        <a asp-action="Index" class="btn btn-info btn-sm mt-1">Remove Filters/Search</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm-4  mb-2 mt-2 text-center">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Create A New Module</h5>
+                <a class="btn btn-lg btn-success mt-1" asp-action="Create"><i class="fas fa-plus"></i></a>
+            </div>
+        </div>
+    </div>
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-4  mb-2 mt-2 text-center">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title"> @Html.DisplayFor(modelItem => item.CategoryName)</h4>
+                    <h5> @Html.DisplayFor(modelItem => item.ModuleName)</h5>
+                    <p class="card-text">
+                        <a asp-action="Edit" asp-route-id="@item.TrainingId"><i class="btn btn-primary fas fa-user-edit mb-1"></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.TrainingId"><i class="btn btn-outline-danger fas mb-1 fa-trash"></i></a>
+                    </p>
+                </div>
+            </div>
+        </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Create Training Item
-                <a asp-action="Create"><i class="btn btn-lg btn-success fas fa-plus-square"></i></a>
-            </th>
-            <th>
-                <form asp-action="Index" method="get">
-                    <div class="form-actions no-color">
-                        Search Modules: <input placeholder="Fire Safety..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-                        <input type="submit" value="Search" class="btn btn-info mt-1" />
-                        <a asp-action="Index" class="btn btn-secondary mt-1">Reset List</a>
-                    </div>
-                </form>
-            </th>
-        </tr>
-        <tr class="bg-light">
-            <th>
-                Category
-            </th>
-           
-            <th>
-                <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Module</a>
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
+    }
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.CategoryName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ModuleName)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.TrainingId"><i class="btn  btn-primary fas fa-edit"></i></a>
-                    <a asp-action="Delete" asp-route-id="@item.TrainingId"> <i class="btn btn-primary fas fa-trash"></i></a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+</div>
+<hr />
 @{
     var previousDisabled = !Model.HasPreviousPage ? "disabled" : "";
     var nextPageDisabled = !Model.HasNextPage ? "disabled" : "";
 }
-
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex - 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-info @previousDisabled">
-    <i class="fas fa-arrow-circle-left"></i>
-</a>
-<a asp-action="Index"
-   asp-route-sortOrder="@ViewData["CurrentSort"]"
-   asp-route-pageNumber="@(Model.PageIndex + 1)"
-   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-   class="btn btn-info @nextPageDisabled">
-    <i class="fas fa-arrow-circle-right"></i>
-</a>
+<div class="text-center">
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-info @previousDisabled">
+        <i class="fas fa-arrow-circle-left"></i>
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-info @nextPageDisabled">
+        <i class="fas fa-arrow-circle-right"></i>
+    </a>
+</div>

@@ -60,7 +60,7 @@ namespace TrainingTracker.Controllers
                     trainingSections = trainingSections.OrderBy(t => t.TrainingId);
                     break;
             }
-            int pageSize = 10;
+            int pageSize = 8;
             return View(await PaginatedList<Training>.CreateAsync(trainingSections.AsNoTracking(), pageNumber ?? 1, pageSize));
 
 
