@@ -40,7 +40,7 @@ namespace TrainingTracker.Controllers
 
                 
 
-                return View(await applicationDbContext.ToListAsync());
+                return View(await applicationDbContext.OrderByDescending(p => p.Completed).ToListAsync());
 
             }
 
