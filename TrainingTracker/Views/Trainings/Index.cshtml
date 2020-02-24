@@ -11,13 +11,15 @@
     <div class="btn-group-vertical text-center">
         <form asp-action="Index" method="get">
             <div class="form-actions no-color">
-                Search Training: <input placeholder="Fire Safety..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-                <input type="submit" value="Search" class="btn btn-info btn-sm" />
+                Search Training:
+                <hr />
+                <input class="form-control mb-1" placeholder="Fire Safety..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                <input type="submit" value="Search" class="btn btn-info btn-lg" />
             </div>
         </form>
         <hr />
-        <a class="btn btn-info btn-sm" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Filter by Module Name</a>
-        <a asp-action="Index" class="btn btn-info btn-sm mt-1">Remove Filters/Search</a>
+        <a class="btn btn-info btn-lg" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Filter by Module Name</a>
+        <a asp-action="Index" class="btn btn-info btn-lg mt-1">Remove Filters/Search</a>
     </div>
 </div>
 <hr />
@@ -50,24 +52,4 @@
     }
 
 </div>
-<hr />
-@{
-    var previousDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextPageDisabled = !Model.HasNextPage ? "disabled" : "";
-}
-<div class="text-center">
-    <a asp-action="Index"
-       asp-route-sortOrder="@ViewData["CurrentSort"]"
-       asp-route-pageNumber="@(Model.PageIndex - 1)"
-       asp-route-currentFilter="@ViewData["CurrentFilter"]"
-       class="btn btn-info @previousDisabled">
-        <i class="fas fa-arrow-circle-left"></i>
-    </a>
-    <a asp-action="Index"
-       asp-route-sortOrder="@ViewData["CurrentSort"]"
-       asp-route-pageNumber="@(Model.PageIndex + 1)"
-       asp-route-currentFilter="@ViewData["CurrentFilter"]"
-       class="btn btn-info @nextPageDisabled">
-        <i class="fas fa-arrow-circle-right"></i>
-    </a>
-</div>
+<partial name="_PaginationPartial" />

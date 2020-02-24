@@ -11,13 +11,15 @@
     <div class="btn-group-vertical text-center">
         <form asp-action="Index" method="get">
             <div class="form-actions no-color">
-                Search Employees: <input placeholder="John Smith..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-                <input type="submit" value="Search" class="btn btn-info btn-sm" />
+                Search Employees:
+                <hr />
+                <input class="form-control mb-1" placeholder="John Smith..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                <input type="submit" value="Search" class="btn btn-info btn-lg" />
             </div>
         </form>
         <hr />
-        <a class="btn btn-info btn-sm" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Filter by Surname</a>
-        <a asp-action="Index" class="btn btn-info btn-sm mt-1">Remove Filters/Search</a>
+        <a class="btn btn-info btn-lg" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Filter by Surname</a>
+        <a asp-action="Index" class="btn btn-lg btn-info mt-1">Remove Filters/Search</a>
     </div>
 </div>
 
@@ -27,7 +29,7 @@
         <div class="card">
             <div class="card-body">
                 <h5 class="card-title">Create A New Employee </h5>
-                <a class="btn btn-success mt-1" asp-action="Create"><i class="fas fa-user-plus"></i></a>
+                <a class="btn btn-lg  btn-success mt-1" asp-action="Create"><i class="fas fa-user-plus"></i></a>
             </div>
         </div>
     </div>
@@ -39,9 +41,9 @@
                     <h5 class="card-title"> @Html.DisplayFor(modelItem => item.FirstName)  @Html.DisplayFor(modelItem => item.LastName)</h5>
                     <p class="card-text">
                         <div class="btn-group-lg text-center">
-                            <a asp-action="Edit" asp-route-id="@item.EmployeeId"><i class="btn btn-primary fas fa-user-edit mb-1"></i></a>
-                            <a asp-controller="Progresses" asp-action="Index" asp-route-id="@item.EmployeeId"><i class="btn mb-1 btn-primary fas fa-list-alt"></i></a>
-                            <a asp-action="Delete" asp-route-id="@item.EmployeeId"><i class="btn btn-outline-danger fas mb-1 fa-trash"></i></a>
+                            <a asp-action="Edit" asp-route-id="@item.EmployeeId"><i class="btn btn-lg btn-primary fas fa-user-edit mb-1"></i></a>
+                            <a asp-controller="Progresses" asp-action="Index" asp-route-id="@item.EmployeeId"><i class="btn btn-lg mb-1 btn-primary fas fa-list-alt"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.EmployeeId"><i class="btn btn-lg btn-outline-danger fas mb-1 fa-trash"></i></a>
                         </div>
                     </p>
                 </div>
@@ -50,24 +52,5 @@
 
     }
 </div>
-<hr />
-@{
-    var previousDisabled = !Model.HasPreviousPage ? "disabled" : "";
-    var nextPageDisabled = !Model.HasNextPage ? "disabled" : "";
-}
-<div class="text-center">
-    <a asp-action="Index"
-       asp-route-sortOrder="@ViewData["CurrentSort"]"
-       asp-route-pageNumber="@(Model.PageIndex - 1)"
-       asp-route-currentFilter="@ViewData["CurrentFilter"]"
-       class="btn btn-info @previousDisabled">
-        <i class="fas fa-arrow-circle-left"></i>
-    </a>
-    <a asp-action="Index"
-       asp-route-sortOrder="@ViewData["CurrentSort"]"
-       asp-route-pageNumber="@(Model.PageIndex + 1)"
-       asp-route-currentFilter="@ViewData["CurrentFilter"]"
-       class="btn btn-info @nextPageDisabled">
-        <i class="fas fa-arrow-circle-right"></i>
-    </a>
-</div>
+
+<partial name="_PaginationPartial" />

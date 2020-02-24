@@ -1,0 +1,21 @@
+﻿<hr />
+@{
+    var previousDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextPageDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+<div class="text-center">
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-lg  btn-info @previousDisabled">
+        <i class="fas fa-arrow-circle-left"></i>
+    </a>
+    <a asp-action="Index"
+       asp-route-sortOrder="@ViewData["CurrentSort"]"
+       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+       class="btn btn-lg btn-info @nextPageDisabled">
+        <i class="fas fa-arrow-circle-right"></i>
+    </a>
+</div>
