@@ -54,10 +54,10 @@ namespace TrainingTracker.Controllers
             switch (sortOrder)
             {
                 case "name_desc":
-                    trainingSections = trainingSections.OrderByDescending(t => t.ModuleName);
+                    trainingSections = trainingSections.OrderBy(t => t.ModuleName);
                     break;
                 default:
-                    trainingSections = trainingSections.OrderBy(t => t.CategoryName);
+                    trainingSections = trainingSections.OrderBy(t => t.TrainingId);
                     break;
             }
             int pageSize = 10;
