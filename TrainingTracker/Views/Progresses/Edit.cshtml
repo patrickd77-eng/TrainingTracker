@@ -5,9 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+    <h1>Editing Employee Progress </h1>
 
-<h4>Progress</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -32,15 +31,21 @@
                 </label>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+               
+               <p>Save and redirect to @Model.Employee.FirstName's progress.</p>
+                <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
-
+<hr />
 <div>
-    <a class="btn btn-secondary" asp-action="Index" asp-route-id="@Model.EmployeeId">Back to @Model.Employee.FirstName's progress</a>
-    <a class="btn btn-outline-secondary" asp-action="Index">Back to all employee progress</a>
+    <p>Or, cancel without saving.</p>
+    <div class="btn-group-vertical">
+    <a class="btn btn-outline-secondary" asp-action="Index" asp-route-id="@Model.EmployeeId">Back to @Model.Employee.FirstName's progress</a>
+    <a class="mt-1 btn btn-outline-secondary" asp-action="Index">Back to all employee progress</a>
+
+    </div>
 </div>
 
 @section Scripts {

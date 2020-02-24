@@ -38,6 +38,8 @@ namespace TrainingTracker.Controllers
                     .Include(p => p.Training)
                     .Where(m => m.EmployeeId == id);
 
+                
+
                 return View(await applicationDbContext.ToListAsync());
 
             }
@@ -90,7 +92,7 @@ namespace TrainingTracker.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Index", new { id=progress.EmployeeId });
             }
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName", progress.EmployeeId);
             ViewData["TrainingId"] = new SelectList(_context.Trainings, "TrainingId", "ModuleName", progress.TrainingId);

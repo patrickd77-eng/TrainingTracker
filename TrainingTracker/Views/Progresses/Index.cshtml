@@ -5,48 +5,63 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Progress Records</h1>
+<div class="jumbotron" style="text-align:center; padding:1em; margin:0;">
+    <h1>Progress Records</h1>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Training.CategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Training.ModuleName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Completed)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employee.FirstName)
-                @Html.DisplayFor(modelItem => item.Employee.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Training.CategoryName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Training.ModuleName)
-            </td>
-            <td>
-                @Html.DisplayTextFor(modelItem => item.Completed)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ProgressId">Edit</a>
-                @* <a asp-action="Details" asp-route-id="@item.ProgressId">Details</a> |*@
-                @* <a asp-action="Delete" asp-route-id="@item.ProgressId">Delete</a>*@
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+
+    <hr />
+    <a href="/Progresses/Index" class="btn btn-info btn-sm mt-1">Remove Filters/Search</a>
+    <a asp-controller="Employees" asp-action="Index" class="btn btn-outline-info btn-sm mt-1">Go to Employee List</a>
+    <a asp-controller="Training" asp-action="Index" class="btn btn-outline-info btn-sm mt-1">Go to Training Settings</a>
+
+</div>
+<hr />
+
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Training.CategoryName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Training.ModuleName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Completed)?
+                </th>
+                <th>Progress</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.FirstName)
+                        @Html.DisplayFor(modelItem => item.Employee.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Training.CategoryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Training.ModuleName)
+                    </td>
+                    <td>
+                        <span style="display:block;text-align:center;font-size:24px;">
+                            <i class="
+                           @(item.Completed ? "green fas fa-check-circle" : "red fas fa-times-circle")
+                           "></i>
+                        </span>
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.ProgressId"><i class="btn btn-primary fas fa-edit mt-2"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
