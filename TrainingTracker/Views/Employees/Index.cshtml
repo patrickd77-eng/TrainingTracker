@@ -42,7 +42,10 @@
                     <p class="card-text">
                         <div class="btn-group-lg text-center">
                             <a asp-action="Edit" asp-route-id="@item.EmployeeId"><i class="btn btn-lg btn-primary fas fa-user-edit mb-1"></i></a>
-                            <a asp-controller="Progresses" asp-action="Index" asp-route-id="@item.EmployeeId"><i class="btn btn-lg mb-1 btn-primary fas fa-list-alt"></i></a>
+                            @Html.ActionLink(
+                           "", "Index", "Progresses",
+                           new { id = item.EmployeeId, employeeName = item.FirstName },
+                           new { @class = "btn btn-lg mb-1 btn-primary fas fa-list-alt" })
                             <a asp-action="Delete" asp-route-id="@item.EmployeeId"><i class="btn btn-lg btn-outline-danger fas mb-1 fa-trash"></i></a>
                         </div>
                     </p>

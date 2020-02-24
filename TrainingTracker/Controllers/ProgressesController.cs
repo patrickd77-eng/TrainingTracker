@@ -22,7 +22,7 @@ namespace TrainingTracker.Controllers
         }
 
         // GET: Progresses
-        public async Task<IActionResult> Index(int? id)
+        public async Task<IActionResult> Index(int? id, string employeeName)
         {
             if (id == null)
             {
@@ -38,7 +38,7 @@ namespace TrainingTracker.Controllers
                     .Include(p => p.Training)
                     .Where(m => m.EmployeeId == id);
 
-                
+                ViewData["EmployeeName"] = employeeName;
 
                 return View(await applicationDbContext.OrderByDescending(p => p.Completed).ToListAsync());
 
