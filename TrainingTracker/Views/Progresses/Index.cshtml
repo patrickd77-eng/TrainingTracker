@@ -11,11 +11,9 @@
     <h2>
         @ViewData["EmployeeName"]
     </h2>
-
     <hr />
     <a asp-controller="Employees" asp-action="Index" class="btn btn-info btn-lg mt-1">Go to Employee List</a>
     <a asp-controller="Trainings" asp-action="Index" class="btn btn-info btn-lg mt-1">Go to Training Settings</a>
-
 </div>
 <hr />
 <div class="row">
@@ -26,10 +24,8 @@
             <ul class="list-group text-center ">
                 <li class="list-group-item mb-2">
                     <div class="text-center">
-
                         <h5>
                             @Html.DisplayFor(modelItem => item.Training.CategoryName) -
-
                             @Html.DisplayFor(modelItem => item.Training.ModuleName)
                         </h5>
                     </div>

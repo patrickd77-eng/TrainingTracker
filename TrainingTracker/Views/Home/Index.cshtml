@@ -11,36 +11,36 @@
         <div class="mt-3 mb-3">
             <img draggable="false" src="~/Media/screwfix.png" alt="Screwfix Logo" height="75" width="300">
             <h1>Poole Parkstone</h1>
+            <h2>Dashboard</h2>
         </div>
         <hr />
-        <h2>Dashboard</h2>
         <div>
             <div>
-                <div class="row mt-1">
+                <div class="row mt-3">
                     <div class="col-sm-6">
-                        <div class="card mb-1">
-                            <div class="card-body ">
+                        <div class="card mb-2 bg-light">
+                            <div class="card-body">
                                 <h5 class="card-title">Employees</h5>
-                                <p class="card-text">A list of all employees at this store.</p>
+                                <p class="card-text">A list of all employees (that have been added to this system) at Poole Parkstone.</p>
                                 <p>There are links to view their training records, edit their name or delete them.</p>
-                                <a asp-area="" asp-controller="Employees" asp-action="Index" class="btn btn-lg btn-primary"><i class="fas fa-users"></i></a>
+                                <a asp-area="" asp-controller="Employees" asp-action="Index" class="btn   w-50 btn-lg btn-primary"><i class="fas fa-users"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="card mb-1">
+                        <div class="card mb-2 bg-light">
                             <div class="card-body">
                                 <h5 class="card-title">Training</h5>
-                                <p class="card-text">These are settings for creating, editing and deleting training modules.</p> 
-                                <p>Changes to these are global and will update existing progress records.</p>
-                                <a asp-area="" asp-controller="Trainings" asp-action="Index" class="btn btn-lg btn-primary text-light"><i class="fas fa-cogs"></i></a>
+                                <p class="card-text">These are settings for creating, editing and deleting training modules.</p>
+                                <p>Changes to these are global and will update existing progress records, including new modules.</p>
+                                <a asp-area="" asp-controller="Trainings" asp-action="Index" class="btn w-50 btn-lg btn-primary text-light"><i class="fas fa-cogs"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="row ">
                     <div class="col-sm-6">
-                        <div class="card mb-2">
+                        <div class="card mb-2 bg-light">
                             <div class="card-body">
                                 <h5 class="card-title">Notifications</h5>
                                 <p class="card-text">System Generated Notifications</p>
@@ -54,13 +54,15 @@
                                         </li>
                                     </ol>
                                 </div>
-                                <a class="btn btn-primary text-light">See More</a>
-                                <a class="btn btn-outline-danger text-dark">Clear All</a>
+                                <div class="btn-group-vertical">
+                                    <a class="btn btn-lg  btn-primary text-light mb-1">See More</a>
+                                    <a class="btn btn-lg btn-outline-danger text-dark">Clear All</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="card mb-2">
+                        <div class="card mb-2 bg-light">
                             <div class="card-body">
                                 <h5 class="card-title">Reminders</h5>
                                 <p class="card-text">Your Custom Reminders</p>
@@ -74,8 +76,10 @@
                                         </li>
                                     </ol>
                                 </div>
-                                <a class="btn btn-primary text-light">See More</a>
-                                <a class="btn btn-outline-danger text-dark">Clear All</a>
+                                <div class="btn-group-vertical ">
+                                    <a class="btn btn-lg btn-primary text-light mb-1">See More</a>
+                                    <a class="btn btn-lg btn-outline-danger text-dark">Clear All</a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -86,21 +90,18 @@
     }
     else
     {
-        
         <div class="mt-5 mb-5">
             <img draggable="false" src="~/Media/screwfix.png" alt="Screwfix Logo" height="75" width="300">
-            <h2>Poole Parkstone Training Tracker</h2>
+            <h2>Training Tracker</h2>
         </div>
         <p class="text-danger">This app requires authentication, please log in.</p>
-        <div class="mt-4 mb-4">
-            <a class="btn btn-lg btn-primary text-light" asp-area="Identity" asp-page="/Account/Login">Login</a>
+        <div class="mt-5 mb-4">
+            <a class="btn btn-lg btn-primary text-light" asp-area="Identity" asp-page="/Account/Login"><i class="fas fa-sign-in-alt"></i> Login</a>
         </div>
-        <br />
+
         <hr />
-        <small>
-            This app may contain confidential information.
-            Unauthorised access to systems such as these are a breach of The Computer Misuse Act.
-        </small>
+        <p>This app may contain confidential information.</p>
+        <p> Unauthorised access to systems such as these are a breach of The Computer Misuse Act.</p>
         <hr />
     }
 </div>

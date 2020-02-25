@@ -3,40 +3,44 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-
 <div class="jumbotron" style="text-align:center; padding:1em; margin:0;">
     <h1>Employees</h1>
     <hr />
-    <div class="btn-group-vertical text-center">
-        <form asp-action="Index" method="get">
-            <div class="form-actions no-color">
-                Search Employees:
-                <hr />
-                <input class="form-control mb-1" placeholder="John Smith..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
-                <input type="submit" value="Search" class="btn btn-info btn-lg" />
+    <div class="row">
+        <div class="col-md-4 mt-4">
+            <form asp-action="Index" method="get">
+                <h5>Search Employees</h5>
+                <div class="form-group">
+                    <input class=" form-control-sm mb-1 " placeholder="John Smith..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Search" class="btn btn-primary btn-lg" />
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <div class="mt-4 text-center">
+                <div class="btn-group-vertical text-center">
+                    <h5 class="card-title">New Employee</h5>
+                    <a class="btn btn-lg  btn-success mt-1" asp-action="Create"><i class="fas fa-user-plus"></i></a>
+                </div>
             </div>
-        </form>
-        <hr />
-        <a class="btn btn-info btn-lg" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Filter by Surname</a>
-        <a asp-action="Index" class="btn btn-lg btn-info mt-1">Remove Filters/Search</a>
-    </div>
-</div>
-
-<hr />
-<div class="row">
-    <div class="col-sm-4  mb-2 mt-2 text-center">
-        <div class="card">
-            <div class="card-body">
-                <h5 class="card-title">Create A New Employee </h5>
-                <a class="btn btn-lg  btn-success mt-1" asp-action="Create"><i class="fas fa-user-plus"></i></a>
+        </div>
+        <div class="col-md-4">
+            <h5>Options</h5>
+            <div class="btn-group-vertical text-center">
+                <a class="btn btn-info btn-lg" asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Filter by Surname</a>
+                <a asp-action="Index" class="btn btn-lg btn-info mt-1">Remove Filters/Search</a>
             </div>
         </div>
     </div>
+</div>
+<hr />
+<div class="row">
     @foreach (var item in Model)
     {
         <div class="col-sm-4  mb-2 mt-2 text-center">
-            <div class="card">
+            <div class="card bg-light">
                 <div class="card-body">
                     <h5 class="card-title"> @Html.DisplayFor(modelItem => item.FirstName)  @Html.DisplayFor(modelItem => item.LastName)</h5>
                     <p class="card-text">
@@ -52,8 +56,6 @@
                 </div>
             </div>
         </div>
-
     }
 </div>
-
 <partial name="_PaginationPartial" />

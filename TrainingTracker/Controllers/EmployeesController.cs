@@ -59,7 +59,7 @@ namespace TrainingTracker.Controllers
                     employees = employees.OrderBy(e => e.LastName);
                     break;
             }
-            int pageSize = 5;
+            int pageSize = 6;
             return View(await PaginatedList<Employee>.CreateAsync(employees.AsNoTracking(), pageNumber ?? 1, pageSize));
 
         }
