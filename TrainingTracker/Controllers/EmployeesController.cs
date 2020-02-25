@@ -68,29 +68,6 @@ namespace TrainingTracker.Controllers
             return View();
         }
 
-        //       using (var context = new StoreDbContext())
-        //{
-        //        // Retrieve entity by id
-        //        // Answer for question #1
-        //        var entity = context.Products.FirstOrDefault(item => item.ProductID == id);
-
-        //        // Validate entity is not null
-        //        if (entity != null)
-        //        {
-        //            // Answer for question #2
-
-        //            // Make changes on entity
-        //            entity.UnitPrice = 49.99m;
-        //            entity.Description = "Collector's edition";
-
-        //            // Update entity in DbSet
-        //            context.Products.Update(entity);
-
-        //            // Save changes in database
-        //            context.SaveChanges();
-        //        }
-        //}
-
         // POST: Employees/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
