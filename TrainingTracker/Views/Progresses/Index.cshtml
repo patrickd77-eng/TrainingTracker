@@ -32,8 +32,10 @@
                 <ul class="list-group text-center ">
                     <li class="list-group-item mb-2">
                         <div class="text-center">
+                            <h4>
+                                @Html.DisplayFor(modelItem => item.Training.CategoryName)
+                            </h4>
                             <h5>
-                                @Html.DisplayFor(modelItem => item.Training.CategoryName) -
                                 @Html.DisplayFor(modelItem => item.Training.ModuleName)
                             </h5>
                         </div>
