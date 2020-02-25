@@ -4,26 +4,18 @@
     ViewData["Title"] = "Delete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Warning</h1>
 <p class="text-danger">@ViewData["ErrorMessage"]</p>
-<h2>
-    Employees aren't recoverable.
-</h2>
-<h3>
-    Are you sure you want to delete:
-    <em>
-        <strong>
-            @Html.DisplayFor(model => model.FirstName)
-            @Html.DisplayFor(model => model.LastName)?
-        </strong>
-    </em>
-</h3>
-<div>
-    <hr />
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="EmployeeId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index" class="btn btn-outline-secondary">Back to List</a>
-    </form>
+<div class="jumbotron text-center">
+    <h1>Are you sure?</h1>
+    <h2>
+        Employees aren't recoverable. Their progress and notifications are also deleted.
+    </h2>
+    <div>
+        <hr />
+        <form asp-action="Delete" class="mt-1 mb-1">
+            <input type="hidden" asp-for="EmployeeId" />
+            <input type="submit" value="Delete @Model.FirstName @Model.LastName" class="btn btn-lg btn-danger" />
+        </form>
+        <a asp-action="Index" class="btn btn-lg btn-outline-primary mt-2">Back to List</a>
+    </div>
 </div>
