@@ -83,11 +83,49 @@ namespace TrainingTracker.Controllers
             {
                 _context.Add(training);
                 await _context.SaveChangesAsync();
-                //TODO: Add new blank progress record for all employees. IF BOX CHECKED?
+                //TODO: Add new blank progress record for all employees. 
+
+                await AddProgressRecordsAsync(training);
+
                 return RedirectToAction(nameof(Index));
             }
             return View(training);
         }
+
+        public async Task<IActionResult> AddProgressRecordsAsync(Training training)
+        {
+            try
+            {
+                //All employees
+                var employeesInDb = _context.Employees;
+
+                //For each employee
+                foreach (var item in employeesInDb)
+                {
+                    //create new progress record with necessary values
+                    var newRecord = new Progress() { Completed = false, EmployeeId = item.EmployeeId, TrainingId = training.TrainingId };
+                    //Add to db.
+                    _context.Add(newRecord);
+
+                }
+                //save, return ok.
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (DbUpdateException ex)
+            {
+                //Log error
+                ModelState.AddModelError(ex.ToString(), "Unable to save changes. " +
+                    "Try again, and if the problem persists " +
+                    "see your system administrator.");
+                return BadRequest();
+            }
+        }
+
+
+
+
+
 
         // GET: Trainings/Edit/5
         public async Task<IActionResult> Edit(int? id)
