@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using TrainingTracker.Data;
 using TrainingTracker.Models;
 
@@ -48,8 +46,10 @@ namespace TrainingTracker.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                trainingSections = trainingSections.Where(t => t.ModuleName.Contains(searchString)
-                                       || t.ModuleName.Contains(searchString));
+                trainingSections = trainingSections.
+                    Where(t => t.ModuleName.Contains(searchString)
+                         || t.ModuleName.Contains(searchString)
+                         || t.CategoryName.Contains(searchString));
             }
             switch (sortOrder)
             {
