@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Threading.Tasks;
 using TrainingTracker.Data;
 using TrainingTracker.Models;
 
@@ -40,7 +38,7 @@ namespace TrainingTracker.Controllers
 
                 ViewData["EmployeeName"] = employeeName;
 
-                return View(await applicationDbContext.OrderByDescending(p => p.Completed).ToListAsync());
+                return View(await applicationDbContext.OrderBy(p => p.Training.CategoryName).ToListAsync());
 
             }
 

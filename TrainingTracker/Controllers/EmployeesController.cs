@@ -80,15 +80,11 @@ namespace TrainingTracker.Controllers
                     _context.Add(employee);
                     await _context.SaveChangesAsync();
 
-                    //TODO: Make blank training progress records for new employee.
-
+                    //Make blank training progress records for new employee. Pass employee object so employeeid may be accessed.
+                    await AddProgressRecordsAsync(employee);
 
                     return RedirectToAction(nameof(Index));
                 }
-
-
-
-
             }
             catch (DbUpdateException ex)
             {
@@ -99,6 +95,36 @@ namespace TrainingTracker.Controllers
             }
             return View(employee);
         }
+
+        public async Task<IActionResult> AddProgressRecordsAsync(Employee employee)
+        {
+            try
+            {
+                //All training modules.
+                var trainingModules = _context.Trainings;
+
+                //For each training module
+                foreach (var item in trainingModules)
+                {
+                    //create new progress record with necessary values
+                    var newRecord = new Progress() { Completed = false, EmployeeId = employee.EmployeeId, TrainingId = item.TrainingId };
+                    //Add
+                    _context.Add(newRecord);
+
+                }
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (DbUpdateException ex)
+            {
+                //Log error
+                ModelState.AddModelError(ex.ToString(), "Unable to save changes. " +
+                    "Try again, and if the problem persists " +
+                    "see your system administrator.");
+                return BadRequest();
+            }
+        }
+
 
         // GET: Employees/Edit/ID
         public async Task<IActionResult> Edit(int? id)

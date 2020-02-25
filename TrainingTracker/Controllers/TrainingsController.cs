@@ -67,23 +67,6 @@ namespace TrainingTracker.Controllers
             //return View(await trainingSections.ToListAsync());
         }
 
-        //// GET: Trainings/Details/5
-        //public async Task<IActionResult> Details(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var training = await _context.Trainings
-        //        .FirstOrDefaultAsync(m => m.TrainingId == id);
-        //    if (training == null)
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    return View(training);
-        //}
 
         // GET: Trainings/Create
         public IActionResult Create()
