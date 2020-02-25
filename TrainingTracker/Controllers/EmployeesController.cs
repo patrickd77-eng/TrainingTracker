@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using TrainingTracker.Data;
 using TrainingTracker.Models;
 
@@ -70,6 +68,29 @@ namespace TrainingTracker.Controllers
             return View();
         }
 
+        //       using (var context = new StoreDbContext())
+        //{
+        //        // Retrieve entity by id
+        //        // Answer for question #1
+        //        var entity = context.Products.FirstOrDefault(item => item.ProductID == id);
+
+        //        // Validate entity is not null
+        //        if (entity != null)
+        //        {
+        //            // Answer for question #2
+
+        //            // Make changes on entity
+        //            entity.UnitPrice = 49.99m;
+        //            entity.Description = "Collector's edition";
+
+        //            // Update entity in DbSet
+        //            context.Products.Update(entity);
+
+        //            // Save changes in database
+        //            context.SaveChanges();
+        //        }
+        //}
+
         // POST: Employees/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -77,15 +98,21 @@ namespace TrainingTracker.Controllers
         {
             try
             {
-
                 if (ModelState.IsValid)
                 {
                     _context.Add(employee);
-                    await _context.SaveChangesAsync();
-                    //TODO: Make blank training progress records for new employee.
 
+
+
+
+                    await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
+                //TODO: Make blank training progress records for new employee.
+
+
+
+
             }
             catch (DbUpdateException ex)
             {
