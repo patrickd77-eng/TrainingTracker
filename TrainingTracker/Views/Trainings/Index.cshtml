@@ -8,7 +8,7 @@
     <h1>Training Modules</h1>
     <hr />
     <div class="row">
-        <div class="col-md-4 mt-4">
+        <div class="col-md-4 mt-2">
             <form asp-action="Index" method="get">
                 <h5>Search Training</h5>
                 <div class="form-group">
@@ -19,7 +19,7 @@
                 </div>
             </form>
         </div>
-        <div class="col-md-4 mt-4">
+        <div class="col-md-4 mt-2">
             <div>
                 <div class="btn-group-vertical text-center">
                     <h5>New Training Module</h5>
@@ -27,7 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mt-3">
+        <div class="col-md-4 mt-2">
             <h5>Options</h5>
             <div class="btn-group-vertical text-center">
 
@@ -37,25 +37,25 @@
         </div>
     </div>
 </div>
-    <hr />
-    <div class="row">
-        @foreach (var item in Model)
-        {
-            <div class="col-sm-4  mb-2 mt-2 text-center">
-                <div class="card bg-light">
-                    <div class="card-body">
-                        <h4 class="card-title">@Html.DisplayFor(modelItem => item.CategoryName)</h4>
-                        <h5> @Html.DisplayFor(modelItem => item.ModuleName)</h5>
-                        <p class="card-text">
-                            <div class="btn-group-lg text-center">
-                                <a asp-action="Edit" asp-route-id="@item.TrainingId"><i class="btn btn-lg btn-primary fas fa-edit mb-1"></i></a>
-                                <a asp-action="Delete" asp-route-id="@item.TrainingId"><i class="btn btn-lg btn-outline-danger fas mb-1 fa-trash"></i></a>
-                            </div>
-                        </p>
-                    </div>
+<hr />
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-4  mb-2 mt-2 text-center">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h4 class="card-title">@Html.DisplayFor(modelItem => item.CategoryName)</h4>
+                    <h5> @Html.DisplayFor(modelItem => item.ModuleName)</h5>
+                    <p class="card-text">
+                        <div class="btn-group-lg text-center">
+                            <a asp-action="Edit" asp-route-id="@item.TrainingId"><i class="btn btn-lg btn-primary fas fa-edit mb-1"></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.TrainingId"><i class="btn btn-lg btn-outline-danger fas mb-1 fa-trash"></i></a>
+                        </div>
+                    </p>
                 </div>
             </div>
+        </div>
 
-        }
-    </div>
+    }
+</div>
 <partial name="_PaginationPartial" />
