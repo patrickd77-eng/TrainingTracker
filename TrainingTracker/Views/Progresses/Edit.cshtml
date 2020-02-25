@@ -5,7 +5,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-    <h1>Editing Employee Progress </h1>
+<h1>Editing Employee Progress </h1>
 
 <hr />
 <div class="row">
@@ -30,16 +30,16 @@
                     <input class="form-check-input" asp-for="Completed" /> @Html.DisplayNameFor(model => model.Completed)
                 </label>
             </div>
+            <input name="employeeFirstName" hidden value="@Model.Employee.FirstName" />
+            <input name="employeeLastName" hidden value="@Model.Employee.LastName" />
             <div class="form-group">
-               
-               <p>Save and redirect to @Model.Employee.FirstName's progress.</p>
+                <p>Save and redirect to @Model.Employee.FirstName's progress.</p>
                 <input type="submit" value="Save" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
 <hr />
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

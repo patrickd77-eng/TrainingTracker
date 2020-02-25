@@ -10,38 +10,14 @@
     <h1>Progress Records</h1>
     <h2>
         @ViewData["EmployeeName"]
-
     </h2>
 
     <hr />
     <a asp-controller="Employees" asp-action="Index" class="btn btn-info btn-lg mt-1">Go to Employee List</a>
-    <a asp-controller="Training" asp-action="Index" class="btn btn-info btn-lg mt-1">Go to Training Settings</a>
+    <a asp-controller="Trainings" asp-action="Index" class="btn btn-info btn-lg mt-1">Go to Training Settings</a>
 
 </div>
 <hr />
-
-@*<div class="table-responsive">
-    <table class="table table-hover table-bordered">*@
-
-@*<thead class="thead-dark">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Employee)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Training.CategoryName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Training.ModuleName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Completed)?
-            </th>
-            <th>Progress</th>
-        </tr>
-    </thead>*@
-
-
 <div class="row">
 
     @foreach (var item in Model)
@@ -50,16 +26,12 @@
             <ul class="list-group text-center ">
                 <li class="list-group-item mb-2">
                     <div class="text-center">
-                        @*<h4>
-                                @Html.DisplayFor(modelItem => item.Employee.FirstName)
-                                @Html.DisplayFor(modelItem => item.Employee.LastName)
-                            </h4>
-                            <hr />*@
-                        <h4>
+
+                        <h5>
                             @Html.DisplayFor(modelItem => item.Training.CategoryName) -
 
                             @Html.DisplayFor(modelItem => item.Training.ModuleName)
-                        </h4>
+                        </h5>
                     </div>
                     <span style="display:block;font-size:36px;">
                         <i class="

@@ -67,7 +67,7 @@ namespace TrainingTracker.Controllers
         // POST: Progresses/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProgressId,EmployeeId,TrainingId,Completed")] Progress progress)
+        public async Task<IActionResult> Edit(int id, [Bind("ProgressId,EmployeeId,TrainingId,Completed")] Progress progress, string employeeFirstName, string employeeLastName)
         {
             if (id != progress.ProgressId)
             {
@@ -92,7 +92,7 @@ namespace TrainingTracker.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction("Index", new { id=progress.EmployeeId });
+                return RedirectToAction("Index", new { id = progress.EmployeeId, employeeName = employeeFirstName + " " + employeeLastName });
             }
             ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName", progress.EmployeeId);
             ViewData["TrainingId"] = new SelectList(_context.Trainings, "TrainingId", "ModuleName", progress.TrainingId);
