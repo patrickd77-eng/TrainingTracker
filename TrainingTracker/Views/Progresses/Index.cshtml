@@ -17,28 +17,36 @@
 </div>
 <hr />
 <div class="row">
-
-    @foreach (var item in Model)
+    @if (Model.ToList().Count == 0)
     {
-        <div class="col-sm-4">
-            <ul class="list-group text-center ">
-                <li class="list-group-item mb-2">
-                    <div class="text-center">
-                        <h5>
-                            @Html.DisplayFor(modelItem => item.Training.CategoryName) -
-                            @Html.DisplayFor(modelItem => item.Training.ModuleName)
-                        </h5>
-                    </div>
-                    <span style="display:block;font-size:36px;">
-                        <i class="
+        <div class="text-center mx-auto">
+            <h1 class="alert-danger">There are no progress records.</h1>
+            <p>This might be a system error. Please contact my creator for help.</p>
+        </div>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4">
+                <ul class="list-group text-center ">
+                    <li class="list-group-item mb-2">
+                        <div class="text-center">
+                            <h5>
+                                @Html.DisplayFor(modelItem => item.Training.CategoryName) -
+                                @Html.DisplayFor(modelItem => item.Training.ModuleName)
+                            </h5>
+                        </div>
+                        <span style="display:block;font-size:36px;">
+                            <i class="
                            @(item.Completed ? "green fas fa-check-circle" : "red fas fa-times-circle")
                            "></i>
-                    </span>
-                    <a class="btn btn-primary fas fa-edit mt-2 text-center" asp-action="Edit" asp-route-id="@item.ProgressId"> Edit Progress </a>
-                </li>
-            </ul>
-        </div>
+                        </span>
+                        <a class="btn btn-primary fas fa-edit mt-2 text-center" asp-action="Edit" asp-route-id="@item.ProgressId"> Edit Progress </a>
+                    </li>
+                </ul>
+            </div>
+        }
     }
 </div>
 <hr />
-
