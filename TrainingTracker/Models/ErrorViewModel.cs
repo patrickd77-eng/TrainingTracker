@@ -1,6 +1,4 @@
-using System;
-
-namespace TrainingTracker.Models
+﻿namespace TrainingTracker.Models
 {
     public class ErrorViewModel
     {

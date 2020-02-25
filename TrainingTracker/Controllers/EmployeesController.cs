@@ -78,14 +78,13 @@ namespace TrainingTracker.Controllers
                 if (ModelState.IsValid)
                 {
                     _context.Add(employee);
-
-
-
-
                     await _context.SaveChangesAsync();
+
+                    //TODO: Make blank training progress records for new employee.
+
+
                     return RedirectToAction(nameof(Index));
                 }
-                //TODO: Make blank training progress records for new employee.
 
 
 

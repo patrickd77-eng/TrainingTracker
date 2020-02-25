@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace TrainingTracker.Models
 {
@@ -14,9 +13,5 @@ namespace TrainingTracker.Models
         public Employee Employee { get; set; }
         public Training Training { get; set; }
 
-
-
     }
-
-
 }

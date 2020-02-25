@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace TrainingTracker.Models
 {
@@ -17,12 +14,6 @@ namespace TrainingTracker.Models
         [Required]
         [DisplayName("Last Name")]
         public string LastName { get; set; }
-       
-
         public ICollection<Progress> Progresses { get; set; }
-
-
-
-
-    } 
+    }
 }
