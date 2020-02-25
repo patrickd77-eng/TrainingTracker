@@ -39,23 +39,33 @@
 </div>
 <hr />
 <div class="row">
-    @foreach (var item in Model)
+    @if (Model.Count == 0)
     {
-        <div class="col-sm-4  mb-2 mt-2 text-center">
-            <div class="card bg-light">
-                <div class="card-body">
-                    <h4 class="card-title">@Html.DisplayFor(modelItem => item.CategoryName)</h4>
-                    <h5> @Html.DisplayFor(modelItem => item.ModuleName)</h5>
-                    <p class="card-text">
-                        <div class="btn-group-lg text-center">
-                            <a asp-action="Edit" asp-route-id="@item.TrainingId"><i class="btn btn-lg btn-primary fas fa-edit mb-1"></i></a>
-                            <a asp-action="Delete" asp-route-id="@item.TrainingId"><i class="btn btn-lg btn-outline-danger fas mb-1 fa-trash"></i></a>
-                        </div>
-                    </p>
+        <div class="text-center mx-auto">
+            <h1 class="alert-danger">There are currently no training items.</h1>
+            <p>Try creating some!</p>
+        </div>
+    }
+    else
+    {
+        @foreach (var item in Model)
+        {
+            <div class="col-sm-4  mb-2 mt-2 text-center">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">@Html.DisplayFor(modelItem => item.CategoryName)</h4>
+                        <h5> @Html.DisplayFor(modelItem => item.ModuleName)</h5>
+                        <p class="card-text">
+                            <div class="btn-group-lg text-center">
+                                <a asp-action="Edit" asp-route-id="@item.TrainingId"><i class="btn btn-lg btn-primary fas fa-edit mb-1"></i></a>
+                                <a asp-action="Delete" asp-route-id="@item.TrainingId"><i class="btn btn-lg btn-outline-danger fas mb-1 fa-trash"></i></a>
+                            </div>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
 
+        }
     }
 </div>
 <partial name="_PaginationPartial" />
