@@ -10,7 +10,7 @@
         <hr />
         <div class="row">
             <div class="col-6 mr-auto ml-auto">
-                <form asp-action="Edit" class="">
+                <form asp-action="Edit">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="ProgressId" />
                     <div class="form-group">
@@ -37,9 +37,6 @@
                     </div>
                 </form>
             </div>
-        </div>
-        <div>
-            <a asp-action="Index" class="btn btn-lg btn-outline-secondary">Back to List</a>
         </div>
     </div>
 </div>

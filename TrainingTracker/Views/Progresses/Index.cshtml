@@ -1,19 +1,21 @@
 ﻿@model IEnumerable<TrainingTracker.Models.Progress>
 
+
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-
+    int totalCount = 0;
+    int completedCount = 0;
+    int uncompletedCount = 0;
 }
-
 <div class="jumbotron" style="text-align:center; padding:1em; margin:0;">
     <h1>Progress Records</h1>
     <h2>
         @ViewData["EmployeeName"]
     </h2>
     <hr />
-    <a asp-controller="Employees" asp-action="Index" class="btn btn-info btn-lg mt-1">Go to Employee List</a>
-    <a asp-controller="Trainings" asp-action="Index" class="btn btn-info btn-lg mt-1">Go to Training Settings</a>
+    <partial name="_ScrollDown" />
+    <hr />
 </div>
 <hr />
 <div class="row">
@@ -21,13 +23,23 @@
     {
         <div class="text-center mx-auto">
             <h1 class="alert-danger">There are no progress records.</h1>
-            <p>This might be a system error. Please contact my creator for help.</p>
+            <p>This shouldn't happen, so it might be a system error. Please contact my creator for help.</p>
         </div>
     }
     else
     {
         @foreach (var item in Model)
         {
+            totalCount++;
+
+            if (item.Completed == true)
+            {
+                completedCount++;
+            }
+            if (item.Completed == false)
+            {
+                uncompletedCount++;
+            }
             <div class="col-sm-4">
                 <ul class="list-group text-center ">
                     <li class="list-group-item mb-2">
@@ -51,4 +63,22 @@
         }
     }
 </div>
+<hr />
+<div class="row text-center">
+    <div class="col-4">
+        <h5>
+            Completed <i class="green fas fa-check-circle"></i>
+        </h5>
+        <p> @completedCount</p>
+    </div>
+    <div class="col-4">
+        <h5>Uncomplete <i class="red fas fa-times-circle"></i></h5>
+        <p> @uncompletedCount</p>
+    </div>
+    <div class="col-4">
+        <h5>Total Records </h5>
+        <p>@totalCount</p>
+    </div>
+</div>
+<partial name="_ScrollUp" />
 <hr />
