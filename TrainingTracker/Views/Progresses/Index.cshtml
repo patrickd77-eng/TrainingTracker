@@ -13,8 +13,20 @@
     <h2>
         @ViewData["EmployeeName"]
     </h2>
+
     <hr />
+    @Html.ActionLink(
+        "Mark all as complete", "MarkAllAsComplete", "Progresses",
+        new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
+        new { @class = "btn btn-lg mb-1 btn-secondary" })
+
+    @Html.ActionLink(
+       "Mark all as uncomplete", "MarkAllAsUncomplete", "Progresses",
+       new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
+       new { @class = "btn btn-lg mb-1 btn-secondary" })
+
     <partial name="_ScrollDown" />
+
     <hr />
 </div>
 <hr />

@@ -37,12 +37,105 @@ namespace TrainingTracker.Controllers
                     .Where(m => m.EmployeeId == id);
 
                 ViewData["EmployeeName"] = employeeName;
+                ViewData["EmployeeId"] = id;
 
                 return View(await applicationDbContext.OrderBy(p => p.Training.CategoryName).ToListAsync());
 
             }
 
         }
+
+
+        public async Task<IActionResult> MarkAllAsComplete(int id, string employeeName)
+        {
+            var applicationDbContext = _context.Progresses
+                   .Include(p => p.Employee)
+                   .Include(p => p.Training)
+                   .Where(m => m.EmployeeId == id);
+            try
+            {
+                foreach (var item in applicationDbContext)
+                {
+                    // Make changes on entity
+                    item.Completed = true;
+                    // Update entity in DbSet
+                    _context.Update(item);
+                }
+                // Save changes in database
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", new { id, employeeName });
+            }
+            catch (DbUpdateException ex)
+            {
+                //Log error
+                ModelState.AddModelError(ex.ToString(), "Unable to save changes. " +
+                  "Try again, and if the problem persists " +
+                  "see your system administrator.");
+                return BadRequest();
+            }
+        }
+
+
+        public async Task<IActionResult> MarkAllAsUncomplete(int id, string employeeName)
+        {
+            var applicationDbContext = _context.Progresses
+                   .Include(p => p.Employee)
+                   .Include(p => p.Training)
+                   .Where(m => m.EmployeeId == id);
+            try
+            {
+                foreach (var item in applicationDbContext)
+                {
+                    // Make changes on entity
+                    item.Completed = false;
+                    // Update entity in DbSet
+                    _context.Update(item);
+                }
+                // Save changes in database
+                await _context.SaveChangesAsync();
+
+                return RedirectToAction("Index", new { id, employeeName });
+            }
+            catch (DbUpdateException ex)
+            {
+                //Log error
+                ModelState.AddModelError(ex.ToString(), "Unable to save changes. " +
+                  "Try again, and if the problem persists " +
+                  "see your system administrator.");
+                return BadRequest();
+            }
+        }
+
+
+
+        //public async Task<IActionResult> AddProgressRecordsAsync(Employee employee)
+        //{
+        //    try
+        //    {
+        //        //All training modules.
+        //        var trainingModules = _context.Trainings;
+
+        //        //For each training module
+        //        foreach (var item in trainingModules)
+        //        {
+        //            //create new progress record with necessary values
+        //            var newRecord = new Progress() { Completed = false, EmployeeId = employee.EmployeeId, TrainingId = item.TrainingId };
+        //            //Add
+        //            _context.Add(newRecord);
+
+        //        }
+        //        await _context.SaveChangesAsync();
+        //        return Ok();
+        //    }
+        //    catch (DbUpdateException ex)
+        //    {
+        //        //Log error
+        //        ModelState.AddModelError(ex.ToString(), "Unable to save changes. " +
+        //            "Try again, and if the problem persists " +
+        //            "see your system administrator.");
+        //        return BadRequest();
+        //    }
+        //}
 
         // GET: Progresses/Edit/5
         public async Task<IActionResult> Edit(int? id)
