@@ -4,30 +4,35 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    int totalCount = 0;
-    int completedCount = 0;
-    int uncompletedCount = 0;
+    int completed = 0;
+    int notComplete = 0;
+    int total = 0;
 }
 <div class="jumbotron" style="text-align:center; padding:1em; margin:0;">
-    <h1>Progress Records</h1>
-    <h2>
-        @ViewData["EmployeeName"]
-    </h2>
-
+    <h1> @ViewData["EmployeeName"]'s Progress Records</h1>
     <hr />
-    @Html.ActionLink(
-        "Mark all as complete", "MarkAllAsComplete", "Progresses",
+    <div class="row">
+        <div class="col-4">
+            <h5>Actions</h5>
+            @Html.ActionLink(
+         "Mark all as complete", "MarkAllAsComplete", "Progresses",
+         new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
+         new { @class = "btn btn-lg mb-1 btn-success" })
+
+            @Html.ActionLink(
+        "Mark all as uncomplete", "MarkAllAsUncomplete", "Progresses",
         new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
-        new { @class = "btn btn-lg mb-1 btn-secondary" })
-
-    @Html.ActionLink(
-       "Mark all as uncomplete", "MarkAllAsUncomplete", "Progresses",
-       new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
-       new { @class = "btn btn-lg mb-1 btn-secondary" })
-
-    <partial name="_ScrollDown" />
-
-    <hr />
+        new { @class = "btn btn-lg mb-1 btn-success" })
+        </div>
+        <div class="col-4">
+            <h5>Scroll</h5>
+            <partial name="_ScrollDown" />
+        </div>
+        <div class="col-4">
+            <h5>Filtering</h5>
+        </div>
+        <hr />
+    </div>
 </div>
 <hr />
 <div class="row">
@@ -42,15 +47,15 @@
     {
         @foreach (var item in Model)
         {
-            totalCount++;
+            total++;
 
             if (item.Completed == true)
             {
-                completedCount++;
+                completed++;
             }
             if (item.Completed == false)
             {
-                uncompletedCount++;
+                notComplete++;
             }
             <div class="col-sm-4">
                 <ul class="list-group text-center ">
@@ -77,20 +82,11 @@
 </div>
 <hr />
 <div class="row text-center">
-    <div class="col-4">
-        <h5>
-            Completed <i class="green fas fa-check-circle"></i>
-        </h5>
-        <p> @completedCount</p>
+    <div class="col-12">
+        <h3>
+            @ViewData["EmployeeName"] has completed <span> @completed/@total</span> training items.
+        </h3>
     </div>
-    <div class="col-4">
-        <h5>Uncomplete <i class="red fas fa-times-circle"></i></h5>
-        <p> @uncompletedCount</p>
-    </div>
-    <div class="col-4">
-        <h5>Total Records </h5>
-        <p>@totalCount</p>
-    </div>
+    <partial name="_ScrollUp" />
+    <hr />
 </div>
-<partial name="_ScrollUp" />
-<hr />
