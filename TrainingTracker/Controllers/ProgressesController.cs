@@ -24,9 +24,11 @@ namespace TrainingTracker.Controllers
         {
             if (id == null)
             {
-                var applicationDbContext = _context.Progresses.Include(p => p.Employee).Include(p => p.Training);
+                //var applicationDbContext = _context.Progresses.Include(p => p.Employee).Include(p => p.Training);
 
-                return View(await applicationDbContext.ToListAsync());
+                //return View(await applicationDbContext.ToListAsync());
+
+                return NotFound();
 
             }
             else

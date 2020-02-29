@@ -15,12 +15,12 @@
         <div class="col-4">
             <h5>Actions</h5>
             @Html.ActionLink(
-         "Mark all as complete", "MarkAllAsComplete", "Progresses",
+         "Complete All", "MarkAllAsComplete", "Progresses",
          new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
          new { @class = "btn btn-lg mb-1 btn-success" })
 
             @Html.ActionLink(
-        "Mark all as uncomplete", "MarkAllAsUncomplete", "Progresses",
+        "Uncomplete All", "MarkAllAsUncomplete", "Progresses",
         new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
         new { @class = "btn btn-lg mb-1 btn-success" })
         </div>
@@ -29,7 +29,12 @@
             <partial name="_ScrollDown" />
         </div>
         <div class="col-4">
-            <h5>Filtering</h5>
+            <h5>Categories</h5>
+            <div class="btn-group-vertical">
+                <button class="btn btn-lg btn-primary mb-1">JollyDeck</button>
+                <button class="btn btn-lg btn-primary mb-1">SSOW New Starter</button>
+                <button class="btn btn-lg btn-primary">SSOW Quarterly Refresh</button>
+            </div>
         </div>
         <hr />
     </div>
