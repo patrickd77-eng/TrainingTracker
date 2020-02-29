@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TrainingTracker.Data;
@@ -20,8 +21,13 @@ namespace TrainingTracker.Controllers
         }
 
         // GET: Progresses
-        public async Task<IActionResult> Index(int? id, string employeeName)
+        public async Task<IActionResult> Index(int? id, string employeeName, string searchString)
         {
+
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["EmployeeName"] = employeeName;
+            ViewData["EmployeeId"] = id;
+
             if (id == null)
             {
                 //Employee doesn't exist.
@@ -34,21 +40,29 @@ namespace TrainingTracker.Controllers
             }
             else
             {
-                //All progress records for employee where ID matches.
-                var applicationDbContext = _context.Progresses
-                    .Include(p => p.Employee)
-                    .Include(p => p.Training)
-                    .Where(m => m.EmployeeId == id);
 
-                ViewData["EmployeeName"] = employeeName;
-                ViewData["EmployeeId"] = id;
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    var applicationDbContext = _context.Progresses
+                        .Include(p => p.Employee)
+                        .Include(p => p.Training).
+                        Where(p => p.Training.ModuleName.Contains(searchString)
+                             || p.Training.CategoryName.Contains(searchString));
+                    //All progress records for employee where ID matches.
+                    return View(await applicationDbContext.OrderBy(p => p.Training.CategoryName).ToListAsync());
 
-                return View(await applicationDbContext.OrderBy(p => p.Training.CategoryName).ToListAsync());
-
+                }
+                else
+                {
+                    var applicationDbContext = _context.Progresses
+                        .Include(p => p.Employee)
+                        .Include(p => p.Training)
+                        .Where(m => m.EmployeeId == id);
+                    //All progress records for employee where ID matches.
+                    return View(await applicationDbContext.OrderBy(p => p.Training.CategoryName).ToListAsync());
+                }
             }
-
         }
-
 
         public async Task<IActionResult> MarkAllAsComplete(int id, string employeeName)
         {
