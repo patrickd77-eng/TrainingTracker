@@ -8,7 +8,7 @@
     int notComplete = 0;
     int total = 0;
 }
-<div class="jumbotron" style="text-align:center; padding:1em; margin:0; z-index:1;">
+<div class="jumbotron" style="text-align:center; padding:1em; margin:0;">
     <h1> @ViewData["EmployeeName"]'s Progress Records</h1>
     <hr />
     <div class="row">
@@ -17,7 +17,7 @@
             <!--Creates the popup body-->
             <div class="popup-overlay">
                 <!--Creates the popup content-->
-                <div class="popup-content" style="z-index:0;">
+                <div class="popup-content">
                     <b>Are you sure?</b>
                     <div class="btn-group-vertical mt-3">
                         @Html.ActionLink(
