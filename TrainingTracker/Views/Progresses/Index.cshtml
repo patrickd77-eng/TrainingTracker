@@ -8,27 +8,35 @@
     int notComplete = 0;
     int total = 0;
 }
-<div class="jumbotron" style="text-align:center; padding:1em; margin:0;">
+<div class="jumbotron" style="text-align:center; padding:1em; margin:0; z-index:1;">
     <h1> @ViewData["EmployeeName"]'s Progress Records</h1>
     <hr />
     <div class="row">
-        <div class="col-4">
+        <div class="col-6">
             <h5>Actions</h5>
-            @Html.ActionLink(
-         "Complete All", "MarkAllAsComplete", "Progresses",
-         new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
-         new { @class = "btn btn-lg mb-1 btn-success" })
+            <!--Creates the popup body-->
+            <div class="popup-overlay">
+                <!--Creates the popup content-->
+                <div class="popup-content" style="z-index:0;">
+                    <b>Are you sure?</b>
+                    <div class="btn-group-vertical mt-3">
+                        @Html.ActionLink(
+                     "Complete All", "MarkAllAsComplete", "Progresses",
+                     new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
+                     new { @class = "btn btn-lg mb-1 btn-success" })
 
-            @Html.ActionLink(
-        "Uncomplete All", "MarkAllAsUncomplete", "Progresses",
-        new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
-        new { @class = "btn btn-lg mb-1 btn-success" })
+                        @Html.ActionLink(
+                    "Uncomplete All", "MarkAllAsUncomplete", "Progresses",
+                    new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
+                    new { @class = "btn btn-lg mb-1 btn-success" })
+                        <button class="btn btn-secondary"><i class="fas fa-times red"></i> Close</button>
+                    </div>
+                </div>
+            </div>
+            <p>These options affect all progress records for @ViewData["EmployeeName"]. <span class="text-danger">Please be careful.</span></p>
+            <button class="open btn btn-primary">Actions</button>
         </div>
-        <div class="col-4">
-            <h5>Scroll</h5>
-            <partial name="_ScrollDown" />
-        </div>
-        <div class="col-4">
+        <div class="col-6">
             <h5>Categories</h5>
             <div class="btn-group-vertical">
                 <button class="btn btn-lg btn-primary mb-1">JollyDeck</button>
@@ -38,6 +46,9 @@
         </div>
         <hr />
     </div>
+    <hr />
+    <h5 class="text-center">Scroll</h5>
+    <partial name="_ScrollDown" />
 </div>
 <hr />
 <div class="row">
