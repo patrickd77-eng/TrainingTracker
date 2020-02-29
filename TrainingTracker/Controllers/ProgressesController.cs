@@ -24,17 +24,17 @@ namespace TrainingTracker.Controllers
         {
             if (id == null)
             {
-
-                return Forbid();
-
+                //Employee doesn't exist.
+                return NotFound();
             }
             else if (_context.Progresses.Where(m => m.EmployeeId == id).Count() == 0)
             {
+                //The ID in URL doesn't match progress records for an employee, I.E. it is not a valid employee ID. Prevent viewing.
                 return Forbid();
-
             }
             else
             {
+                //All progress records for employee where ID matches.
                 var applicationDbContext = _context.Progresses
                     .Include(p => p.Employee)
                     .Include(p => p.Training)
