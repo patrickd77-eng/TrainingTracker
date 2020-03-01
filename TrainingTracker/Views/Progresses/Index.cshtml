@@ -12,14 +12,14 @@
     <h1> @ViewData["EmployeeName"]'s Progress Records</h1>
     <hr />
     <div class="row">
-        <div class="col-6">
+        <div class="col-sm-6">
             <h5>Actions</h5>
-            <p>These options affect all progress records for @ViewData["EmployeeName"]. <span class="text-danger">Please be careful.</span></p>
+            <p>These options affect all progress records for @ViewData["EmployeeName"]. <span class="text-danger">Please be careful.</span> You can complete all records or uncomplete them.</p>
             <div id="openPopup">
-                <button class="open btn btn-lg btn-success">Unlock Actions</button>
+                <button class="open btn btn-lg btn-outline-danger">Unlock Actions</button>
             </div>
 
-            <div class="popup-content">
+            <div class="popup-content mb-2">
                 <div class="btn-group-vertical mt-3">
                     @Html.ActionLink(
                  "Complete All", "MarkAllAsComplete", "Progresses",
@@ -35,7 +35,7 @@
             </div>
 
         </div>
-        <div class="col-6">
+        <div class="col-sm-6">
             <form asp-action="Index" method="get">
                 <h5>Search Records</h5>
                 <p>You can search by category or module name.</p>
