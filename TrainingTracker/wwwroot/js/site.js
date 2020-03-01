@@ -14,10 +14,12 @@ function scrollUp() {
 
 //appends an "active" class to .popup and .popup-content when the "Open" button is clicked
 $(".open").on("click", function() {
-    $(".popup-overlay, .popup-content").addClass("active");
+    $(".popup-content").addClass("active");
+    $(openPopup).hide();
 });
 
 //removes the "active" class to .popup and .popup-content when the "Close" button is clicked 
-$(".close, .popup-overlay").on("click", function() {
-    $(".popup-overlay, .popup-content").removeClass("active");
+$(".close").on("click", function() {
+    $(".popup-content").removeClass("active");
+    $(openPopup).show();
 });

@@ -14,27 +14,26 @@
     <div class="row">
         <div class="col-6">
             <h5>Actions</h5>
-            <!--Creates the popup body-->
-            <div class="popup-overlay">
-                <!--Creates the popup content-->
-                <div class="popup-content">
-                    <b>Are you sure?</b>
-                    <div class="btn-group-vertical mt-3">
-                        @Html.ActionLink(
-                     "Complete All", "MarkAllAsComplete", "Progresses",
-                     new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
-                     new { @class = "btn btn-lg mb-1 btn-success" })
+            <p>These options affect all progress records for @ViewData["EmployeeName"]. <span class="text-danger">Please be careful.</span></p>
+            <div id="openPopup">
+                <button class="open btn btn-lg btn-success">Unlock Actions</button>
+            </div>
 
-                        @Html.ActionLink(
-                    "Uncomplete All", "MarkAllAsUncomplete", "Progresses",
-                    new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
-                    new { @class = "btn btn-lg mb-1 btn-success" })
-                        <button class="btn btn-secondary"><i class="fas fa-times red"></i> Close</button>
-                    </div>
+            <div class="popup-content">
+                <div class="btn-group-vertical mt-3">
+                    @Html.ActionLink(
+                 "Complete All", "MarkAllAsComplete", "Progresses",
+                 new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
+                 new { @class = "btn btn-lg mb-1 btn-success" })
+
+                    @Html.ActionLink(
+                "Uncomplete All", "MarkAllAsUncomplete", "Progresses",
+                new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
+                new { @class = "btn btn-lg mb-1 btn-success" })
+                    <button class="close btn btn-secondary"><i class="fas fa-times red"></i> Close</button>
                 </div>
             </div>
-            <p>These options affect all progress records for @ViewData["EmployeeName"]. <span class="text-danger">Please be careful.</span></p>
-            <button class="open btn btn-lg btn-success">Actions</button>
+
         </div>
         <div class="col-6">
             <form asp-action="Index" method="get">
@@ -43,7 +42,7 @@
                 <small>Categories: SSOW New, SSOW Refresh, Jollydeck</small>
                 <div class="form-group">
                     <input hidden name="employeeName" value="@ViewData["EmployeeName"]" />
-                    <input class=" form-control-sm mb-1 " placeholder="Fire Safety..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
+                    <input class="w-100 form-control-sm mb-1 " placeholder="Fire Safety..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Search" class="btn btn-primary btn-lg" />
