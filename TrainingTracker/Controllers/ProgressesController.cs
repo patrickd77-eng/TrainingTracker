@@ -46,12 +46,12 @@ namespace TrainingTracker.Controllers
                     var applicationDbContext = _context.Progresses
                         .Include(p => p.Employee)
                         .Include(p => p.Training)
-                        .Where(p => p.Training.ModuleName.Contains(searchString)
-                             || p.Training.CategoryName.Contains(searchString)
-                        );
+                        .Where(
+                        p => p.EmployeeId == id && p.Training.ModuleName.Contains(searchString)
+                        || p.EmployeeId == id && p.Training.CategoryName.Contains(searchString));
 
                     //All progress records for employee where ID matches.
-                    return View(await applicationDbContext.OrderBy(p => p.Training.CategoryName).ToListAsync());
+                    return View(await applicationDbContext.ToListAsync());
 
                 }
                 else
