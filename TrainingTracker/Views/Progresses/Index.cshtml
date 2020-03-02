@@ -48,7 +48,7 @@
                     @Html.ActionLink(
                 "Uncomplete All Records", "MarkAllAsUncomplete", "Progresses",
                 new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
-                new { @class = "btn btn-lg mb-1 btn-success" })
+                new { @class = "btn btn-lg mb-1 btn-danger" })
                 </div>
             </div>
         </div>
@@ -58,17 +58,17 @@
                 @Html.ActionLink(
                     "SSOW New Starter", "CategoryUpdate", "Progresses",
                     new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW New", updateType = "Complete" },
-                    new { @class = "btn btn-lg mb-1 btn-primary" })
+                    new { @class = "btn btn-lg mb-1 btn-success" })
 
                 @Html.ActionLink(
                    "JollyDeck", "CategoryUpdate", "Progresses",
                    new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck", updateType = "Complete" },
-                   new { @class = "btn btn-lg mb-1 btn-primary" })
+                   new { @class = "btn btn-lg mb-1 btn-success" })
 
                 @Html.ActionLink(
                    "SSOW Refresh", "CategoryUpdate", "Progresses",
                    new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh", updateType = "Complete" },
-                   new { @class = "btn btn-lg mb-1 btn-primary" })
+                   new { @class = "btn btn-lg mb-1 btn-success" })
 
             </div>
         </div>
