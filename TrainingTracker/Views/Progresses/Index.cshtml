@@ -190,16 +190,14 @@
             </div>
 
         }
-        <div class="row ">
-            <div class="col-12 text-center">
-                <h3>
-                    <i class="fas fa-info-circle"></i>
-                    @ViewData["EmployeeName"] has completed <span class="alert-primary"> @completed out of @total</span> of the displayed training modules.
-                </h3>
-            </div>
-            <div class="mx-auto">
-                <partial name="_ScrollUp" />
-            </div>
+        <div class="col-12 text-center">
+            <h3>
+                <i class="fas fa-info-circle"></i>
+                @ViewData["EmployeeName"] has completed <span class="alert-primary"> @completed out of @total</span> of the displayed training modules.
+            </h3>
+        </div>
+        <div class="mx-auto">
+            <partial name="_ScrollUp" />
         </div>
     }
 </div>
