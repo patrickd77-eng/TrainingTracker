@@ -15,6 +15,14 @@
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="TrainingId" />
                     <div class="form-group">
+                        <small class="badge-warning">
+                            In order for parts of this app to work, it is <b>strongly</b> reccomended
+                            that you follow the naming scheme for actual training categories at Screwfix.
+                            <b>JollyDeck, SSOW New or SSOW Refresh.</b>
+                            It is still possible to use a different name, but bear in mind the progress update buttons will
+                            not work for a alternatively named category, as they look for JollyDeck, SSOW New and SSOW Refresh.
+                        </small>
+                        <hr />
                         <label asp-for="CategoryName" class="control-label"></label>
                         <input asp-for="CategoryName" class="form-control" />
                         <span asp-validation-for="CategoryName" class="text-danger"></span>

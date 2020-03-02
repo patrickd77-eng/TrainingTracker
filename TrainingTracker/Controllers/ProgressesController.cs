@@ -45,9 +45,11 @@ namespace TrainingTracker.Controllers
                 {
                     var applicationDbContext = _context.Progresses
                         .Include(p => p.Employee)
-                        .Include(p => p.Training).
-                        Where(p => p.Training.ModuleName.Contains(searchString)
-                             || p.Training.CategoryName.Contains(searchString));
+                        .Include(p => p.Training)
+                        .Where(p => p.Training.ModuleName.Contains(searchString)
+                             || p.Training.CategoryName.Contains(searchString)
+                        );
+
                     //All progress records for employee where ID matches.
                     return View(await applicationDbContext.OrderBy(p => p.Training.CategoryName).ToListAsync());
 
@@ -63,6 +65,45 @@ namespace TrainingTracker.Controllers
                 }
             }
         }
+
+        public async Task<IActionResult> CategoryUpdate(int id, string employeeName, string updateTarget, string updateType)
+        {
+            var applicationDbContext = _context.Progresses
+                   .Include(p => p.Employee)
+                   .Include(p => p.Training)
+                   .Where(m => m.EmployeeId == id)
+                   .Where(m => m.Training.CategoryName.Contains(updateTarget));
+            try
+            {
+                foreach (var item in applicationDbContext)
+                {
+                    // Make changes on entity
+                    if (updateType == "Complete")
+                    {
+                        item.Completed = true;
+                    }
+                    else if (updateType == "Uncomplete")
+                    {
+                        item.Completed = false;
+                    }
+                    // Update entity in DbSet
+                    _context.Update(item);
+                }
+                // Save changes in database
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index", new { id, employeeName });
+            }
+            catch (DbUpdateException ex)
+            {
+                //Log error
+                ModelState.AddModelError(ex.ToString(), "Unable to save changes. " +
+                  "Try again, and if the problem persists " +
+                  "see your system administrator.");
+                return BadRequest();
+            }
+        }
+
+
 
         public async Task<IActionResult> MarkAllAsComplete(int id, string employeeName)
         {

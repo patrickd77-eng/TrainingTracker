@@ -14,26 +14,10 @@
     <div class="row">
         <div class="col-sm-6">
             <h5>Actions</h5>
-            <p>These options affect all progress records for @ViewData["EmployeeName"]. <span class="text-danger">Please be careful.</span> You can complete all records or uncomplete them.</p>
+            <p>These options are locked, because they can affect large amounts of progress records for @ViewData["EmployeeName"]. <span class="text-danger">Please proceed with caution.</span></p>
             <div id="openPopup">
-                <button class="open btn btn-lg btn-outline-danger">Unlock Actions</button>
+                <button class="open btn btn-lg btn-outline-danger"><i class="fas fa-unlock-alt"></i> Unlock Actions</button>
             </div>
-
-            <div class="popup-content mb-2">
-                <div class="btn-group-vertical mt-3">
-                    @Html.ActionLink(
-                 "Complete All", "MarkAllAsComplete", "Progresses",
-                 new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
-                 new { @class = "btn btn-lg mb-1 btn-success" })
-
-                    @Html.ActionLink(
-                "Uncomplete All", "MarkAllAsUncomplete", "Progresses",
-                new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
-                new { @class = "btn btn-lg mb-1 btn-success" })
-                    <button class="close btn btn-secondary"><i class="fas fa-times red"></i> Close</button>
-                </div>
-            </div>
-
         </div>
         <div class="col-sm-6">
             <form asp-action="Index" method="get">
@@ -45,12 +29,68 @@
                     <input class="w-100 form-control-sm mb-1 " placeholder="Fire Safety..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Search" class="btn btn-primary btn-lg" />
+                    <input type="submit" value="Search" class="btn btn-success btn-lg" />
                 </div>
             </form>
-
         </div>
         <hr />
+    </div>
+    <div class="row popup-content">
+        <div class="col-4">
+            <div>
+                <p>Update <b>all</b> of @ViewData["EmployeeName"]'s records.</p>
+                <div class="btn-group-vertical">
+                    @Html.ActionLink(
+                 "Complete All Records", "MarkAllAsComplete", "Progresses",
+                 new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
+                 new { @class = "btn btn-lg mb-1 btn-success" })
+
+                    @Html.ActionLink(
+                "Uncomplete All Records", "MarkAllAsUncomplete", "Progresses",
+                new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
+                new { @class = "btn btn-lg mb-1 btn-success" })
+                </div>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class=" btn-group-vertical">
+                <p><span class="text-success">Complete </span><b>a category</b> for @ViewData["EmployeeName"].</p>
+                @Html.ActionLink(
+                    "SSOW New Starter", "CategoryUpdate", "Progresses",
+                    new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW New", updateType = "Complete" },
+                    new { @class = "btn btn-lg mb-1 btn-primary" })
+
+                @Html.ActionLink(
+                   "JollyDeck", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck", updateType = "Complete" },
+                   new { @class = "btn btn-lg mb-1 btn-primary" })
+
+                @Html.ActionLink(
+                   "SSOW Refresh", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh", updateType = "Complete" },
+                   new { @class = "btn btn-lg mb-1 btn-primary" })
+
+            </div>
+        </div>
+        <div class="col-4">
+            <div class=" btn-group-vertical">
+                <p><span class="text-danger">Uncomplete </span> <b>a category</b> for @ViewData["EmployeeName"].</p>
+                @Html.ActionLink(
+                    "SSOW New Starter", "CategoryUpdate", "Progresses",
+                    new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW New", updateType = "Uncomplete" },
+                    new { @class = "btn btn-lg mb-1 btn-danger" })
+
+                @Html.ActionLink(
+                   "JollyDeck", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck", updateType = "Uncomplete" },
+                   new { @class = "btn btn-lg mb-1 btn-danger" })
+
+                @Html.ActionLink(
+                   "SSOW Refresh", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh", updateType = "Uncomplete" },
+                   new { @class = "btn btn-lg mb-1 btn-danger" })
+            </div>
+        </div>
     </div>
     <hr />
     <h5 class="text-center">Scroll</h5>
@@ -62,7 +102,14 @@
     {
         <div class="text-center mx-auto">
             <h1 class="alert-danger">There are no progress records.</h1>
-            <p>This shouldn't happen, so it might be a system error. Please contact my creator for help.</p>
+            <h4>Reasons for this</h4>
+            <p>You may have searched for a non existent term</p>
+            <p>There may be a system error</p>
+            <p>
+                If this is happening in error, (for example, you created a new employee
+                and the employee doesn't have progress records automatically)
+                then you can contact my creator for help.
+            </p>
         </div>
     }
     else
@@ -99,17 +146,18 @@
                     </li>
                 </ul>
             </div>
+
         }
+        <div class="row ">
+            <div class="col-12 text-center">
+                <h3>
+                    <i class="fas fa-info-circle"></i>
+                    @ViewData["EmployeeName"] has completed <span class="alert-primary"> @completed out of @total</span> of the displayed training modules.
+                </h3>
+            </div>
+            <div class="mx-auto">
+                <partial name="_ScrollUp" />
+            </div>
+        </div>
     }
 </div>
-<hr />
-<div class="row text-center">
-    <div class="col-12">
-        <h3>
-            <i class="fas fa-info-circle"></i>
-            @ViewData["EmployeeName"] has completed <span class="alert-primary"> @completed out of @total</span> of the displayed training modules.
-        </h3>
-    </div>
-</div>
-<hr />
-<partial name="_ScrollUp" />
