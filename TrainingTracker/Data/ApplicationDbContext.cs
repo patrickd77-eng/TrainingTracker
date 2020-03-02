@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TrainingTracker.Models;
 
@@ -17,6 +14,7 @@ namespace TrainingTracker.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Training> Trainings { get; set; }
         public DbSet<Progress> Progresses { get; set; }
+        public DbSet<Note> Notes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +23,8 @@ namespace TrainingTracker.Data
             modelBuilder.Entity<Progress>().ToTable("Progress");
             modelBuilder.Entity<Training>().ToTable("Training");
         }
+
+        public DbSet<TrainingTracker.Models.Note> Note { get; set; }
 
     }
 }

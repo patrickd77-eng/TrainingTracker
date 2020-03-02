@@ -1,0 +1,44 @@
+﻿@model TrainingTracker.Models.Note
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <div class="jumbotron bg-light">
+        <h1>Editing</h1>
+        <h2>@ViewData["EmployeeName"]'s Note</h2>
+        <hr />
+        <div class="row">
+            <div class="col-6 mr-auto ml-auto">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="NoteId" />
+                    <input type="hidden" name="employeeName" value="@ViewData["EmployeeName"]" />
+                    <div class="form-group">
+                        <select hidden asp-for="EmployeeId" class="form-control" asp-items="ViewBag.EmployeeId"></select>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NoteContent" class="control-label"></label>
+                        <textarea asp-for="NoteContent" class="form-control"></textarea>
+                        <span asp-validation-for="NoteContent" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-lg btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div>
+            @Html.ActionLink(
+            "Back to list", "Index", "Notes",
+            new { id = Model.EmployeeId, employeeName = Model.Employee.FirstName + " " + Model.Employee.LastName },
+       new { @class = "btn btn-lg btn-outline-primary mb-1" })
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

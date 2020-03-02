@@ -58,8 +58,8 @@ namespace TrainingTracker.Controllers
                     break;
             }
             int pageSize = 9;
-            return View(await PaginatedList<Employee>.CreateAsync(employees.AsNoTracking(), pageNumber ?? 1, pageSize));
 
+            return View(await PaginatedList<Employee>.CreateAsync(employees.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: Employees/Create
@@ -82,6 +82,8 @@ namespace TrainingTracker.Controllers
 
                     //Make blank training progress records for new employee. Pass employee object so employeeid may be accessed.
                     await AddProgressRecordsAsync(employee);
+                    //Make a blank note so that the employee's notes section works correctly.
+                    await AddBlankNote(employee);
 
                     return RedirectToAction(nameof(Index));
                 }
@@ -96,6 +98,27 @@ namespace TrainingTracker.Controllers
             return View(employee);
         }
 
+        public async Task<IActionResult> AddBlankNote(Employee employee)
+        {
+            try
+            {
+                var newRecord = new Note() { NoteContent = "Note Example - try writing one yourself!", EmployeeId = employee.EmployeeId };
+                _context.Add(newRecord);
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (DbUpdateException ex)
+            {
+                //Log error
+                ModelState.AddModelError(ex.ToString(), "Unable to save changes. " +
+                    "Try again, and if the problem persists " +
+                    "see your system administrator.");
+                return BadRequest();
+            }
+
+
+
+        }
         public async Task<IActionResult> AddProgressRecordsAsync(Employee employee)
         {
             try

@@ -30,12 +30,12 @@ namespace TrainingTracker.Controllers
 
             if (id == null)
             {
-                //Employee doesn't exist.
-                return NotFound();
+                //Prevent viewing of ALL employee's training records. Unwanted feature and too messy.
+                return Forbid();
             }
-            else if (_context.Progresses.Where(m => m.EmployeeId == id).Count() == 0)
+            else if (_context.Employees.Where(e => e.EmployeeId == id).Any() == false)
             {
-                //The ID in URL doesn't match progress records for an employee, I.E. it is not a valid employee ID. Prevent viewing.
+                //The ID given is not a valid employee ID. 404.
                 return Forbid();
             }
             else
@@ -165,36 +165,6 @@ namespace TrainingTracker.Controllers
             }
         }
 
-
-
-        //public async Task<IActionResult> AddProgressRecordsAsync(Employee employee)
-        //{
-        //    try
-        //    {
-        //        //All training modules.
-        //        var trainingModules = _context.Trainings;
-
-        //        //For each training module
-        //        foreach (var item in trainingModules)
-        //        {
-        //            //create new progress record with necessary values
-        //            var newRecord = new Progress() { Completed = false, EmployeeId = employee.EmployeeId, TrainingId = item.TrainingId };
-        //            //Add
-        //            _context.Add(newRecord);
-
-        //        }
-        //        await _context.SaveChangesAsync();
-        //        return Ok();
-        //    }
-        //    catch (DbUpdateException ex)
-        //    {
-        //        //Log error
-        //        ModelState.AddModelError(ex.ToString(), "Unable to save changes. " +
-        //            "Try again, and if the problem persists " +
-        //            "see your system administrator.");
-        //        return BadRequest();
-        //    }
-        //}
 
         // GET: Progresses/Edit/5
         public async Task<IActionResult> Edit(int? id)

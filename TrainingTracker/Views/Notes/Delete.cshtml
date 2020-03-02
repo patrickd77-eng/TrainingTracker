@@ -1,0 +1,33 @@
+﻿@model TrainingTracker.Models.Note
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<p class="text-danger">@ViewData["ErrorMessage"]</p>
+<div class="jumbotron text-center">
+    <h1>Are you sure?</h1>
+    <h2>
+        Notes aren't recoverable.
+    </h2>
+    <div>
+        <hr />
+        <form asp-action="Delete" class="mt-1 mb-1">
+            <input type="hidden" asp-for="EmployeeId" />
+            <input type="hidden" name="employeeName" value="@ViewData["EmployeeName"]" />
+            <input type="hidden" asp-for="NoteId" />
+
+
+            <h5> @Html.DisplayFor(model => model.Employee.FirstName) @Html.DisplayFor(model => model.Employee.LastName)</h5>
+            <p class="w-100" style="overflow-wrap:break-word;">"@Html.DisplayFor(model => model.NoteContent)"</p>
+
+            <input type="submit" value="Delete this note" class="btn btn-lg btn-danger" />
+        </form>
+        @Html.ActionLink(
+             "Back to list", "Index", "Notes",
+             new { id = Model.EmployeeId, employeeName = Model.Employee.FirstName + " " + Model.Employee.LastName },
+        new { @class = "btn btn-lg btn-outline-primary mb-1" })
+    </div>
+</div>

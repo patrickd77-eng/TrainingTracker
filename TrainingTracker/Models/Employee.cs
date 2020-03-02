@@ -15,5 +15,7 @@ namespace TrainingTracker.Models
         [DisplayName("Last Name")]
         public string LastName { get; set; }
         public ICollection<Progress> Progresses { get; set; }
+        public ICollection<Note> Notes { get; set; }
+
     }
 }

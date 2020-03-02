@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-sm-6">
             <h5>Actions</h5>
-            <p>These options are locked, because they can affect large amounts of progress records for @ViewData["EmployeeName"]. <span class="text-danger">Please proceed with caution.</span></p>
+            <p id="popupWarning">These options are initially locked to prevent misclicks, because they can affect large amounts of progress records for @ViewData["EmployeeName"]. <span class="text-danger">Please proceed with caution.</span></p>
             <div id="openPopup">
                 <button class="open btn btn-lg btn-outline-danger"><i class="fas fa-unlock-alt"></i> Unlock Actions</button>
             </div>
@@ -35,15 +35,17 @@
         </div>
         <hr />
     </div>
-    <div class="row popup-content">
+    <hr />
+    <p id="popupLockText">Actions Locked <i class="fas fa-lock"></i></p>
+    <div id="popupContainer" style="height:0;" class="row popup-content">
         <div class="col-4">
             <div>
                 <p>Update <b>all</b> of @ViewData["EmployeeName"]'s records.</p>
-                <div class="btn-group-vertical">
+                <div class="btn-group-vertical mt-5">
                     @Html.ActionLink(
                  "Complete All Records", "MarkAllAsComplete", "Progresses",
                  new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
-                 new { @class = "btn btn-lg mb-1 btn-success" })
+                 new { @class = "btn btn-lg mb-1 btn-primary" })
 
                     @Html.ActionLink(
                 "Uncomplete All Records", "MarkAllAsUncomplete", "Progresses",
@@ -58,17 +60,37 @@
                 @Html.ActionLink(
                     "SSOW New Starter", "CategoryUpdate", "Progresses",
                     new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW New", updateType = "Complete" },
-                    new { @class = "btn btn-lg mb-1 btn-success" })
+                    new { @class = "btn btn-lg mb-1 btn-outline-success" })
 
                 @Html.ActionLink(
-                   "JollyDeck", "CategoryUpdate", "Progresses",
-                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck", updateType = "Complete" },
-                   new { @class = "btn btn-lg mb-1 btn-success" })
+                   "JollyDeck Essential", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck Essential", updateType = "Complete" },
+                   new { @class = "btn btn-lg mb-1 btn-outline-success" })
 
                 @Html.ActionLink(
-                   "SSOW Refresh", "CategoryUpdate", "Progresses",
-                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh", updateType = "Complete" },
-                   new { @class = "btn btn-lg mb-1 btn-success" })
+                   "JollyDeck Optional", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck Optional", updateType = "Complete" },
+                   new { @class = "btn btn-lg mb-1 btn-outline-success" })
+
+                @Html.ActionLink(
+                   "SSOW Refresh Q1", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q1", updateType = "Complete" },
+                   new { @class = "btn btn-lg mb-1 btn-outline-success" })
+
+                @Html.ActionLink(
+                   "SSOW Refresh Q2", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q2", updateType = "Complete" },
+                   new { @class = "btn btn-lg mb-1 btn-outline-success" })
+
+                @Html.ActionLink(
+                   "SSOW Refresh Q3", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q3", updateType = "Complete" },
+                   new { @class = "btn btn-lg mb-1 btn-outline-success" })
+
+                @Html.ActionLink(
+                   "SSOW Refresh Q4", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q4", updateType = "Complete" },
+                   new { @class = "btn btn-lg mb-1 btn-outline-success" })
 
             </div>
         </div>
@@ -78,17 +100,37 @@
                 @Html.ActionLink(
                     "SSOW New Starter", "CategoryUpdate", "Progresses",
                     new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW New", updateType = "Uncomplete" },
-                    new { @class = "btn btn-lg mb-1 btn-danger" })
+                    new { @class = "btn btn-lg mb-1 btn-outline-danger" })
 
                 @Html.ActionLink(
-                   "JollyDeck", "CategoryUpdate", "Progresses",
-                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck", updateType = "Uncomplete" },
-                   new { @class = "btn btn-lg mb-1 btn-danger" })
+                   "JollyDeck Essential", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck Essential", updateType = "Uncomplete" },
+                   new { @class = "btn btn-lg mb-1 btn-outline-danger" })
 
                 @Html.ActionLink(
-                   "SSOW Refresh", "CategoryUpdate", "Progresses",
-                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh", updateType = "Uncomplete" },
-                   new { @class = "btn btn-lg mb-1 btn-danger" })
+                  "JollyDeck Optional", "CategoryUpdate", "Progresses",
+                  new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck Optional", updateType = "Uncomplete" },
+                  new { @class = "btn btn-lg mb-1 btn-outline-danger" })
+
+                @Html.ActionLink(
+                   "SSOW Refresh Q1", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q1", updateType = "Uncomplete" },
+                   new { @class = "btn btn-lg mb-1 btn-outline-danger" })
+
+                @Html.ActionLink(
+                   "SSOW Refresh Q2", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q2", updateType = "Uncomplete" },
+                   new { @class = "btn btn-lg mb-1 btn-outline-danger" })
+
+                @Html.ActionLink(
+                   "SSOW Refresh Q3", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q3", updateType = "Uncomplete" },
+                   new { @class = "btn btn-lg mb-1 btn-outline-danger" })
+
+                @Html.ActionLink(
+                   "SSOW Refresh Q4", "CategoryUpdate", "Progresses",
+                   new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q4", updateType = "Uncomplete" },
+                   new { @class = "btn btn-lg mb-1 btn-outline-danger" })
             </div>
         </div>
     </div>
@@ -98,7 +140,7 @@
 </div>
 <hr />
 <div class="row">
-    @if (Model.ToList().Count == 0)
+    @if (!Model.Any())
     {
         <div class="text-center mx-auto">
             <h1 class="alert-danger">There are no progress records.</h1>
