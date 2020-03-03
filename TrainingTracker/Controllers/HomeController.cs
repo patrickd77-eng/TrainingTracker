@@ -23,8 +23,6 @@ namespace TrainingTracker.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //await getReminderCountWhereDateIsDue();
-
             int dueReminderCount = 0;
             var applicationDbContext = await _context.Reminders.ToListAsync();
             DateTime today = DateTime.Today;
@@ -37,8 +35,8 @@ namespace TrainingTracker.Controllers
                     {
                         dueReminderCount++;
                     }
+
                 }
-                //return Ok();
             }
             catch (DbUpdateException ex)
             {
@@ -50,12 +48,6 @@ namespace TrainingTracker.Controllers
             ViewData["dueReminderCount"] = dueReminderCount;
             return View();
         }
-        //public async Task<IActionResult> getReminderCountWhereDateIsDue()
-        //{
-
-        //}
-
-
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
