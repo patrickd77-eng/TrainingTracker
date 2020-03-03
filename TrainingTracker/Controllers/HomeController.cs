@@ -33,7 +33,7 @@ namespace TrainingTracker.Controllers
             {
                 foreach (var item in applicationDbContext)
                 {
-                    if (item.DateDue < today)
+                    if (item.DateDue <= today)
                     {
                         dueReminderCount++;
                     }
