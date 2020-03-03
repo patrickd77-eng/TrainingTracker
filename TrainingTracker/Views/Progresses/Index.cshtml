@@ -18,13 +18,15 @@
             <div id="openPopup">
                 <button class="open btn btn-lg btn-outline-danger"><i class="fas fa-unlock-alt"></i> Unlock Actions</button>
             </div>
-            <button id="closeButton" style="visibility:hidden;" class="btn btn-lg btn-outline-primary"><i class="fas fa-lock"></i> Lock Actions</button>
+            <div>
+                <button id="closeButton" style="visibility:hidden;" class="mb-2 btn btn-lg btn-outline-primary"><i class="fas fa-lock"></i> Lock Actions</button>
+            </div>
         </div>
         <div class="col-sm-6">
             <form asp-action="Index" method="get">
                 <h5>Search Records</h5>
                 <p>You can search by category or module name.</p>
-                <small>Categories: SSOW New Starter, SSOW Refresh (Q1, Q2, Q3, Q4), Jollydeck Essential and JollyDeck Optional</small>
+                <small>Categories: SSOW New Starter, SSOW Refresh (Q1, Q2, Q3, Q4), JollyDeck Essential and JollyDeck Optional</small>
                 <div class="form-group">
                     <input hidden name="employeeName" value="@ViewData["EmployeeName"]" />
                     <input class="w-100 form-control-sm mb-1 " placeholder="Fire Safety..." type="text" name="SearchString" value="@ViewData["currentFilter"]" />
