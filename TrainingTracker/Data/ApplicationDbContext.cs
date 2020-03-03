@@ -15,6 +15,7 @@ namespace TrainingTracker.Data
         public DbSet<Training> Trainings { get; set; }
         public DbSet<Progress> Progresses { get; set; }
         public DbSet<Note> Notes { get; set; }
+        public DbSet<Reminder> Reminders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +26,8 @@ namespace TrainingTracker.Data
         }
 
         public DbSet<TrainingTracker.Models.Note> Note { get; set; }
+
+        public DbSet<TrainingTracker.Models.Reminder> Reminder { get; set; }
 
     }
 }

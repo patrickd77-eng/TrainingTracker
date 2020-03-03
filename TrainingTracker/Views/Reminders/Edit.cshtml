@@ -1,0 +1,39 @@
+﻿@model TrainingTracker.Models.Reminder
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="text-center">
+    <div class="jumbotron bg-light">
+        <h1>Editing</h1>
+        <h2>Reminder</h2>
+        <hr />
+        <div class="row">
+            <div class="col-6 mr-auto ml-auto">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="ReminderId" />
+                    <div class="form-group">
+                        <label asp-for="ReminderContent" class="control-label"></label>
+                        <textarea asp-for="ReminderContent" class="form-control"></textarea>
+                        <span asp-validation-for="ReminderContent" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DateDue" class="control-label"></label>
+                        <input asp-for="DateDue" class="form-control" />
+                        <span asp-validation-for="DateDue" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Save" class="btn btn-lg btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div>
+            <a asp-action="Index" class="btn btn-lg btn-outline-secondary mt-2">Back to List</a>
+
+        </div>
+    </div>
+</div>

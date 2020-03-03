@@ -1,5 +1,6 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    var dueReminderCount = ViewData["dueReminderCount"];
 }
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
@@ -22,8 +23,9 @@
                             <div class="card-body">
                                 <h5 class="card-title">Employees</h5>
                                 <p class="card-text">A list of all employees (that have been added to this system) at Poole Parkstone.</p>
-                                <p>There are links to view their training records, edit their name or delete them. You can also create/view custom notes for each employee.</p>
-                                <a asp-area="" asp-controller="Employees" asp-action="Index" class="btn   w-50 btn-lg btn-primary"><i class="fas fa-users"></i></a>
+                                <p>There are links to view their training records, edit their name or delete them.</p>
+                                <p>You can also create/view custom notes for each employee.</p>
+                                <a asp-controller="Employees" asp-action="Index" class="btn   w-50 btn-lg btn-primary"><i class="fas fa-users"></i> Employees</a>
                             </div>
                         </div>
                     </div>
@@ -34,52 +36,46 @@
                                 <p class="card-text">These are settings for creating, editing and deleting training modules.</p>
                                 <p>Changes to these are global and will update existing progress records.</p>
                                 <p>New modules are automatically added to each current employee for you.</p>
-                                <a asp-area="" asp-controller="Trainings" asp-action="Index" class="btn w-50 btn-lg btn-primary text-light"><i class="fas fa-cogs"></i></a>
+                                <a asp-controller="Trainings" asp-action="Index" class="btn w-50 btn-lg btn-primary text-light"><i class="fas fa-cogs"></i> Training Content</a>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row ">
+                <div class="row">
                     <div class="col-sm-6">
                         <div class="card mb-2 bg-light">
                             <div class="card-body">
-                                <h5 class="card-title">Notifications</h5>
-                                <p class="card-text">System Generated Notifications</p>
+                                <h5 class="card-title">Reports</h5>
+                                <p class="card-text">System Reports based on Progress</p>
                                 <div class="card-text">
-                                    <ol>
-                                        <li>
-                                        </li>
-                                        <li>
-                                        </li>
-                                        <li>
-                                        </li>
-                                    </ol>
-                                </div>
-                                <div class="btn-group-vertical">
-                                    <a class="btn btn-lg  btn-primary text-light mb-1">See More</a>
-                                    <a class="btn btn-lg btn-outline-danger text-dark">Clear All</a>
+                                    <p class="card-text">The purpose of this area is to provide automated reports based on the progress of employees.</p>
+                                    <div class="btn-group-vertical">
+                                        <a class="btn btn-lg  btn-primary text-light mb-1"><i class="fas fa-clipboard"></i> View Reports</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 ">
-                        <div class="card  mb-2 bg-light">
+                    <div class="col-sm-6">
+                        <div class="card mb-2 bg-light">
                             <div class="card-body">
                                 <h5 class="card-title">Reminders</h5>
-                                <p class="card-text">Your Custom Reminders</p>
+                                <p class="card-text">Your custom set reminders, which are filtered by date.</p>
                                 <div class="card-text">
-                                    <ol>
-                                        <li>
-                                        </li>
-                                        <li>
-                                        </li>
-                                        <li>
-                                        </li>
-                                    </ol>
-                                </div>
-                                <div class="btn-group-vertical ">
-                                    <a class="btn btn-lg btn-primary text-light mb-1">See More</a>
-                                    <a class="btn btn-lg btn-outline-danger text-dark">Clear All</a>
+                                    <div>
+                                        <h5>Due/Overdue Reminders</h5>
+                                        @if (Convert.ToInt32(dueReminderCount) > 0)
+                                        {
+                                            <p style="font-size:24px;" class="disabled badge mx-auto btn-danger"> @dueReminderCount </p>
+                                        }
+                                        else
+                                        {
+                                            <p>Nothing is currently due or overdue.<i class="fas fa-smile green btn-lg"></i> </p>
+                                        }
+                                        <div>
+                                            <a asp-controller="Reminders" asp-action="Index" class="btn btn-lg btn-primary text-light mb-1"><i class="fas fa-bell"></i> View Reminders</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

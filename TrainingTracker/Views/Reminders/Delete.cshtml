@@ -1,0 +1,24 @@
+﻿@model TrainingTracker.Models.Reminder
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p class="text-danger">@ViewData["ErrorMessage"]</p>
+<div class="jumbotron text-center">
+    <h1>Are you sure?</h1>
+    <h2>
+        Reminders aren't recoverable.
+    </h2>
+    <div>
+        <hr />
+        <form asp-action="Delete" class="mt-1 mb-1">
+            <input type="hidden" asp-for="ReminderId" />
+            <p class="w-50 mx-auto" style="overflow-wrap:break-word;">"@Html.DisplayFor(model => model.ReminderContent)"</p>
+
+            <input type="submit" value="Delete this reminder" class="btn btn-lg btn-danger" />
+        </form>
+        <a asp-action="Index" class="btn btn-lg btn-outline-secondary mt-2">Back to List</a>
+    </div>
+</div>

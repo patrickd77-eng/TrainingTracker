@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TrainingTracker.Models.Reminder>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="jumbotron" style="text-align:center; padding:1em; margin:0;">
+    <h1>Reminders</h1>
+    <hr />
+    <div class="row">
+        <div class="col-md-12 mt-2">
+
+            <a asp-action="Create" class="btn btn-success btn-lg fa fa-plus"> Create Reminder</a>
+        </div>
+    </div>
+</div>
+<table class="table mt-2 border" style="table-layout: fixed;    overflow-wrap: break-word;">
+    <thead>
+        <tr>
+            <th class="bg-light">
+                @Html.DisplayNameFor(model => model.ReminderContent)
+            </th>
+            <th class="bg-light">
+                @Html.DisplayNameFor(model => model.DateDue)
+            </th>
+            <th class="bg-light"> Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    "@Html.DisplayFor(modelItem => item.ReminderContent)"
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateDue)
+                </td>
+                <td>
+                    <a asp-action="Edit" class="btn btn-primary btn-lg fa fas-edit" asp-route-id="@item.ReminderId">Edit</a>
+                    <a asp-action="Delete" class="btn btn-danger btn-lg fa fas-edit" asp-route-id="@item.ReminderId">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
