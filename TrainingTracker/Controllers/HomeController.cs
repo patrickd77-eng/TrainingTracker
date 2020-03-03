@@ -43,9 +43,7 @@ namespace TrainingTracker.Controllers
             catch (DbUpdateException ex)
             {
                 //Log error
-                ModelState.AddModelError(ex.ToString(), "Unable to save changes. " +
-                    "Try again, and if the problem persists " +
-                    "see your system administrator.");
+                ModelState.AddModelError(ex.ToString(), "Unable to reach database and retrieve reminders. Contact your system admin.");
                 return BadRequest();
             }
 
