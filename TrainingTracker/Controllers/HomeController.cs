@@ -42,7 +42,7 @@ namespace TrainingTracker.Controllers
             {
                 //Log error
                 ModelState.AddModelError(ex.ToString(), "Unable to reach database and retrieve reminders. Contact your system admin.");
-                return BadRequest();
+                return View();
             }
 
             ViewData["dueReminderCount"] = dueReminderCount;
