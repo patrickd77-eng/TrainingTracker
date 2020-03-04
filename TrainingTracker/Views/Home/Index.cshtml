@@ -15,71 +15,106 @@
             <h2>Dashboard</h2>
         </div>
         <hr />
-        <div>
+        <div class="jumbotron">
             <div>
-                <div class="row mt-3">
-                    <div class="col-sm-6">
-                        <div class="card mb-2 bg-light">
-                            <div class="card-body">
-                                <h5 class="card-title">Employees</h5>
-                                <p class="card-text">A list of all employees (that have been added to this system) at Poole Parkstone.</p>
-                                <p>There are links to view their training records, edit their name or delete them.</p>
-                                <p>You can also create/view custom notes for each employee.</p>
-                                <a asp-controller="Employees" asp-action="Index" class="btn   w-50 btn-lg btn-primary"><i class="fas fa-users"></i> Employees</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6">
-                        <div class="card mb-2 bg-light">
-                            <div class="card-body">
-                                <h5 class="card-title">Training</h5>
-                                <p class="card-text">These are settings for creating, editing and deleting training modules.</p>
-                                <p>Changes to these are global and will update existing progress records.</p>
-                                <p>New modules are automatically added to each current employee for you.</p>
-                                <a asp-controller="Trainings" asp-action="Index" class="btn w-50 btn-lg btn-primary text-light"><i class="fas fa-cogs"></i> Training Content</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-6">
-                        <div class="card mb-2 bg-light">
-                            <div class="card-body">
-                                <h5 class="card-title">Reports</h5>
-                                <p class="card-text">System Reports based on Progress</p>
-                                <div class="card-text">
-                                    <p class="card-text">The purpose of this area is to provide automated reports based on the progress of employees.</p>
-                                    <div class="btn-group-vertical">
-                                        <a class="btn btn-lg  btn-primary text-light mb-1"><i class="fas fa-clipboard"></i> View Reports</a>
+                <div class="row mt-2">
+                    <div class="col-md-6">
+                        <a asp-controller="Employees" asp-action="Index" class="btn btn-lg">
+                            <div class="card mb-2 bg-light">
+                                <div class="card-body">
+                                    <h4 class="card-title"> <i class="fas fa-users"></i> Employees</h4>
+                                    <p class="card-text">All registered employees at Poole Parkstone.</p>
+                                    <h5 class="card-title">Features</h5>
+                                    <div class="card-text small">
+                                        <ul>
+                                            <li>Create and Delete employees</li>
+                                            <li>Edit employee details</li>
+                                            <li>Add a note to employee file</li>
+                                            <li>View employee progress</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
-                    <div class="col-sm-6">
-                        <div class="card mb-2 bg-light">
-                            <div class="card-body">
-                                <h5 class="card-title">Reminders</h5>
-                                <p class="card-text">Your custom set reminders.</p>
-                                <p class="card-text">The closest or due reminders are displayed first.</p>
-                                <div class="card-text">
-                                    <div>
-                                        <h5>Due/Overdue Reminders</h5>
-                                        @if (Convert.ToInt32(dueReminderCount) > 0)
-                                        {
-                                            <p style="font-size:24px;" class="disabled badge mx-auto btn-danger"> @dueReminderCount </p>
-                                        }
-                                        else
-                                        {
-                                            <p>Nothing is currently due or overdue.<i class="fas fa-smile green btn-lg"></i> </p>
-                                        }
-                                        <div>
-                                            <a asp-controller="Reminders" asp-action="Index" class="btn btn-lg btn-primary text-light mb-1"><i class="fas fa-bell"></i> View Reminders</a>
-                                        </div>
+                    <div class="col-md-6">
+                        <a asp-controller="Trainings" asp-action="Index" class="btn btn-lg">
+                            <div class="card mb-2 bg-light">
+                                <div class="card-body">
+                                    <h4 class="card-title"><i class="fas fa-cogs"></i> Training</h4>
+                                    <p class="card-text">Screwfix training content.</p>
+                                    <h5 class="card-title">Features</h5>
+                                    <div class="card-text small">
+                                        <ul>
+                                            <li>Create a training module/category</li>
+                                            <li>Edit training module details</li>
+                                            <li>Delete a training module</li>
+                                            <li>Changes to training also update progress records</li>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </a>
+                    </div>
+                    <div class="col-md-6">
+                        <a asp-controller="Reports" asp-action="Index" class="btn btn-lg ">
+
+                            <div class="card mb-2 bg-light">
+                                <div class="card-body">
+                                    <h5 class="card-title"><i class="fas fa-clipboard"></i> Reports</h5>
+                                    <p class="card-text">Training/App Statistics.</p>
+                                    <h5 class="card-title">Features</h5>
+                                    <div class="card-text small">
+                                        <ul>
+                                            <li>View module statistics</li>
+                                            <li>View category statistics</li>
+                                            <li>View progress statistics</li>
+                                            <li>View number of employees and modules</li>
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </a>
+
+                    </div>
+                    <div class="col-md-6">
+                        <a asp-controller="Reminders" asp-action="Index" class="btn btn-lg mb-2">
+
+                            <div class="card mb-2 bg-light">
+                                <div class="card-body">
+
+                                    @if (Convert.ToInt32(dueReminderCount) > 0)
+                                    {
+                                        <span class="btn btn-danger text-light">
+                                            <i class="fas fa-bell"></i>
+                                            @dueReminderCount
+                                        </span>
+                                    }
+                                    else
+                                    {
+                                        <span class="btn btn-success text-light">
+                                            <i class="fas fa-bell"></i>
+                                            0
+                                        </span>
+                                    }
+                                    <hr />
+                                    <h5 class="card-title">
+                                        Reminders
+                                    </h5>
+                                    <p class="card-text">Custom set reminders</p>
+                                    <h5 class="card-title">Features</h5>
+                                    <div class="card-text small">
+                                        <ul>
+                                            <li>Make dated and detailed reminders </li>
+
+                                            <li>Edit and Delete reminders</li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
                     </div>
                 </div>
             </div>
