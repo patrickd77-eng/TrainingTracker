@@ -6,6 +6,10 @@
     <h1>Module Progress</h1>
     <a class="btn btn-lg btn-secondary" asp-action="Index">Back To Reports Dashboard </a>
 
+    <div class="mx-auto mt-5">
+        <h5>Scroll</h5>
+        <partial name="_ScrollDown" />
+    </div>
 </div>
 <h3 class="text-center">There are @ViewData["TrainingCount"] modules.</h3>
 <div class="row mt-4 text-center mx-auto">
@@ -26,5 +30,8 @@
     }
 
 
-
 </div>
+<div class="text-center mt-3">
+    <partial name="_ScrollUp" />
+</div>
+<script async defer src="~/js/progressControls.js"></script>
