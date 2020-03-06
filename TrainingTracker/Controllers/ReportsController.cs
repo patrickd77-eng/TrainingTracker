@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TrainingTracker.Data;
 
 namespace TrainingTracker.Controllers
 {
-
 
     public class ReportsController : Controller
     {
@@ -17,10 +17,6 @@ namespace TrainingTracker.Controllers
         }
 
         private readonly ApplicationDbContext _context;
-
-
-
-
 
         public async Task<IActionResult> Index()
         {
@@ -96,12 +92,62 @@ namespace TrainingTracker.Controllers
             ViewData["JollyDeckEssentialC"] = jollydeckEssentialCount.Count();
             ViewData["JollyDeckOptionalC"] = jollydeckOptionalCount.Count();
 
+            //Get Employee Ranked Progress
+            var progressCount = 0;
+            var employeeProgress = await _context.Employees
+             .Include(p => p.Progresses)
+              .ToListAsync();
+
+            employeeProgress.GroupBy(p => p.Equals(true));
+            var trainingCount = _context.Trainings.Count();
 
 
+            List<string> rankingList = new List<string>();
+
+            foreach (var item in employeeProgress)
+            {
+                progressCount++;
+
+                rankingList.Add(
+                    item.FirstName + " " + item.LastName + " " +
+                    item.Progresses.Where(p => p.Completed == true).Count() +
+                    "/" + trainingCount
+                    );
+            }
+
+            ViewBag.List = rankingList;
+
+            //Get training count
+            var trainingContent = await _context.Trainings
+              .ToListAsync();
+
+            List<string> trainingList = new List<string>();
+
+            foreach (var item in trainingContent)
+            {
+                trainingList.Add(
+                        item.ModuleName
+                        );
+            }
+
+            var trainingCategories = await _context.Trainings
+                .Distinct()
+                .ToListAsync();
+
+            List<string> trainingCategoriesList = new List<string>();
+
+            foreach (var item in trainingCategories)
+            {
+                trainingCategoriesList.Add(
+                    item.CategoryName);
+            }
+
+
+            ViewBag.TrainingList = trainingList;
+            ViewData["TrainingCount"] = trainingContent.Count();
+            ViewBag.TrainingCategoriesList = trainingCategoriesList;
 
             return View();
         }
-
-
     }
 }
