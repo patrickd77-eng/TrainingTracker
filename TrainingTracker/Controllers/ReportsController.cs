@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using TrainingTracker.Data;
 
 namespace TrainingTracker.Controllers
 {
-
+    [Authorize]
     public class ReportsController : Controller
     {
 
@@ -109,7 +110,7 @@ namespace TrainingTracker.Controllers
                 progressCount++;
 
                 progressList.Add(
-                     item.FirstName + " " + item.LastName + " " +
+                     item.FirstName + " " + item.LastName + ": " +
                     item.Progresses.Where(p => p.Completed == true).Count() +
                     "/" + trainingCount
                     );
@@ -119,6 +120,7 @@ namespace TrainingTracker.Controllers
 
             //Get training modules including their category.
             var trainingContent = await _context.Trainings
+                .Include(p => p.Progresses)
               .ToListAsync();
 
             List<string> trainingList = new List<string>();
@@ -127,7 +129,7 @@ namespace TrainingTracker.Controllers
             {
                 trainingList.Add(
                     item.CategoryName + ": " +
-                        item.ModuleName
+                        item.ModuleName + ": " + item.Progresses.Where(p => p.Completed == true).Count()
                         );
             }
             ViewBag.TrainingList = trainingList;

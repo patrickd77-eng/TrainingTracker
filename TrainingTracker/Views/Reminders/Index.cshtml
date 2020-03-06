@@ -9,8 +9,8 @@
     <hr />
     <div class="row">
         <div class="col-md-12 mt-2">
-
-            <a asp-action="Create" class="btn btn-success btn-lg fa fa-plus"> Create Reminder</a>
+            <h5>New Reminder</h5>
+            <a asp-action="Create" class="btn btn-success btn-lg fa fa-plus"></a>
         </div>
     </div>
 </div>
@@ -31,10 +31,19 @@
         {
             <tr>
                 <td>
-                    "@Html.DisplayFor(modelItem => item.ReminderContent)"
+                    @Html.DisplayFor(modelItem => item.ReminderContent)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.DateDue)
+                    @if (item.DateDue <= DateTime.Today)
+                    {
+                        <span class="alert-danger btn btn-lg">@Html.DisplayFor(modelItem => item.DateDue)</span>
+                    }
+                    else
+                    {
+                        <span class="alert-info btn btn-lg">
+                            @Html.DisplayFor(modelItem => item.DateDue)
+                        </span>
+                    }
                 </td>
                 <td>
                     <a asp-action="Edit" class="btn btn-primary btn-lg fa fas-edit" asp-route-id="@item.ReminderId">Edit</a>

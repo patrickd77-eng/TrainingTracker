@@ -16,51 +16,47 @@
             <div class="list-group" id="list-tab" role="tablist">
                 <a class="btn-lg list-group-item list-group-item-action active"
                    id="list-category-list" data-toggle="list" href="#list-Category" role="tab"
-                   aria-controls="category">Category Statistics</a>
+                   aria-controls="category">All Category Statistics</a>
                 <a class="btn-lg list-group-item list-group-item-action"
                    id="list-Progress-list" data-toggle="list" href="#list-Progress" role="tab"
-                   aria-controls="Progress">Employee Progress Review</a>
+                   aria-controls="Progress">All Employee Progress Quickview</a>
                 <a class="btn-lg list-group-item list-group-item-action"
                    id="list-Training-list" data-toggle="list" href="#list-Training" role="tab"
-                   aria-controls="Training">Training Modules Overview/Count</a>
-                <a class="btn-lg list-group-item list-group-item-action"
-                   id="list-Modules-list" data-toggle="list" href="#list-Modules"
-                   role="tab" aria-controls="Modules">Training Modules Statistics</a>
+                   aria-controls="Training">All Module Statistics</a>
             </div>
         </div>
         <div class="col-9 mx-auto">
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane text-center fade show active" id="list-Category"
+                <div class="tab-pane fade show active" id="list-Category"
                      role="tabpanel" aria-labelledby="list-Category-list">
                     <h3>Overall completion count per category</h3>
-                    <p class="badge badge-primary badge-pill">Total Completed / Total In Progress</p>
-
+                    <p class="badge badge-primary badge-pill">Modules Completed / Total</p>
                     <div class="row mt-4 text-center mx-auto">
-                        <div class="card col-lg-3 bg-light mx-1 mb-1">
+                        <div class="card col-lg-5 bg-light mx-1 mb-1">
                             <h5 class="card-title"> <strong>SSOW New Starter</strong> </h5>
                             <p class="badge badge-primary badge-pill">@ViewData["SSOWNEW"] / @ViewData["SSOWNEWC"]</p>
                         </div>
-                        <div class="card col-lg-3 bg-light mx-1 mb-1">
+                        <div class="card col-lg-5 bg-light mx-1 mb-1">
                             <h5 class="card-title"><strong>SSOW Refresh Q1</strong></h5>
                             <p class="badge badge-primary badge-pill"> @ViewData["SSOWRQ1"] / @ViewData["SSOWRQ1C"]</p>
                         </div>
-                        <div class="card col-lg-3 bg-light mx-1 mb-1">
+                        <div class="card col-lg-5 bg-light mx-1 mb-1">
                             <h5 class="card-title"><strong>SSOW Refresh Q2</strong> </h5>
                             <p class="badge badge-primary badge-pill">@ViewData["SSOWRQ2"] / @ViewData["SSOWRQ2C"]</pclass="badge>
                         </div>
-                        <div class="card col-lg-3 bg-light mx-1 mb-1">
+                        <div class="card col-lg-5 bg-light mx-1 mb-1">
                             <h5 class="card-title"> <strong>SSOW Refresh Q3</strong></h5>
                             <p class="badge badge-primary badge-pill"> @ViewData["SSOWRQ3"] / @ViewData["SSOWRQ3C"]</pclass="badge>
                         </div>
-                        <div class="card col-lg-4 bg-light mx-1 mb-1">
+                        <div class="card col-lg-5 bg-light mx-1 mb-1">
                             <h5 class="card-title"><strong>SSOW  Refresh Q4</strong></h5>
                             <p class="badge badge-primary badge-pill">@ViewData["SSOWRQ4"] / @ViewData["SSOWRQ4C"]</p>
                         </div>
-                        <div class="card col-lg-4 bg-light mx-1 mb-1">
+                        <div class="card col-lg-5 bg-light mx-1 mb-1">
                             <h5 class="card-title"><strong>JollyDeck Essential </strong></h5>
                             <p class="badge badge-primary badge-pill">@ViewData["JollyDeckEssential"] / @ViewData["JollyDeckEssentialC"]</p>
                         </div>
-                        <div class="card col-lg-4 bg-light mx-1 mb-1">
+                        <div class="card col-lg-10 bg-light mx-1 mb-1">
                             <h5 class="card-title"><strong>JollyDeck Optional</strong></h5>
                             <p class="badge badge-primary badge-pill"> @ViewData["JollyDeckOptional"] / @ViewData["JollyDeckEssentialC"]</p>
                         </div>
@@ -68,38 +64,54 @@
 
 
                 </div>
-                <div class="tab-pane fade text-center" id="list-Progress" role="tabpanel" aria-labelledby="list-Progress-list">
-                    <h3 class="text-center">Employee Progress Breakdown</h3>
-                    <p class="badge badge-primary badge-pill">Total Completed / Total In Progress</p>
+                <div class="tab-pane fade" id="list-Progress" role="tabpanel" aria-labelledby="list-Progress-list">
+                    <h3>Employee Progress Breakdown</h3>
+                    <p class="badge badge-primary badge-pill">Modules Completed / Total</p>
 
                     <div class="row mx-auto mt-3 mb-1">
+
                         @foreach (var item in ViewBag.EmployeeList)
-                        {<div class="card col-lg-4 bg-light mb-1 text-center" style="overflow-wrap:break-word;">
-                                <h4>@item</h4>
+                        {
+
+
+                            var splitEmployeeItem = item.Split(": ");
+
+
+                            <div class="card col-lg-4 bg-light mb-1 text-center" style="overflow-wrap:break-word;">
+                                <p><b>@splitEmployeeItem[0]</b></p>
+                                <p class="badge badge-primary badge-pill">@splitEmployeeItem[1]</p>
                             </div>
                         }
                     </div>
                 </div>
-                <div class="tab-pane fade " id="list-Training" role="tabpanel"
+                <div class="tab-pane fade" id="list-Training" role="tabpanel"
                      aria-labelledby="list-Training-list">
-                    <h3 class="text-center">There are @ViewData["TrainingCount"] modules.</h3>
-                    <h4 class="text-center">Therefore, there are @ViewData["TrainingCount"] progress records per employee. </h4>
+                    <h3>There are @ViewData["TrainingCount"] modules.</h3>
+                    <h4>Therefore, each employee will have @ViewData["TrainingCount"] progress records.</h4>
                     <div class="row mt-4 text-center mx-auto">
 
-                        @foreach (var item in ViewBag.TrainingList)
+                        @foreach (var listItem in ViewBag.TrainingList)
                         {
+
+
+
+                            var splitTrainingItem = listItem.Split(": ");
+
+
+
                             <div class="card col-lg-3 bg-light mb-1 text-center" style="overflow-wrap:break-word;">
-                                <h5>@item</h5>
+                                <p><b>Category:</b> @splitTrainingItem[0]</p>
+                                <p><b>Module:</b> @splitTrainingItem[1]</p>
+                                <p>
+                                    <b>Completed by Employee(s):</b>
+                                    <span class="badge badge-primary badge-pill">
+                                        @splitTrainingItem[2]
+                                        time(s).
+                                    </span>
+                                </p>
                             </div>
                         }
                     </div>
-                </div>
-                <div class="tab-pane fade" id="list-Modules" role="tabpanel"
-                     aria-labelledby="list-Modules-list">
-
-
-
-
                 </div>
             </div>
         </div>
