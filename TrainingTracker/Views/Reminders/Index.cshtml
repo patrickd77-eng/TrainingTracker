@@ -16,8 +16,8 @@
         </div>
     </div>
 </div>
-<table class="table mt-2 border" style="table-layout: fixed;    overflow-wrap: break-word;">
-    <thead>
+<table class="table mt-2 border table-responsive-sm" style="table-layout: fixed;    overflow-wrap: break-word;">
+    <thead class="text-center">
         <tr>
             <th class="bg-light">
                 @Html.DisplayNameFor(model => model.ReminderContent)
@@ -28,7 +28,7 @@
             <th class="bg-light"> Options</th>
         </tr>
     </thead>
-    <tbody>
+    <tbody class="text-center">
         @foreach (var item in Model)
         {
             <tr>
