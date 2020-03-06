@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Employee Progress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="jumbotron text-center">
+    <h1>Employee Progress</h1>
+    <a class="btn btn-lg btn-secondary" asp-action="Index">Back To Reports Dashboard </a>
+
+</div>
+<h3>Employee Progress Breakdown</h3>
+<p class="badge badge-primary badge-pill">Modules Completed / Total</p>
+<div class="row mx-auto mt-3 mb-1">
+    @foreach (var item in ViewBag.EmployeeList)
+    {
+        var splitEmployeeItem = item.Split(": ");
+        <div class="card col-lg-4 bg-light mb-1 text-center" style="overflow-wrap:break-word;">
+            <p><b>@splitEmployeeItem[0]</b></p>
+            <p class="badge badge-primary badge-pill">@splitEmployeeItem[1]</p>
+        </div>
+    }
+</div>

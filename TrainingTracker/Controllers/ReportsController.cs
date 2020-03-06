@@ -19,9 +19,36 @@ namespace TrainingTracker.Controllers
 
         private readonly ApplicationDbContext _context;
 
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
 
+            return View();
+        }
+
+
+        public async Task<IActionResult> ModuleProgress()
+        {
+            //Get training modules including their category.
+            var trainingContent = await _context.Trainings
+                .Include(p => p.Progresses)
+              .ToListAsync();
+
+            List<string> trainingList = new List<string>();
+
+            foreach (var item in trainingContent)
+            {
+                trainingList.Add(
+                    item.CategoryName + ": " +
+                        item.ModuleName + ": " + item.Progresses.Where(p => p.Completed == true).Count()
+                        );
+            }
+            ViewBag.TrainingList = trainingList;
+            ViewData["TrainingCount"] = trainingContent.Count();
+            return View();
+        }
+
+        public async Task<IActionResult> CategoryProgress()
+        {
             //Get completion count per category
             var categoriesAndCompletion = await _context.Progresses
                 .Include(p => p.Training)
@@ -37,6 +64,10 @@ namespace TrainingTracker.Controllers
             ViewData["jollydeckE"] = categoriesAndCompletion.Where(p => p.Training.CategoryName.Contains("Essential")).Count();
             ViewData["jollydeckO"] = categoriesAndCompletion.Where(p => p.Training.CategoryName.Contains("Optional")).Count();
 
+            return View();
+        }
+        public async Task<IActionResult> EmployeeProgress()
+        {
             //Get Employee "Completed" Count.
             var progressCount = 0;
             var employeeProgress = await _context.Employees
@@ -61,23 +92,6 @@ namespace TrainingTracker.Controllers
             }
 
             ViewBag.EmployeeList = progressList;
-
-            //Get training modules including their category.
-            var trainingContent = await _context.Trainings
-                .Include(p => p.Progresses)
-              .ToListAsync();
-
-            List<string> trainingList = new List<string>();
-
-            foreach (var item in trainingContent)
-            {
-                trainingList.Add(
-                    item.CategoryName + ": " +
-                        item.ModuleName + ": " + item.Progresses.Where(p => p.Completed == true).Count()
-                        );
-            }
-            ViewBag.TrainingList = trainingList;
-            ViewData["TrainingCount"] = trainingContent.Count();
 
             return View();
         }

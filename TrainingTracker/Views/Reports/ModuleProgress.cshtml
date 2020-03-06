@@ -1,0 +1,27 @@
+﻿@{
+    ViewData["Title"] = "Module Progress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="jumbotron text-center">
+    <h1>Module Progress</h1>
+    <a class="btn btn-lg btn-secondary" asp-action="Index">Back To Reports Dashboard </a>
+
+</div>
+<h3>There are @ViewData["TrainingCount"] modules.</h3>
+<div class="row mt-4 text-center mx-auto">
+    @foreach (var listItem in ViewBag.TrainingList)
+    {
+        var splitTrainingItem = listItem.Split(": ");
+        <div class="card col-lg-3 bg-light mb-1 text-center" style="overflow-wrap:break-word;">
+            <p><b>Category:</b> @splitTrainingItem[0]</p>
+            <p><b>Module:</b> @splitTrainingItem[1]</p>
+            <p>
+                <b>Completed by Employee(s):</b>
+                <span class="badge badge-primary badge-pill">
+                    @splitTrainingItem[2]
+                    time(s).
+                </span>
+            </p>
+        </div>
+    }
+</div>

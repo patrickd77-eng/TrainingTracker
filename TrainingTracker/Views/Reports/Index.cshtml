@@ -1,116 +1,51 @@
-﻿<div style="display:none;">
-    @ViewBag.EmployeeList
-    @ViewBag.TrainingList
-    @ViewBag.CategoryList
-</div>
-@{
+﻿@{
 
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Reports";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="jumbotron text-center">
     <h1>Reports Area</h1>
-</div>
-<div>
+    <a class="btn btn-lg btn-secondary" asp-controller="Home" asp-action="Index">Back To Home Dashboard </a>
+    <hr />
+
     <div class="row">
-        <div class="col-lg-3 mb-2">
-            <div class="list-group" id="list-tab" role="tablist">
-                <a class="btn-lg list-group-item list-group-item-action active"
-                   id="list-category-list" data-toggle="list" href="#list-Category" role="tab"
-                   aria-controls="category">All Category Statistics</a>
-                <a class="btn-lg list-group-item list-group-item-action"
-                   id="list-Progress-list" data-toggle="list" href="#list-Progress" role="tab"
-                   aria-controls="Progress">All Employee Progress Quickview</a>
-                <a class="btn-lg list-group-item list-group-item-action"
-                   id="list-Training-list" data-toggle="list" href="#list-Training" role="tab"
-                   aria-controls="Training">All Module Statistics</a>
-            </div>
+        <div class="col-4 text-center">
+            <a asp-action="ModuleProgress" class="btn btn-lg ">
+                <div class="card  bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title"> Modules Overview</h5>
+                        <p class="card-text">
+                            View progress per module.
+                        </p>
+                    </div>
+                </div>
+            </a>
         </div>
-        <div class="col-9 mx-auto">
-            <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="list-Category"
-                     role="tabpanel" aria-labelledby="list-Category-list">
-                    <h3>Overall completion count per category</h3>
-                    <p class="badge badge-primary badge-pill">Progress Records Completed</p>
-                    <div class="row mt-4 text-center mx-auto">
-                        <div class="card col-lg-4 bg-light mb-1 text-center">
-                            <h4 class="card-title">SSOW New Starter</h4>
-                            <p class="badge badge-primary badge-pill"> @ViewData["ssowNew"]</p>
-                        </div>
-                        <div class="card col-lg-4 bg-light mb-1 text-center">
-                            <h4 class="card-title">SSOW Refresh Q1</h4>
-                            <p class="badge badge-primary badge-pill">  @ViewData["ssowRQ1"]</p>
-                        </div>
-                        <div class="card col-lg-4 bg-light mb-1 text-center">
-                            <h4 class="card-title">SSOW Refresh Q2</h4>
-                            <p class="badge badge-primary badge-pill">  @ViewData["ssowRQ2"]</p>
-                        </div>
-                        <div class="card col-lg-4 bg-light mb-1 text-center">
-                            <h4 class="card-title">SSOW Refresh Q3</h4>
-                            <p class="badge badge-primary badge-pill"> @ViewData["ssowRQ3"]</p>
-                        </div>
-                        <div class="card col-lg-4 bg-light mb-1 text-center">
-                            <h4 class="card-title">SSOW Refresh Q4</h4>
-                            <p class="badge badge-primary badge-pill">  @ViewData["ssowRQ4"]</p>
-                        </div>
-                        <div class="card col-lg-4 bg-light mb-1 text-center">
-                            <h4 class="card-title">JollyDeck Essential</h4>
-                            <p class="badge badge-primary badge-pill">  @ViewData["jollydeckE"]</p>
-                        </div>
-                        <div class="card col-lg-4 bg-light mb-1 text-center">
-                            <h4 class="card-title">JollyDeck Optional</h4>
-                            <p class="badge badge-primary badge-pill">  @ViewData["jollydeckO"]</p>
-                        </div>
+        <div class="col-4 text-center">
+            <a asp-action="CategoryProgress" class="btn btn-lg ">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title"> Category Overview</h5>
+                        <p class="card-text">
+                            View progress per category.
+                        </p>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="list-Progress" role="tabpanel" aria-labelledby="list-Progress-list">
-                    <h3>Employee Progress Breakdown</h3>
-                    <p class="badge badge-primary badge-pill">Modules Completed / Total</p>
-                    <div class="row mx-auto mt-3 mb-1">
-                        @foreach (var item in ViewBag.EmployeeList)
-                        {
-
-
-                            var splitEmployeeItem = item.Split(": ");
-
-
-                            <div class="card col-lg-4 bg-light mb-1 text-center" style="overflow-wrap:break-word;">
-                                <p><b>@splitEmployeeItem[0]</b></p>
-                                <p class="badge badge-primary badge-pill">@splitEmployeeItem[1]</p>
-                            </div>
-                        }
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="list-Training" role="tabpanel"
-                     aria-labelledby="list-Training-list">
-                    <h3>There are @ViewData["TrainingCount"] modules.</h3>
-                    <h4>Therefore, each employee will have @ViewData["TrainingCount"] progress records.</h4>
-                    <div class="row mt-4 text-center mx-auto">
-
-                        @foreach (var listItem in ViewBag.TrainingList)
-                        {
-
-
-
-                            var splitTrainingItem = listItem.Split(": ");
-
-
-
-                            <div class="card col-lg-3 bg-light mb-1 text-center" style="overflow-wrap:break-word;">
-                                <p><b>Category:</b> @splitTrainingItem[0]</p>
-                                <p><b>Module:</b> @splitTrainingItem[1]</p>
-                                <p>
-                                    <b>Completed by Employee(s):</b>
-                                    <span class="badge badge-primary badge-pill">
-                                        @splitTrainingItem[2]
-                                        time(s).
-                                    </span>
-                                </p>
-                            </div>
-                        }
-                    </div>
-                </div>
-            </div>
+            </a>
         </div>
+        <div class="col-4 text-center">
+            <a asp-action="EmployeeProgress" class="btn btn-lg ">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h5 class="card-title"> Employee Overview</h5>
+                        <p class="card-text">
+                            View progress per employee.
+                        </p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+
     </div>
 </div>
