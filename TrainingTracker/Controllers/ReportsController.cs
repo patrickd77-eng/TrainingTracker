@@ -60,7 +60,7 @@ namespace TrainingTracker.Controllers
             ViewData["JollyDeckEssential"] = jollydeckEssentialCompleted.Count();
             ViewData["JollyDeckOptional"] = jollydeckOptionalCompleted.Count();
 
-            //Total category stats
+            //Total category count
             var ssowNewCount = await _context.Progresses
               .Where(p => p.Training.CategoryName.Contains("SSOW New"))
               .ToListAsync();
@@ -92,32 +92,32 @@ namespace TrainingTracker.Controllers
             ViewData["JollyDeckEssentialC"] = jollydeckEssentialCount.Count();
             ViewData["JollyDeckOptionalC"] = jollydeckOptionalCount.Count();
 
-            //Get Employee Ranked Progress
+            //Get Employee "Completed" Count.
             var progressCount = 0;
             var employeeProgress = await _context.Employees
              .Include(p => p.Progresses)
               .ToListAsync();
 
-            employeeProgress.GroupBy(p => p.Equals(true));
+
             var trainingCount = _context.Trainings.Count();
 
 
-            List<string> rankingList = new List<string>();
+            List<string> progressList = new List<string>();
 
             foreach (var item in employeeProgress)
             {
                 progressCount++;
 
-                rankingList.Add(
-                    item.FirstName + " " + item.LastName + " " +
+                progressList.Add(
+                     item.FirstName + " " + item.LastName + " " +
                     item.Progresses.Where(p => p.Completed == true).Count() +
                     "/" + trainingCount
                     );
             }
 
-            ViewBag.List = rankingList;
+            ViewBag.EmployeeList = progressList;
 
-            //Get training count
+            //Get training modules including their category.
             var trainingContent = await _context.Trainings
               .ToListAsync();
 
@@ -126,26 +126,12 @@ namespace TrainingTracker.Controllers
             foreach (var item in trainingContent)
             {
                 trainingList.Add(
+                    item.CategoryName + ": " +
                         item.ModuleName
                         );
             }
-
-            var trainingCategories = await _context.Trainings
-                .Distinct()
-                .ToListAsync();
-
-            List<string> trainingCategoriesList = new List<string>();
-
-            foreach (var item in trainingCategories)
-            {
-                trainingCategoriesList.Add(
-                    item.CategoryName);
-            }
-
-
             ViewBag.TrainingList = trainingList;
             ViewData["TrainingCount"] = trainingContent.Count();
-            ViewBag.TrainingCategoriesList = trainingCategoriesList;
 
             return View();
         }
