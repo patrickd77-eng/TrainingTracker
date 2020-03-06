@@ -1,6 +1,7 @@
 ﻿<div style="display:none;">
     @ViewBag.EmployeeList
     @ViewBag.TrainingList
+    @ViewBag.CategoryList
 </div>
 @{
 
@@ -30,46 +31,42 @@
                 <div class="tab-pane fade show active" id="list-Category"
                      role="tabpanel" aria-labelledby="list-Category-list">
                     <h3>Overall completion count per category</h3>
-                    <p class="badge badge-primary badge-pill">Modules Completed / Total</p>
+                    <p class="badge badge-primary badge-pill">Progress Records Completed</p>
                     <div class="row mt-4 text-center mx-auto">
-                        <div class="card col-lg-5 bg-light mx-1 mb-1">
-                            <h5 class="card-title"> <strong>SSOW New Starter</strong> </h5>
-                            <p class="badge badge-primary badge-pill">@ViewData["SSOWNEW"] / @ViewData["SSOWNEWC"]</p>
+                        <div class="card col-lg-4 bg-light mb-1 text-center">
+                            <h4 class="card-title">SSOW New Starter</h4>
+                            <p class="badge badge-primary badge-pill"> @ViewData["ssowNew"]</p>
                         </div>
-                        <div class="card col-lg-5 bg-light mx-1 mb-1">
-                            <h5 class="card-title"><strong>SSOW Refresh Q1</strong></h5>
-                            <p class="badge badge-primary badge-pill"> @ViewData["SSOWRQ1"] / @ViewData["SSOWRQ1C"]</p>
+                        <div class="card col-lg-4 bg-light mb-1 text-center">
+                            <h4 class="card-title">SSOW Refresh Q1</h4>
+                            <p class="badge badge-primary badge-pill">  @ViewData["ssowRQ1"]</p>
                         </div>
-                        <div class="card col-lg-5 bg-light mx-1 mb-1">
-                            <h5 class="card-title"><strong>SSOW Refresh Q2</strong> </h5>
-                            <p class="badge badge-primary badge-pill">@ViewData["SSOWRQ2"] / @ViewData["SSOWRQ2C"]</pclass="badge>
+                        <div class="card col-lg-4 bg-light mb-1 text-center">
+                            <h4 class="card-title">SSOW Refresh Q2</h4>
+                            <p class="badge badge-primary badge-pill">  @ViewData["ssowRQ2"]</p>
                         </div>
-                        <div class="card col-lg-5 bg-light mx-1 mb-1">
-                            <h5 class="card-title"> <strong>SSOW Refresh Q3</strong></h5>
-                            <p class="badge badge-primary badge-pill"> @ViewData["SSOWRQ3"] / @ViewData["SSOWRQ3C"]</pclass="badge>
+                        <div class="card col-lg-4 bg-light mb-1 text-center">
+                            <h4 class="card-title">SSOW Refresh Q3</h4>
+                            <p class="badge badge-primary badge-pill"> @ViewData["ssowRQ3"]</p>
                         </div>
-                        <div class="card col-lg-5 bg-light mx-1 mb-1">
-                            <h5 class="card-title"><strong>SSOW  Refresh Q4</strong></h5>
-                            <p class="badge badge-primary badge-pill">@ViewData["SSOWRQ4"] / @ViewData["SSOWRQ4C"]</p>
+                        <div class="card col-lg-4 bg-light mb-1 text-center">
+                            <h4 class="card-title">SSOW Refresh Q4</h4>
+                            <p class="badge badge-primary badge-pill">  @ViewData["ssowRQ4"]</p>
                         </div>
-                        <div class="card col-lg-5 bg-light mx-1 mb-1">
-                            <h5 class="card-title"><strong>JollyDeck Essential </strong></h5>
-                            <p class="badge badge-primary badge-pill">@ViewData["JollyDeckEssential"] / @ViewData["JollyDeckEssentialC"]</p>
+                        <div class="card col-lg-4 bg-light mb-1 text-center">
+                            <h4 class="card-title">JollyDeck Essential</h4>
+                            <p class="badge badge-primary badge-pill">  @ViewData["jollydeckE"]</p>
                         </div>
-                        <div class="card col-lg-10 bg-light mx-1 mb-1">
-                            <h5 class="card-title"><strong>JollyDeck Optional</strong></h5>
-                            <p class="badge badge-primary badge-pill"> @ViewData["JollyDeckOptional"] / @ViewData["JollyDeckEssentialC"]</p>
+                        <div class="card col-lg-4 bg-light mb-1 text-center">
+                            <h4 class="card-title">JollyDeck Optional</h4>
+                            <p class="badge badge-primary badge-pill">  @ViewData["jollydeckO"]</p>
                         </div>
                     </div>
-
-
                 </div>
                 <div class="tab-pane fade" id="list-Progress" role="tabpanel" aria-labelledby="list-Progress-list">
                     <h3>Employee Progress Breakdown</h3>
                     <p class="badge badge-primary badge-pill">Modules Completed / Total</p>
-
                     <div class="row mx-auto mt-3 mb-1">
-
                         @foreach (var item in ViewBag.EmployeeList)
                         {
 
