@@ -42,9 +42,9 @@ namespace TrainingTracker.Controllers
                         item.ModuleName + ": " + item.Progresses.Where(p => p.Completed == true).Count()
                         );
             }
-            ViewBag.TrainingList = trainingList;
+
             ViewData["TrainingCount"] = trainingContent.Count();
-            return View();
+            return View(trainingList);
         }
 
         public async Task<IActionResult> CategoryProgress()
@@ -63,6 +63,17 @@ namespace TrainingTracker.Controllers
             ViewData["ssowRQ4"] = categoriesAndCompletion.Where(p => p.Training.CategoryName.Contains("Q4")).Count();
             ViewData["jollydeckE"] = categoriesAndCompletion.Where(p => p.Training.CategoryName.Contains("Essential")).Count();
             ViewData["jollydeckO"] = categoriesAndCompletion.Where(p => p.Training.CategoryName.Contains("Optional")).Count();
+
+            var categoriesWithoutCompletion = await _context.Progresses
+            .Include(p => p.Training)
+            .ToListAsync();
+            ViewData["ssowNewC"] = categoriesWithoutCompletion.Where(p => p.Training.CategoryName.Contains("New")).Count();
+            ViewData["ssowRQ1C"] = categoriesWithoutCompletion.Where(p => p.Training.CategoryName.Contains("Q1")).Count();
+            ViewData["ssowRQ2C"] = categoriesWithoutCompletion.Where(p => p.Training.CategoryName.Contains("Q2")).Count();
+            ViewData["ssowRQ3C"] = categoriesWithoutCompletion.Where(p => p.Training.CategoryName.Contains("Q3")).Count();
+            ViewData["ssowRQ4C"] = categoriesWithoutCompletion.Where(p => p.Training.CategoryName.Contains("Q4")).Count();
+            ViewData["jollydeckEC"] = categoriesWithoutCompletion.Where(p => p.Training.CategoryName.Contains("Essential")).Count();
+            ViewData["jollydeckOC"] = categoriesWithoutCompletion.Where(p => p.Training.CategoryName.Contains("Optional")).Count();
 
             return View();
         }
@@ -91,9 +102,7 @@ namespace TrainingTracker.Controllers
                     );
             }
 
-            ViewBag.EmployeeList = progressList;
-
-            return View();
+            return View(progressList);
         }
     }
 }

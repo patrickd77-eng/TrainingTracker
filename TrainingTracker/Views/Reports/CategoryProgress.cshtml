@@ -7,35 +7,37 @@
     <a class="btn btn-lg btn-secondary" asp-action="Index">Back To Reports Dashboard </a>
 
 </div>
-<h3 class="text-center">Overall completion count per category</h3>
-<p class="badge badge-primary badge-pill">Progress Records Completed</p>
+<div class="text-center">
+    <h3>Overall completion count per category</h3>
+    <p class="badge badge-primary badge-pill">Progress Records Completed / Total Progress Records In This Category</p>
+</div>
 <div class="row mt-4 text-center mx-auto">
-    <div class="card col-lg-4 bg-light mb-1 text-center">
+    <div class="card col-lg-3 bg-light mb-1 text-center">
         <h4 class="card-title">SSOW New Starter</h4>
-        <p class="badge badge-primary badge-pill"> @ViewData["ssowNew"]</p>
+        <p class="badge badge-primary badge-pill"> @ViewData["ssowNew"] / @ViewData["ssowNewC"] </p>
     </div>
-    <div class="card col-lg-4 bg-light mb-1 text-center">
+    <div class="card col-lg-3 bg-light mb-1 text-center">
         <h4 class="card-title">SSOW Refresh Q1</h4>
-        <p class="badge badge-primary badge-pill">  @ViewData["ssowRQ1"]</p>
+        <p class="badge badge-primary badge-pill">  @ViewData["ssowRQ1"] / @ViewData["ssowRQ1C"]</p>
     </div>
-    <div class="card col-lg-4 bg-light mb-1 text-center">
+    <div class="card col-lg-3 bg-light mb-1 text-center">
         <h4 class="card-title">SSOW Refresh Q2</h4>
-        <p class="badge badge-primary badge-pill">  @ViewData["ssowRQ2"]</p>
+        <p class="badge badge-primary badge-pill">  @ViewData["ssowRQ2"] / @ViewData["ssowRQ2C"]</p>
     </div>
-    <div class="card col-lg-4 bg-light mb-1 text-center">
+    <div class="card col-lg-3 bg-light mb-1 text-center">
         <h4 class="card-title">SSOW Refresh Q3</h4>
-        <p class="badge badge-primary badge-pill"> @ViewData["ssowRQ3"]</p>
+        <p class="badge badge-primary badge-pill"> @ViewData["ssowRQ3"] /@ViewData["ssowRQ3C"]</p>
     </div>
     <div class="card col-lg-4 bg-light mb-1 text-center">
         <h4 class="card-title">SSOW Refresh Q4</h4>
-        <p class="badge badge-primary badge-pill">  @ViewData["ssowRQ4"]</p>
+        <p class="badge badge-primary badge-pill">  @ViewData["ssowRQ4"] / @ViewData["ssowRQ4C"]</p>
     </div>
     <div class="card col-lg-4 bg-light mb-1 text-center">
         <h4 class="card-title">JollyDeck Essential</h4>
-        <p class="badge badge-primary badge-pill">  @ViewData["jollydeckE"]</p>
+        <p class="badge badge-primary badge-pill">  @ViewData["jollydeckE"] / @ViewData["jollydeckEC"]</p>
     </div>
     <div class="card col-lg-4 bg-light mb-1 text-center">
         <h4 class="card-title">JollyDeck Optional</h4>
-        <p class="badge badge-primary badge-pill">  @ViewData["jollydeckO"]</p>
+        <p class="badge badge-primary badge-pill">  @ViewData["jollydeckO"] / @ViewData["jollydeckOC"]</p>
     </div>
 </div>

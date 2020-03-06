@@ -9,7 +9,7 @@
 </div>
 <h3 class="text-center">There are @ViewData["TrainingCount"] modules.</h3>
 <div class="row mt-4 text-center mx-auto">
-    @foreach (var listItem in ViewBag.TrainingList)
+    @foreach (var listItem in Model)
     {
         var splitTrainingItem = listItem.Split(": ");
         <div class="card col-lg-3 bg-light mb-1 text-center" style="overflow-wrap:break-word;">
@@ -24,4 +24,7 @@
             </p>
         </div>
     }
+
+
+
 </div>
