@@ -59,7 +59,7 @@
                         <a asp-controller="Reports" asp-action="Index" class="btn btn-lg ">
                             <div class="card mb-2 bg-light">
                                 <div class="card-body">
-                                    <h5 class="card-title"><i class="fas fa-clipboard"></i> Reports</h5>
+                                    <h4 class="card-title"><i class="fas fa-clipboard"></i> Reports</h4>
                                     <p class="card-text">Training/App Statistics.</p>
                                     <h5 class="card-title">Features</h5>
                                     <div class="card-text small">
@@ -79,31 +79,30 @@
                         <a asp-controller="Reminders" asp-action="Index" class="btn btn-lg mb-2">
                             <div class="card mb-2 bg-light">
                                 <div class="card-body">
-
-                                    @if (Convert.ToInt32(dueReminderCount) > 0)
-                                    {
-                                        <span class="btn btn-danger text-light">
-                                            <i class="fas fa-bell"></i>
-                                            @dueReminderCount
-                                        </span>
-                                    }
-                                    else
-                                    {
-                                        <span class="btn btn-success text-light">
-                                            <i class="fas fa-bell"></i>
-                                            0
-                                        </span>
-                                    }
-                                    <hr />
-                                    <h5 class="card-title">
+                                    <h4 class="card-title">
+                                        @if (Convert.ToInt32(dueReminderCount) > 0)
+                                        {
+                                            <span class="btn btn-danger text-light">
+                                                <i class="fas fa-bell"></i>
+                                                @dueReminderCount
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="btn btn-success text-light">
+                                                <i class="fas fa-bell"></i>
+                                                0
+                                            </span>
+                                        }
                                         Reminders
-                                    </h5>
-                                    <p class="card-text">Custom set reminders</p>
+                                    </h4>
+                                    <p class="card-text">
+                                        Reminders that you or a colleague have set.
+                                    </p>
                                     <h5 class="card-title">Features</h5>
                                     <div class="card-text small">
                                         <ul>
                                             <li>Make dated and detailed reminders </li>
-
                                             <li>Edit and Delete reminders</li>
                                         </ul>
                                     </div>
