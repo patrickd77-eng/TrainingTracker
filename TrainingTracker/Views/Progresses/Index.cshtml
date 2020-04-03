@@ -15,7 +15,7 @@
     <hr />
     <div class="row">
         <div class="col-9">
-            <div class="row">
+            <div class="row" id="buttonsArea">
                 <div class="col-3">
 
                     <p>Update <b>all</b> of @ViewData["EmployeeName"]'s records.</p>
@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-4">
                     <div>
-                        <p><b>Complete a category</b> for @ViewData["EmployeeName"].</p>
+                        <p><b>Complete</b> a category for @ViewData["EmployeeName"].</p>
                         @Html.ActionLink(
                             "SSOW New Starter", "CategoryUpdate", "Progresses",
                             new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW New", updateType = "Complete" },
@@ -74,7 +74,7 @@
                 </div>
                 <div class="col-4">
                     <div>
-                        <p><b>Mark incomplete a category</b> for @ViewData["EmployeeName"].</p>
+                        <p>Mark a category <b>incomplete</b> for @ViewData["EmployeeName"].</p>
                         @Html.ActionLink(
                             "SSOW New Starter", "CategoryUpdate", "Progresses",
                             new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW New", updateType = "Incomplete" },
@@ -197,3 +197,13 @@
     }
 </div>
 <script async defer src="~/js/scrollControls.js"></script>
+<script>
+    document.getElementById("buttonsArea").addEventListener("click", function (event) {
+        if (confirm("Are you sure? \nThis will update a lot of records for this employee.")) {
+            console.log("Success");
+        } else {
+            event.preventDefault()
+            console.log("Cancelled");
+        }
+    });
+</script>
