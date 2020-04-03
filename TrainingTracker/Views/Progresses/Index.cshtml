@@ -23,12 +23,12 @@
                         @Html.ActionLink(
                      "Complete All Records", "MarkAllAsComplete", "Progresses",
                      new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
-                     new { @class = "btn btn-sm mb-1 btn-primary" })
+                     new { @class = "btn btn-sm mb-1 btn-primary importantButton" })
 
                         @Html.ActionLink(
                     "Incomplete All Records", "MarkAllAsIncomplete", "Progresses",
                     new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
-                    new { @class = "btn btn-sm mb-1 btn-danger" })
+                    new { @class = "btn btn-sm mb-1 btn-danger importantButton" })
                     </div>
 
                 </div>
@@ -38,37 +38,37 @@
                         @Html.ActionLink(
                             "SSOW New Starter", "CategoryUpdate", "Progresses",
                             new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW New", updateType = "Complete" },
-                            new { @class = "btn btn-sm mb-1 btn-success" })
+                            new { @class = "btn btn-sm mb-1 btn-success importantButton" })
 
                         @Html.ActionLink(
                            "JollyDeck Essential", "CategoryUpdate", "Progresses",
                            new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck Essential", updateType = "Complete" },
-                           new { @class = "btn btn-sm mb-1 btn-success" })
+                           new { @class = "btn btn-sm mb-1 btn-success importantButton" })
 
                         @Html.ActionLink(
                            "JollyDeck Optional", "CategoryUpdate", "Progresses",
                            new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck Optional", updateType = "Complete" },
-                           new { @class = "btn btn-sm mb-1 btn-success" })
+                           new { @class = "btn btn-sm mb-1 btn-success importantButton" })
 
                         @Html.ActionLink(
                            "SSOW Refresh Q1", "CategoryUpdate", "Progresses",
                            new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q1", updateType = "Complete" },
-                           new { @class = "btn btn-sm mb-1 btn-success" })
+                           new { @class = "btn btn-sm mb-1 btn-success importantButton" })
 
                         @Html.ActionLink(
                            "SSOW Refresh Q2", "CategoryUpdate", "Progresses",
                            new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q2", updateType = "Complete" },
-                           new { @class = "btn btn-sm mb-1 btn-success" })
+                           new { @class = "btn btn-sm mb-1 btn-success importantButton" })
 
                         @Html.ActionLink(
                            "SSOW Refresh Q3", "CategoryUpdate", "Progresses",
                            new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q3", updateType = "Complete" },
-                           new { @class = "btn btn-sm mb-1 btn-success" })
+                           new { @class = "btn btn-sm mb-1 btn-success importantButton" })
 
                         @Html.ActionLink(
                            "SSOW Refresh Q4", "CategoryUpdate", "Progresses",
                            new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q4", updateType = "Complete" },
-                           new { @class = "btn btn-sm mb-1 btn-success" })
+                           new { @class = "btn btn-sm mb-1 btn-success importantButton" })
 
                     </div>
                 </div>
@@ -78,37 +78,37 @@
                         @Html.ActionLink(
                             "SSOW New Starter", "CategoryUpdate", "Progresses",
                             new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW New", updateType = "Incomplete" },
-                            new { @class = "btn btn-sm mb-1 btn-danger" })
+                            new { @class = "btn btn-sm mb-1 btn-danger importantButton" })
 
                         @Html.ActionLink(
                            "JollyDeck Essential", "CategoryUpdate", "Progresses",
                            new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck Essential", updateType = "Incomplete" },
-                           new { @class = "btn btn-sm mb-1 btn-danger" })
+                           new { @class = "btn btn-sm mb-1 btn-danger importantButton" })
 
                         @Html.ActionLink(
                           "JollyDeck Optional", "CategoryUpdate", "Progresses",
                           new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "JollyDeck Optional", updateType = "Incomplete" },
-                          new { @class = "btn btn-sm mb-1 btn-danger" })
+                          new { @class = "btn btn-sm mb-1 btn-danger importantButton" })
 
                         @Html.ActionLink(
                            "SSOW Refresh Q1", "CategoryUpdate", "Progresses",
                            new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q1", updateType = "Incomplete" },
-                           new { @class = "btn btn-sm mb-1 btn-danger" })
+                           new { @class = "btn btn-sm mb-1 btn-danger importantButton" })
 
                         @Html.ActionLink(
                            "SSOW Refresh Q2", "CategoryUpdate", "Progresses",
                            new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q2", updateType = "Incomplete" },
-                           new { @class = "btn btn-sm mb-1 btn-danger" })
+                           new { @class = "btn btn-sm mb-1 btn-danger importantButton" })
 
                         @Html.ActionLink(
                            "SSOW Refresh Q3", "CategoryUpdate", "Progresses",
                            new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q3", updateType = "Incomplete" },
-                           new { @class = "btn btn-sm mb-1 btn-danger" })
+                           new { @class = "btn btn-sm mb-1 btn-danger importantButton" })
 
                         @Html.ActionLink(
                            "SSOW Refresh Q4", "CategoryUpdate", "Progresses",
                            new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"], updateTarget = "SSOW Refresh Q4", updateType = "Incomplete" },
-                           new { @class = "btn btn-sm mb-1 btn-danger" })
+                           new { @class = "btn btn-sm mb-1 btn-danger importantButton" })
                     </div>
                 </div>
             </div>
@@ -198,12 +198,16 @@
 </div>
 <script async defer src="~/js/scrollControls.js"></script>
 <script>
-    document.getElementById("buttonsArea").addEventListener("click", function (event) {
-        if (confirm("Are you sure? \nThis will update a lot of records for this employee.")) {
-            console.log("Success");
-        } else {
-            event.preventDefault()
-            console.log("Cancelled");
-        }
-    });
+    var el = document.querySelectorAll('.importantButton');
+
+    for (var i = 0; i < el.length; i++) {
+        el[i].addEventListener('click', function (event) {
+            if (confirm("Are you sure? \nThis will update a lot of records for this employee.")) {
+                console.log("Success");
+            } else {
+                event.preventDefault()
+                console.log("Cancelled");
+            }
+        }, false);
+    }
 </script>
