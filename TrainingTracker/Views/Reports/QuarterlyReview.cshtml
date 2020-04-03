@@ -30,7 +30,7 @@
 <div class="row mx-auto mt-3 mb-1">
     @foreach (var item in Model)
     {
-        <div class="col-4">
+        <div class="col-4 mb-1">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-text"> @(item.Contains("has finished") ? "Finished" : "Not Finished") <i class=" @(item.Contains("has finished") ? "green fas fa-check-circle" : "red fas fa-times-circle")"></i></h5>

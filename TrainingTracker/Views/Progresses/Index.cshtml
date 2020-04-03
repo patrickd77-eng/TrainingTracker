@@ -199,14 +199,16 @@
 <script async defer src="~/js/scrollControls.js"></script>
 <script>
     var el = document.querySelectorAll('.importantButton');
-
     for (var i = 0; i < el.length; i++) {
         el[i].addEventListener('click', function (event) {
-            if (confirm("Are you sure? \nThis will update a lot of records for this employee.")) {
+            if (confirm("Are you sure? \nThis will update multiple records for this employee.")) {
                 console.log("Success");
+                alert("Changes successful.")
+
             } else {
                 event.preventDefault()
                 console.log("Cancelled");
+                alert("Changes cancelled.")
             }
         }, false);
     }
