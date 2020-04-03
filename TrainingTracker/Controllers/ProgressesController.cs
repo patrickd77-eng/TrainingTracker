@@ -68,6 +68,7 @@ namespace TrainingTracker.Controllers
 
         public async Task<IActionResult> CategoryUpdate(int id, string employeeName, string updateTarget, string updateType)
         {
+
             var applicationDbContext = _context.Progresses
                    .Include(p => p.Employee)
                    .Include(p => p.Training)
@@ -82,7 +83,7 @@ namespace TrainingTracker.Controllers
                     {
                         item.Completed = true;
                     }
-                    else if (updateType == "Uncomplete")
+                    else if (updateType == "Incomplete")
                     {
                         item.Completed = false;
                     }
@@ -135,7 +136,7 @@ namespace TrainingTracker.Controllers
         }
 
 
-        public async Task<IActionResult> MarkAllAsUncomplete(int id, string employeeName)
+        public async Task<IActionResult> MarkAllAsIncomplete(int id, string employeeName)
         {
             var applicationDbContext = _context.Progresses
                    .Include(p => p.Employee)

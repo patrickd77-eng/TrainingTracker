@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -45,6 +46,61 @@ namespace TrainingTracker.Controllers
 
             ViewData["TrainingCount"] = trainingContent.Count();
             return View(trainingList);
+        }
+
+        public async Task<IActionResult> QuarterlyReview(string quarter)
+        {
+
+            if (String.IsNullOrEmpty(quarter))
+            {
+                quarter = "Q1";
+            }
+
+
+            var employeesContext = await _context.Employees.ToListAsync();
+            //New List
+            List<string> ProgressList = new List<string>();
+
+            foreach (var item in employeesContext)
+            {
+                //Get incomplete records for this employee's quarterly training
+                var progressListContext = await _context.Progresses
+                   .Include(e => e.Employee)
+                   .Include(e => e.Training)
+
+                   .Where(e => e.Training.CategoryName.Contains(quarter)
+                   &&
+                   e.Completed == false
+                   &&
+                   e.EmployeeId == item.EmployeeId
+                  )
+                   .ToListAsync();
+
+
+                //Total quarterly records available
+                var quarterlyModulesContext = await _context.Trainings.Where(e => e.CategoryName.Contains(quarter)).ToListAsync();
+                //Count number of incomplete records for quarter for this employee
+                var progressListEmployeeCount = progressListContext.Count();
+                //Total quarterly records counter
+                var quarterlyModulesAvailableCounted = quarterlyModulesContext.Count();
+
+                if (progressListEmployeeCount == 0)
+                {
+                    ProgressList.Add(item.FirstName + " " + item.LastName + ": has finished this quarter's training. " + ":" + item.EmployeeId);
+
+                }
+                else
+                {
+
+                    ProgressList.Add(item.FirstName + " " + item.LastName + ": has " + progressListEmployeeCount + " out of " + quarterlyModulesAvailableCounted + " modules left to complete. " + ":" + item.EmployeeId);
+                }
+
+
+
+            }
+            ViewData["quarter"] = quarter;
+            return View(ProgressList);
+
         }
 
         public async Task<IActionResult> CategoryProgress()

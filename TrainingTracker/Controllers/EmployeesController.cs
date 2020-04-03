@@ -45,8 +45,25 @@ namespace TrainingTracker.Controllers
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                employees = employees.Where(e => e.LastName.Contains(searchString)
-                                       || e.FirstName.Contains(searchString));
+
+
+                if (searchString.Contains(" "))
+                {
+                    var splitString = searchString.Split(" ");
+
+                    employees = employees.Where(e =>
+                   e.LastName.Contains(splitString[1])
+                   ||
+                   e.FirstName.Contains(splitString[0]));
+
+                }
+                else
+                {
+                    employees = employees.Where(e =>
+                   e.LastName.Contains(searchString)
+                   ||
+                   e.FirstName.Contains(searchString));
+                }
             }
             switch (sortOrder)
             {

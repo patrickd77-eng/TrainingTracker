@@ -1,0 +1,46 @@
+﻿
+@{
+    ViewData["Title"] = "Quarterly Review";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var quarter = ViewData["quarter"];
+}
+<div class="jumbotron text-center">
+    <h1>Quarterly Progress View</h1>
+    <a class="btn btn-lg btn-secondary" asp-action="Index">Back To Reports Dashboard </a>
+    <div class="mt-1 mb-1">
+        @Html.ActionLink(
+                       "Q1 Progress", "QuarterlyReview", "Reports",
+                       new { quarter = "Q1" },
+                       new { @class = "btn btn-info btn-lg text-light" })
+        @Html.ActionLink(
+                     "Q2 Progress", "QuarterlyReview", "Reports",
+                     new { quarter = "Q2" },
+                     new { @class = "btn btn-info btn-lg text-light" })
+        @Html.ActionLink(
+                     "Q3 Progress", "QuarterlyReview", "Reports",
+                     new { quarter = "Q3" },
+                     new { @class = "btn btn-info btn-lg text-light" })
+
+        @Html.ActionLink(
+                     "Q4 Progress", "QuarterlyReview", "Reports",
+                     new { quarter = "Q4" },
+                     new { @class = "btn btn-info btn-lg text-light" })
+    </div>
+</div>
+<div class="row mx-auto mt-3 mb-1">
+    @foreach (var item in Model)
+    {
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h5 class="card-text"> @(item.Contains("has finished") ? "Finished" : "Not Finished") <i class=" @(item.Contains("has finished") ? "green fas fa-check-circle" : "red fas fa-times-circle")"></i></h5>
+                    <p class="mb-1 mt-1">@item.Split(":")[0] @item.Split(":")[1]</p>
+                    @Html.ActionLink(
+                    "View their progress", "Index", "Progresses",
+                    new { id = item.Split(":")[2], employeeName = @item.Split(":")[0], SearchString = @quarter },
+                    new { @class = "btn btn-secondary btn-small text-light" })
+                </div>
+            </div>
+        </div>
+    }
+</div>

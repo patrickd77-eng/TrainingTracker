@@ -1,6 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
     var dueReminderCount = ViewData["dueReminderCount"];
+    var target = ViewData["dueCategory"];
+    var incompleteCount = ViewData["incompleteQuarterlyRecords"];
+    var quarter = ViewData["dueQuarter"];
 }
 @using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
@@ -11,8 +14,26 @@
         <div class="jumbotron">
             <div class="mt-3 mb-3">
                 <img draggable="false" src="~/Media/screwfixlogo.png" alt="Screwfix Logo" height="75" width="300">
-                <h1>Poole Parkstone</h1>
-                <h2>Dashboard</h2>
+                <h1>Training Tracker - Home</h1>
+                <div class="card mb-2 bg-light w-50 mx-auto">
+                    <div class="card-body">
+                        <h2>Quarterly Quickview</h2>
+                        <hr />
+                        <h4>@target is due!</h4>
+                        @if (incompleteCount.Equals(0))
+                        {
+                            <p class="badge-pill badge-success">Finished - no employees need training this quarter!</p>
+                        }
+                        else
+                        {
+                            <p><span class="badge-danger badge-pill">@incompleteCount employee(s) still requires training.</span></p>
+                        }
+                        @Html.ActionLink(
+                   "Quarterly Progress Review", "QuarterlyReview", "Reports",
+                   new { quarter = @quarter },
+                   new { @class = "btn btn-info btn-lg text-light" })
+                    </div>
+                </div>
             </div>
             <hr />
             <div>
@@ -22,7 +43,7 @@
                             <div class="card mb-2 bg-light">
                                 <div class="card-body">
                                     <h4 class="card-title"> <i class="fas fa-users"></i> Employees</h4>
-                                    <p class="card-text">All registered employees at Poole Parkstone.</p>
+                                    <p class="card-text">All registered employees.</p>
                                     <h5 class="card-title">Features</h5>
                                     <div class="card-text small">
                                         <ul>
