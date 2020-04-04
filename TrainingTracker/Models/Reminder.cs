@@ -1,4 +1,15 @@
-﻿using System;
+﻿/*=============================================================================
+ |   Author and Copyright: Patrick Davis, s4901703
+ |
+ |   Designed in: 2019-2020 for Screwfix Poole Parkstone
+ |
+ |   As part of: Bournemouth University, Business Information Technology Final Year Project 
+ |
+ |   This code: Creates a reminder model that has no relationships. 
+ |              
+ *===========================================================================*/
+
+using System;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 

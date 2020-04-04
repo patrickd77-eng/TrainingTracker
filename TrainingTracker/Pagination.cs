@@ -1,8 +1,19 @@
-﻿using System;
+﻿/*=============================================================================
+ |   Author and Copyright: Patrick Davis, s4901703
+ |
+ |   Designed in: 2019-2020 for Screwfix Poole Parkstone
+ |
+ |   As part of: Bournemouth University, Business Information Technology Final Year Project 
+ |
+ |   This code: Creates a pagination list for use with models such as Employee or Training. 
+ |              
+ *===========================================================================*/
+
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace TrainingTracker
 {

@@ -1,17 +1,20 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿/*=============================================================================
+ |   Author and Copyright: Patrick Davis, s4901703
+ |
+ |   Designed in: 2019-2020 for Screwfix Poole Parkstone
+ |
+ |   As part of: Bournemouth University, Business Information Technology Final Year Project 
+ |
+ *===========================================================================*/
+
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using TrainingTracker.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using TrainingTracker.Data;
 
 namespace TrainingTracker
 {

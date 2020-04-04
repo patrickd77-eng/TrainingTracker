@@ -1,4 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*=============================================================================
+ |   Author and Copyright: Patrick Davis, s4901703
+ |
+ |   Designed in: 2019-2020 for Screwfix Poole Parkstone
+ |
+ |   As part of: Bournemouth University, Business Information Technology Final Year Project 
+ |
+ |   This code: Contains all functions for interacting with the homepage. 
+ |   Scaffolded from .NET CORE MVC, with custom changes for database interaction.
+ |              
+ *===========================================================================*/
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -24,14 +36,14 @@ namespace TrainingTracker.Controllers
 
         public async Task<IActionResult> Index()
         {
-            //Get current month, initialise empty variable
+            //Get current month, initialise empty variables
             DateTime today = DateTime.Today;
             int currentMonth = today.Month;
 
-            //Generate empty quarter var
+            //Generate empty quarter var for use later
             var quarter = "";
 
-
+            //If statement determines quarter of year based on system time
             if (currentMonth.Equals(2) || currentMonth.Equals(3) || currentMonth.Equals(4))
             {
                 quarter = "Q1";
@@ -49,9 +61,9 @@ namespace TrainingTracker.Controllers
                 quarter = "Q4";
             }
 
-            var targetCategory = "SSOW " + quarter + " Refresh";
 
 
+            //Lists progress records for quarter in question where not completed.
             var quarterlyProgressContext = await _context.Progresses
               .Include(e => e.Employee)
               .Include(e => e.Training)
@@ -60,16 +72,15 @@ namespace TrainingTracker.Controllers
               e.Completed == false)
               .ToListAsync();
 
-            //Pass data to view - first up is category that is due.
+            //Pass data to view - first up is category that is due.    
+            var targetCategory = "SSOW " + quarter + " Refresh";
             ViewData["dueCategory"] = targetCategory;
             ViewData["dueQuarter"] = quarter;
 
-            //Count number of employees with incomplete quarterly records
-
+            //Count number of employees with incomplete quarterly training
             ViewData["incompleteQuarterlyRecords"] = quarterlyProgressContext.GroupBy(e => e.Employee).Distinct().Count();
 
-
-            //Reminders
+            //Get reminders if date is due or past
             int dueReminderCount = 0;
             var applicationDbContext = await _context.Reminders.ToListAsync();
 
@@ -90,9 +101,8 @@ namespace TrainingTracker.Controllers
                 return View();
             }
 
-            //pass reminder count to view
+            //Pass reminder count to view
             ViewData["dueReminderCount"] = dueReminderCount;
-
 
             return View();
         }

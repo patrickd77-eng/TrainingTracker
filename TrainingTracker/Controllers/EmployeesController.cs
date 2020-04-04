@@ -1,4 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿/*=============================================================================
+ |   Author and Copyright: Patrick Davis, s4901703
+ |
+ |   Designed in: 2019-2020 for Screwfix Poole Parkstone
+ |
+ |   As part of: Bournemouth University, Business Information Technology Final Year Project 
+ |
+ |   This code: Contains all CRUD functions for interacting with the employee model. 
+ |   Scaffolded from .NET CORE MVC, with custom changes for pagination, search and other dashboard elements.
+ |              
+ *===========================================================================*/
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,7 +31,7 @@ namespace TrainingTracker.Controllers
             _context = context;
         }
 
-        // GET: Employees. Accept search and sorting order variables.
+        // GET: Employees. Handle search and sorting also.
         public async Task<IActionResult> Index(
             string sortOrder,
             string currentFilter,
@@ -115,6 +127,7 @@ namespace TrainingTracker.Controllers
             return View(employee);
         }
 
+        //Create a blank note in the employee's file as an example.
         public async Task<IActionResult> AddBlankNote(Employee employee)
         {
             try
@@ -132,10 +145,9 @@ namespace TrainingTracker.Controllers
                     "see your system administrator.");
                 return BadRequest();
             }
-
-
-
         }
+
+        //Add progress records when a new employee is created
         public async Task<IActionResult> AddProgressRecordsAsync(Employee employee)
         {
             try
@@ -146,12 +158,13 @@ namespace TrainingTracker.Controllers
                 //For each training module
                 foreach (var item in trainingModules)
                 {
-                    //create new progress record with necessary values
+                    //Create a new progress record with necessary values
                     var newRecord = new Progress() { Completed = false, EmployeeId = employee.EmployeeId, TrainingId = item.TrainingId };
-                    //Add
+                    //Add to context
                     _context.Add(newRecord);
 
                 }
+                //Finally, save each item and return success (200).
                 await _context.SaveChangesAsync();
                 return Ok();
             }
@@ -213,8 +226,7 @@ namespace TrainingTracker.Controllers
             return View(employeeToUpdate);
         }
 
-
-
+        //DELETE: Delete an employee Employees/Delete/ID
         public async Task<IActionResult> Delete(int? id, bool? saveChangesError = false)
         {
             if (id == null)
@@ -240,7 +252,7 @@ namespace TrainingTracker.Controllers
             return View(employee);
         }
 
-
+        //DELETE: Delete an employee Employees/Delete/ID
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -257,9 +269,13 @@ namespace TrainingTracker.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            catch (DbUpdateException /* ex */)
+            catch (DbUpdateException ex)
             {
-                //Log the error (uncomment ex variable name and write a log.)
+                //Log error
+                ModelState.AddModelError(ex.ToString(), "Unable to delete employee. " +
+                    "Try again, and if the problem persists, " +
+                    "see your system administrator.");
+
                 return RedirectToAction(nameof(Delete), new { id = id, saveChangesError = true });
             }
         }

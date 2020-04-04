@@ -1,4 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿/*=============================================================================
+ |   Author and Copyright: Patrick Davis, s4901703
+ |
+ |   Designed in: 2019-2020 for Screwfix Poole Parkstone
+ |
+ |   As part of: Bournemouth University, Business Information Technology Final Year Project 
+ |
+ |   This code: Contains all CRUD functions for interacting with the Reminders model.
+ |   Scaffolded from .NET CORE MVC.
+ |              
+ *===========================================================================*/
+
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -30,8 +42,6 @@ namespace TrainingTracker.Controllers
         }
 
         // POST: Reminders/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("ReminderId,ReminderContent,DateDue")] Reminder reminder)
@@ -62,8 +72,6 @@ namespace TrainingTracker.Controllers
         }
 
         // POST: Reminders/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("ReminderId,ReminderContent,DateDue")] Reminder reminder)

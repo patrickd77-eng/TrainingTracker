@@ -1,4 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿/*=============================================================================
+ |   Author and Copyright: Patrick Davis, s4901703
+ |
+ |   Designed in: 2019-2020 for Screwfix Poole Parkstone
+ |
+ |   As part of: Bournemouth University, Business Information Technology Final Year Project 
+ |
+ |   This code: Contains all CRUD functions for interacting with the Notes model.
+ |   Scaffolded from .NET CORE MVC, with some custom changes.
+ |              
+ *===========================================================================*/
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -40,8 +52,6 @@ namespace TrainingTracker.Controllers
                 .Where(n => n.EmployeeId == id);
 
             return View(await applicationDbContext.OrderBy(p => p.NoteId).ToListAsync());
-
-
         }
 
         // GET: Notes/Create
@@ -50,13 +60,10 @@ namespace TrainingTracker.Controllers
             ViewData["EmployeeName"] = employeeName;
             ViewData["EmployeeId"] = employeeId;
 
-            //ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName");
             return View();
         }
 
         // POST: Notes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("NoteId,EmployeeId,NoteContent")] Note note, int employeeId, string employeeName)
@@ -68,7 +75,6 @@ namespace TrainingTracker.Controllers
                 return RedirectToAction("Index", new { id = note.EmployeeId, employeeName });
 
             }
-            //ViewData["EmployeeId"] = new SelectList(_context.Employees, "EmployeeId", "FirstName", note.EmployeeId);
             ViewData["EmployeeId"] = employeeId;
             ViewData["employeeName"] = employeeName;
             return View(note);
@@ -95,8 +101,6 @@ namespace TrainingTracker.Controllers
         }
 
         // POST: Notes/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("NoteId,EmployeeId,NoteContent")] Note note, string employeeName)

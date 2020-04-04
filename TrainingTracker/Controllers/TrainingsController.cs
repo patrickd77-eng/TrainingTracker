@@ -1,4 +1,17 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿/*=============================================================================
+ |   Author and Copyright: Patrick Davis, s4901703
+ |
+ |   Designed in: 2019-2020 for Screwfix Poole Parkstone
+ |
+ |   As part of: Bournemouth University, Business Information Technology Final Year Project 
+ |
+ |   This code: Contains CRUD functionality for interacting with the training model.
+ |   Scaffolded from .NET CORE MVC, with some changes such as creating a blank progress record for each employee
+ |   for a new training item.
+ |              
+ *===========================================================================*/
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,7 +32,7 @@ namespace TrainingTracker.Controllers
             _context = context;
         }
 
-        // GET: Trainings
+        // GET: Trainings, handle search and filter.
         public async Task<IActionResult> Index(
             string sortOrder,
             string currentFilter,
@@ -62,9 +75,6 @@ namespace TrainingTracker.Controllers
             }
             int pageSize = 9;
             return View(await PaginatedList<Training>.CreateAsync(trainingSections.AsNoTracking(), pageNumber ?? 1, pageSize));
-
-
-            //return View(await trainingSections.ToListAsync());
         }
 
 
@@ -83,7 +93,6 @@ namespace TrainingTracker.Controllers
             {
                 _context.Add(training);
                 await _context.SaveChangesAsync();
-                //TODO: Add new blank progress record for all employees. 
 
                 await AddProgressRecordsAsync(training);
 
@@ -92,6 +101,7 @@ namespace TrainingTracker.Controllers
             return View(training);
         }
 
+        //Add progress records for a new employee, per training item.
         public async Task<IActionResult> AddProgressRecordsAsync(Training training)
         {
             try
@@ -102,9 +112,9 @@ namespace TrainingTracker.Controllers
                 //For each employee
                 foreach (var item in employeesInDb)
                 {
-                    //create new progress record with necessary values
+                    //Create new progress record with necessary values
                     var newRecord = new Progress() { Completed = false, EmployeeId = item.EmployeeId, TrainingId = training.TrainingId };
-                    //Add to db.
+                    //Add to database.
                     _context.Add(newRecord);
 
                 }
@@ -121,11 +131,6 @@ namespace TrainingTracker.Controllers
                 return BadRequest();
             }
         }
-
-
-
-
-
 
         // GET: Trainings/Edit/5
         public async Task<IActionResult> Edit(int? id)

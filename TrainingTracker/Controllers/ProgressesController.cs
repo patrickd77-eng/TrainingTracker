@@ -1,4 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿/*=============================================================================
+ |   Author and Copyright: Patrick Davis, s4901703
+ |
+ |   Designed in: 2019-2020 for Screwfix Poole Parkstone
+ |
+ |   As part of: Bournemouth University, Business Information Technology Final Year Project 
+ |
+ |   This code: Contains all CRUD functions for interacting with the progress record model.
+ |   Scaffolded from .NET CORE MVC, with many custom changes.
+ |              
+ *===========================================================================*/
+
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -30,7 +42,7 @@ namespace TrainingTracker.Controllers
 
             if (id == null)
             {
-                //Prevent viewing of ALL employee's training records. Unwanted feature and too messy.
+                //Prevent viewing of all employee training records. Unwanted feature and too messy. One employee at a time!
                 return Forbid();
             }
             else if (_context.Employees.Where(e => e.EmployeeId == id).Any() == false)
@@ -41,6 +53,7 @@ namespace TrainingTracker.Controllers
             else
             {
 
+                //All progress records for employee where given ID matches.
                 if (!String.IsNullOrEmpty(searchString))
                 {
                     var applicationDbContext = _context.Progresses
@@ -50,7 +63,6 @@ namespace TrainingTracker.Controllers
                         p => p.EmployeeId == id && p.Training.ModuleName.Contains(searchString)
                         || p.EmployeeId == id && p.Training.CategoryName.Contains(searchString));
 
-                    //All progress records for employee where ID matches.
                     return View(await applicationDbContext.ToListAsync());
 
                 }
@@ -60,19 +72,21 @@ namespace TrainingTracker.Controllers
                         .Include(p => p.Employee)
                         .Include(p => p.Training)
                         .Where(m => m.EmployeeId == id);
-                    //All progress records for employee where ID matches.
                     return View(await applicationDbContext.OrderBy(p => p.Training.CategoryName).ToListAsync());
                 }
             }
         }
 
+        //For use with progress update buttons in progress index view. Updates progress records for an employee depending on what button pressed, "update type".
         public async Task<IActionResult> CategoryUpdate(int id, string employeeName, string updateTarget, string updateType)
         {
 
+            //All progress records for this employee
             var applicationDbContext = _context.Progresses
                    .Include(p => p.Employee)
                    .Include(p => p.Training)
                    .Where(m => m.EmployeeId == id)
+                   //Which category?
                    .Where(m => m.Training.CategoryName.Contains(updateTarget));
             try
             {
@@ -87,7 +101,6 @@ namespace TrainingTracker.Controllers
                     {
                         item.Completed = false;
                     }
-                    // Update entity in DbSet
                     _context.Update(item);
                 }
                 // Save changes in database
@@ -104,10 +117,10 @@ namespace TrainingTracker.Controllers
             }
         }
 
-
-
+        //As per progress update buttons, completes all of an employee's records.
         public async Task<IActionResult> MarkAllAsComplete(int id, string employeeName)
         {
+            //All progress records for an employee.
             var applicationDbContext = _context.Progresses
                    .Include(p => p.Employee)
                    .Include(p => p.Training)
@@ -118,7 +131,6 @@ namespace TrainingTracker.Controllers
                 {
                     // Make changes on entity
                     item.Completed = true;
-                    // Update entity in DbSet
                     _context.Update(item);
                 }
                 // Save changes in database
@@ -135,7 +147,7 @@ namespace TrainingTracker.Controllers
             }
         }
 
-
+        //As per progress update buttons, marks all of an employee's records as incomplete.
         public async Task<IActionResult> MarkAllAsIncomplete(int id, string employeeName)
         {
             var applicationDbContext = _context.Progresses
@@ -148,7 +160,6 @@ namespace TrainingTracker.Controllers
                 {
                     // Make changes on entity
                     item.Completed = false;
-                    // Update entity in DbSet
                     _context.Update(item);
                 }
                 // Save changes in database
