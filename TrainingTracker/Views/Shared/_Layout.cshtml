@@ -21,6 +21,7 @@
         <nav class="navbar navbar-expand-md navbar-toggleable-md navbar-dark bg-blue border-bottom box-shadow mb-3">
             <div class="container">
                 <a style="white-space:nowrap;" class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><i class="fas fa-clipboard-list"></i> Training Tracker</a>
+                @* If signed in, display a detailed navigation bar. *@
                 @if (SignInManager.IsSignedIn(User))
                 {
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -39,6 +40,9 @@
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-area="" asp-controller="Trainings" asp-action="Index"><i class="fas fa-cogs"></i> Training</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Reminders" asp-action="Index"><i class="fas fa-bell"></i> Reminders</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link text-light" asp-controller="Reports" asp-action="Index"><i class="fas fa-clipboard" aria-hidden="true"></i> Reports</a>

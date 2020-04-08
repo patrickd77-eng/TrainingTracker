@@ -38,6 +38,8 @@
 
 <hr />
 <div class="row">
+    @* If there are no employees, explain that this is the case
+        and explore the possibility the user's search term is invalid. *@
     @if (!Model.Any())
     {
         <div class="text-center mx-auto">
@@ -49,6 +51,11 @@
     }
     else
     {
+        @* For each employee in the list, render a bootstrap card.
+            Also include action links to view their notes and progress records.
+            Include needed parameters (like EmployeeId)
+        *@
+
         @foreach (var item in Model)
         {
             <div class="col-sm-4  mb-2 mt-2 text-center">

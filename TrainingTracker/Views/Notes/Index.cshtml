@@ -17,7 +17,6 @@
                                  " +", "Create", "Notes",
                                  new { employeeId = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
                                  new { @class = "btn btn-success btn-lg mb-1 fas fa-sticky-note" })
-
             </div>
         </div>
         <div class="col-md-6 mt-2">
@@ -32,6 +31,7 @@
 </div>
 <hr />
 <div class="row">
+    @* Show that there are no notes, if none exist. *@
     @if (!Model.Any())
     {
         <div class="text-center mx-auto">
@@ -41,6 +41,7 @@
     }
     else
     {
+        @* For each note, display it as a boostrap card. *@
         @foreach (var item in Model)
         {
             <div class="col-sm-4  mb-2 mt-2 text-center">
@@ -49,19 +50,16 @@
                         <p class="card-text">
                             @Html.DisplayFor(modelItem => item.NoteContent)
                             <div class="btn-group-lg text-center">
-                                @*<a asp-action="Edit" asp-route-id="@item.NoteId"><i class="btn btn-lg btn-primary fas fa-edit mb-1"></i></a>*@
                                 @Html.ActionLink(
-                                 "", "Edit", "Notes",
-                                 new { id = item.NoteId, employeeName = @ViewData["EmployeeName"] },
-                                 new { @class = "btn btn-primary btn-lg mb-1 fas fa-edit" })
+                               "", "Edit", "Notes",
+                               new { id = item.NoteId, employeeName = @ViewData["EmployeeName"] },
+                               new { @class = "btn btn-primary btn-lg mb-1 fas fa-edit" })
 
                                 @Html.ActionLink(
                                "", "Delete", "Notes",
                                new { id = item.NoteId, employeeName = @ViewData["EmployeeName"] },
                                new { @class = "btn btn-danger btn-lg mb-1 fas fa-trash" })
-                                @*<a asp-action="Delete" asp-route-id="@item.NoteId"><i class="btn btn-lg btn-danger fas mb-1 fa-trash"></i></a>*@
                             </div>
-
                         </p>
                     </div>
                 </div>
@@ -69,34 +67,3 @@
         }
     }
 </div>
-@*<table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.NoteContent)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Employee)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NoteContent)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Employee.FirstName)
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.NoteId">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.NoteId">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.NoteId">Delete</a>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>*@

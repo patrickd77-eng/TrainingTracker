@@ -9,6 +9,7 @@
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
 <div class="text-center">
+    @* If signed in, show detailed dashboard with links and parameters available. *@
     @if (SignInManager.IsSignedIn(User))
     {
         <div class="jumbotron">
@@ -20,6 +21,7 @@
                         <h2>Quarterly Quickview</h2>
                         <hr />
                         <h4>@target is due!</h4>
+                        @* If there are employees that need training, show the number. Otherwise, show a positive message and zero. *@
                         @if (incompleteCount.Equals(0))
                         {
                             <p class="badge-pill badge-success">Finished - no employees need training this quarter!</p>
@@ -28,6 +30,7 @@
                         {
                             <p><span class="badge-danger badge-pill">@incompleteCount employee(s) still require training.</span></p>
                         }
+                        @* Dynamic quarterly training button, receiving the yearly quarter from backend code. *@
                         @Html.ActionLink(
                    "Quarterly Progress Review", "QuarterlyReview", "Reports",
                    new { quarter = @quarter },
@@ -101,6 +104,7 @@
                             <div class="card mb-2 bg-light">
                                 <div class="card-body">
                                     <h4 class="card-title">
+                                        @* If reminders are due, display number. Otherwise, display zero with positive message. *@
                                         @if (Convert.ToInt32(dueReminderCount) > 0)
                                         {
                                             <span class="btn btn-danger text-light">
@@ -137,6 +141,7 @@
     }
     else
     {
+        @* Show non-detailed dashboard with no links or parameters to anyone without a login. *@
         <div class="mt-5 mb-5">
             <img draggable="false" src="~/Media/screwfixlogo.png" alt="Screwfix Logo" height="75" width="300">
             <h2>Training Tracker</h2>

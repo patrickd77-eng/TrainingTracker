@@ -17,7 +17,8 @@
         <div class="col-9">
             <div class="row" id="buttonsArea">
                 <div class="col-3">
-
+                    @* Many action links containing paramters that are used in the backend code,
+                        such as the type of update (complete, incomplete) and target training category. *@
                     <p>Update <b>all</b> of @ViewData["EmployeeName"]'s records.</p>
                     <div class="mt-5">
                         @Html.ActionLink(
@@ -30,7 +31,6 @@
                     new { id = @ViewData["EmployeeId"], employeeName = @ViewData["EmployeeName"] },
                     new { @class = "btn btn-sm mb-1 btn-danger importantButton" })
                     </div>
-
                 </div>
                 <div class="col-4">
                     <div>
@@ -135,12 +135,13 @@
 </div>
 <hr />
 <div class="row">
+    @* If no progress records, display an error message. This shouldn't happen, so will rarely if ever be seen. *@
     @if (!Model.Any())
     {
         <div class="text-center mx-auto">
             <h1 class="alert-danger">There are no progress records.</h1>
             <h4>Reasons for this</h4>
-            <p>You may have searched for a non existent term</p>
+            <p>You may have searched for a non existent training module.</p>
             <p>There may be a system error</p>
             <p>
                 If this is happening in error, (for example, you created a new employee
@@ -151,6 +152,9 @@
     }
     else
     {
+        @* For each progress record for the employee requested,
+            establish a completed vs incompleted count
+            and display the progress item as a bootstrap card. *@
         @foreach (var item in Model)
         {
             total++;
@@ -198,6 +202,8 @@
 </div>
 <script async defer src="~/js/scrollControls.js"></script>
 <script>
+    @* Inline JavaScript to reduce files required.
+        Simply "are you sure" functionality for mass progress updates. *@
     var el = document.querySelectorAll('.importantButton');
     for (var i = 0; i < el.length; i++) {
         el[i].addEventListener('click', function (event) {

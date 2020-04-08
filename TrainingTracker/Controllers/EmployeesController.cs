@@ -6,7 +6,7 @@
  |   As part of: Bournemouth University, Business Information Technology Final Year Project 
  |
  |   This code: Contains all CRUD functions for interacting with the employee model. 
- |   Scaffolded from .NET CORE MVC, with custom changes for pagination, search and other dashboard elements.
+ |   Scaffolded from .NET CORE MVC, with custom changes for pagination, search and list size.
  |              
  *===========================================================================*/
 
@@ -41,6 +41,7 @@ namespace TrainingTracker.Controllers
             ViewData["CurrentSort"] = sortOrder;
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
 
+            //Default to first page
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -52,13 +53,14 @@ namespace TrainingTracker.Controllers
 
             ViewData["CurrentFilter"] = searchString;
 
+            //Get all employees
             var employees = from e in _context.Employees
                             select e;
 
             if (!String.IsNullOrEmpty(searchString))
             {
 
-
+                //Handle searches with both first and last name, by using .Split()
                 if (searchString.Contains(" "))
                 {
                     var splitString = searchString.Split(" ");
@@ -79,6 +81,7 @@ namespace TrainingTracker.Controllers
             }
             switch (sortOrder)
             {
+                //Filter by name asc or desc.
                 case "name_desc":
                     employees = employees.OrderByDescending(e => e.LastName);
                     break;
@@ -86,6 +89,7 @@ namespace TrainingTracker.Controllers
                     employees = employees.OrderBy(e => e.LastName);
                     break;
             }
+            //9 employees to be displayed
             int pageSize = 9;
 
             return View(await PaginatedList<Employee>.CreateAsync(employees.AsNoTracking(), pageNumber ?? 1, pageSize));
@@ -106,14 +110,17 @@ namespace TrainingTracker.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    //Add employee to SQL query and save asynchronously
                     _context.Add(employee);
                     await _context.SaveChangesAsync();
 
-                    //Make blank training progress records for new employee. Pass employee object so employeeid may be accessed.
+                    //Make blank training progress records for new employee. Pass employee so EmployeeId may be accessed.
                     await AddProgressRecordsAsync(employee);
-                    //Make a blank note so that the employee's notes section works correctly.
-                    await AddBlankNote(employee);
 
+                    //Make a blank note so that the employee's notes section has an example note and is not empty.
+                    await AddBlankNoteAsync(employee);
+
+                    //Redirect to employee dashboard.
                     return RedirectToAction(nameof(Index));
                 }
             }
@@ -128,7 +135,7 @@ namespace TrainingTracker.Controllers
         }
 
         //Create a blank note in the employee's file as an example.
-        public async Task<IActionResult> AddBlankNote(Employee employee)
+        public async Task<IActionResult> AddBlankNoteAsync(Employee employee)
         {
             try
             {
@@ -152,7 +159,7 @@ namespace TrainingTracker.Controllers
         {
             try
             {
-                //All training modules.
+                //Create list of all training modules.
                 var trainingModules = _context.Trainings;
 
                 //For each training module
