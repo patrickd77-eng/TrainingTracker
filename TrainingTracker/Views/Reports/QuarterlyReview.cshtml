@@ -11,26 +11,26 @@
         @Html.ActionLink(
                        "Q1 Progress", "QuarterlyReview", "Reports",
                        new { quarter = "Q1" },
-                       new { @class = "btn btn-info btn-lg text-light" })
+                       new { @class = "btn btn-info btn-lg text-light mx-1 mb-1" })
         @Html.ActionLink(
                      "Q2 Progress", "QuarterlyReview", "Reports",
                      new { quarter = "Q2" },
-                     new { @class = "btn btn-info btn-lg text-light" })
+                     new { @class = "btn btn-info btn-lg text-light mx-1 mb-1" })
         @Html.ActionLink(
                      "Q3 Progress", "QuarterlyReview", "Reports",
                      new { quarter = "Q3" },
-                     new { @class = "btn btn-info btn-lg text-light" })
+                     new { @class = "btn btn-info btn-lg text-light mx-1" })
 
         @Html.ActionLink(
                      "Q4 Progress", "QuarterlyReview", "Reports",
                      new { quarter = "Q4" },
-                     new { @class = "btn btn-info btn-lg text-light" })
+                     new { @class = "btn btn-info btn-lg text-light mx-1" })
     </div>
 </div>
 <div class="row mx-auto mt-3 mb-1">
     @foreach (var item in Model)
     {
-        <div class="col-4 mb-1">
+        <div class="col-sm-4 mb-1">
             <div class="card">
                 <div class="card-body text-center">
                     <h5 class="card-text"> @(item.Contains("has finished") ? "Finished" : "Not Finished") <i class=" @(item.Contains("has finished") ? "green fas fa-check-circle" : "red fas fa-times-circle")"></i></h5>
