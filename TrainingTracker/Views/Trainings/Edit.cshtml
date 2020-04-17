@@ -10,18 +10,19 @@
         <h2>@Model.CategoryName: @Model.ModuleName</h2>
         <hr />
         <div class="row">
-            <div class="col-6 mr-auto ml-auto">
+            <div class="col-md-6 mr-auto ml-auto">
                 <form asp-action="Edit" class="">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <input type="hidden" asp-for="TrainingId" />
                     <div class="form-group">
-                        <small class="badge-warning">
-                            In order for parts of this app to work fully, it is <b>recommended</b>
+                        <p class="badge-warning">
+                            In order for the progress update tools and reports area of this app to work as intended, it is <b>recommended</b>
                             that you follow the naming scheme for the training categories at Screwfix.
-                            Custom names are possible, but will not be updatable in bulk like the others are.
-                            Furthermore, they will not appear in the category report area.
-                        </small>
-                        <p class="mt-1" style="list-style:none;">
+                        </p>
+                        <br />
+                        <small><b>Category Names</b></small>
+                        <br />
+                        <small class="mt-1" style="list-style:none;">
                             SSOW New Starter,
                             SSOW Refresh Q1,
                             SSOW Refresh Q2,
@@ -29,7 +30,7 @@
                             SSOW Refresh Q4,
                             JollyDeck Essential,
                             JollyDeck Optional
-                        </p>
+                        </small>
                         <hr />
                         <label asp-for="CategoryName" class="control-label"></label>
                         <input asp-for="CategoryName" class="form-control" />
